@@ -187,6 +187,40 @@ function initGame() {
     console.log("- upgradeList:", upgradeListElement);
     console.log("- clickButton:", clickButton);
     console.log("- keysCount:", keysCountElement);
+    // В функции initGame() добавьте:
+    const settingsButton = document.getElementById('settingsButton');
+    const settingsModal = document.getElementById('settingsModal');
+    const settingsClose = document.getElementById('settingsClose');
+    const settingsReset = document.getElementById('settingsReset');
+    const settingsSound = document.getElementById('settingsSound');
+    const settingsPromo = document.getElementById('settingsPromo');
+
+if (settingsButton) {
+    settingsButton.onclick = () => {
+        settingsModal.style.display = 'flex';
+    };
+}
+
+if (settingsClose) {
+    settingsClose.onclick = () => {
+        settingsModal.style.display = 'none';
+    };
+}
+
+if (settingsReset) {
+    settingsReset.onclick = showResetConfirmation;
+}
+
+if (settingsSound) {
+    settingsSound.onclick = toggleSound;
+}
+
+if (settingsPromo) {
+    settingsPromo.onclick = () => {
+        settingsModal.style.display = 'none';
+        showPromoModal();
+    };
+}
     
     // Инициализация модулей с проверкой
     if (typeof initUpgrades === 'function') {
@@ -1475,4 +1509,5 @@ window.showMessage = showMessage;
 document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM загружен, запускаем игру...");
     initGame();
+
 });

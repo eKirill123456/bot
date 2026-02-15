@@ -11,6 +11,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "points",
+        category: "Очки",
+        categoryIcon: "fa-star",
         target: 1000,
         icon: "fa-star"
     },
@@ -23,6 +25,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "points",
+        category: "Очки",
+        categoryIcon: "fa-star",
         target: 10000,
         icon: "fa-star"
     },
@@ -35,6 +39,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "points",
+        category: "Очки",
+        categoryIcon: "fa-star",
         target: 100000,
         icon: "fa-crown"
     },
@@ -47,6 +53,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "points",
+        category: "Очки",
+        categoryIcon: "fa-star",
         target: 1000000,
         icon: "fa-crown"
     },
@@ -59,6 +67,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "points",
+        category: "Очки",
+        categoryIcon: "fa-star",
         target: 1000000000,
         icon: "fa-chart-line"
     },
@@ -73,6 +83,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "clicks",
+        category: "Клики",
+        categoryIcon: "fa-hand-pointer",
         target: 1000,
         icon: "fa-hand-pointer"
     },
@@ -85,6 +97,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "clicks",
+        category: "Клики",
+        categoryIcon: "fa-hand-pointer",
         target: 5000,
         icon: "fa-hand-pointer"
     },
@@ -97,6 +111,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "clicks",
+        category: "Клики",
+        categoryIcon: "fa-hand-pointer",
         target: 10000,
         icon: "fa-hand-pointer"
     },
@@ -109,6 +125,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "clicks",
+        category: "Клики",
+        categoryIcon: "fa-hand-pointer",
         target: 25000,
         icon: "fa-medal"
     },
@@ -121,6 +139,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "clicks",
+        category: "Клики",
+        categoryIcon: "fa-hand-pointer",
         target: 50000,
         icon: "fa-medal"
     },
@@ -135,6 +155,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "energy",
+        category: "Энергия",
+        categoryIcon: "fa-bolt",
         target: 10,
         icon: "fa-bolt"
     },
@@ -149,6 +171,8 @@ const achievements = [
         reward: 3,
         claimed: false,
         completed: false,
+        category: "Энергия",
+        categoryIcon: "fa-bolt",
         icon: "fa-battery-full"
     },
     {
@@ -162,6 +186,8 @@ const achievements = [
         reward: 3,
         claimed: false,
         completed: false,
+        category: "Энергия",
+        categoryIcon: "fa-bolt",
         icon: "fa-heartbeat"
     },
     {
@@ -176,6 +202,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "energy_max",
+        category: "Энергия",
+        categoryIcon: "fa-bolt",
         target: 1000,
         icon: "fa-circle-radiation"
     },
@@ -188,6 +216,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "energy_spent",
+        category: "Энергия",
+        categoryIcon: "fa-bolt",
         target: 10000,
         icon: "fa-droplet"
     },
@@ -202,6 +232,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "keys",
+        category: "Ключи",
+        categoryIcon: "fa-key",
         target: 10,
         icon: "fa-key"
     },
@@ -214,6 +246,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "keys",
+        category: "Ключи",
+        categoryIcon: "fa-key",
         target: 25,
         icon: "fa-key"
     },
@@ -226,6 +260,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "keys",
+        category: "Ключи",
+        categoryIcon: "fa-key",
         target: 50,
         icon: "fa-key"
     },
@@ -238,6 +274,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "keys",
+        category: "Ключи",
+        categoryIcon: "fa-key",
         target: 100,
         icon: "fa-key"
     },
@@ -250,6 +288,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "keys",
+        category: "Ключи",
+        categoryIcon: "fa-key",
         target: 500,
         icon: "fa-key"
     },
@@ -264,6 +304,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "keys_spent",
+        category: "Траты",
+        categoryIcon: "fa-cart-shopping",
         target: 10,
         icon: "fa-cart-shopping"
     },
@@ -276,6 +318,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "keys_spent",
+        category: "Траты",
+        categoryIcon: "fa-cart-shopping",
         target: 25,
         icon: "fa-cart-shopping"
     },
@@ -288,6 +332,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "keys_spent",
+        category: "Траты",
+        categoryIcon: "fa-cart-shopping",
         target: 50,
         icon: "fa-cart-shopping"
     },
@@ -300,6 +346,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "keys_spent",
+        category: "Траты",
+        categoryIcon: "fa-cart-shopping",
         target: 100,
         icon: "fa-cart-shopping"
     },
@@ -312,6 +360,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "keys_spent",
+        category: "Траты",
+        categoryIcon: "fa-cart-shopping",
         target: 500,
         icon: "fa-sack-dollar"
     },
@@ -328,6 +378,8 @@ const achievements = [
         reward: 4,
         claimed: false,
         completed: false,
+        category: "Уникальные",
+        categoryIcon: "fa-crown",
         icon: "fa-times-circle"
     },
     {
@@ -339,6 +391,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "pps",
+        category: "Уникальные",
+        categoryIcon: "fa-crown",
         target: 50,
         icon: "fa-robot"
     },
@@ -351,6 +405,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "pps",
+        category: "Уникальные",
+        categoryIcon: "fa-crown",
         target: 200,
         icon: "fa-microchip"
     },
@@ -363,6 +419,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "pps",
+        category: "Уникальные",
+        categoryIcon: "fa-crown",
         target: 1000,
         icon: "fa-brain"
     },
@@ -378,6 +436,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "upgrades",
+        category: "Уникальные",
+        categoryIcon: "fa-crown",
         target: 100,
         icon: "fa-layer-group"
     },
@@ -394,6 +454,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "skins",
+        category: "Скины",
+        categoryIcon: "fa-paint-brush",
         target: 1,
         icon: "fa-paint-brush"
     },
@@ -408,6 +470,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "skins",
+        category: "Скины",
+        categoryIcon: "fa-paint-brush",
         target: 3,
         icon: "fa-palette"
     },
@@ -422,6 +486,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "skins",
+        category: "Скины",
+        categoryIcon: "fa-paint-brush",
         target: 5,
         icon: "fa-palette"
     },
@@ -436,6 +502,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "skins",
+        category: "Скины",
+        categoryIcon: "fa-paint-brush",
         target: 8,
         icon: "fa-palette"
     },
@@ -450,6 +518,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "skins",
+        category: "Скины",
+        categoryIcon: "fa-paint-brush",
         target: 10,
         icon: "fa-crown"
     },
@@ -464,6 +534,8 @@ const achievements = [
         reward: 2,
         claimed: false,
         completed: false,
+        category: "Скины",
+        categoryIcon: "fa-paint-brush",
         icon: "fa-fire"
     },
     {
@@ -477,6 +549,8 @@ const achievements = [
         reward: 2,
         claimed: false,
         completed: false,
+        category: "Скины",
+        categoryIcon: "fa-paint-brush",
         icon: "fa-snowflake"
     },
     {
@@ -490,6 +564,8 @@ const achievements = [
         reward: 3,
         claimed: false,
         completed: false,
+        category: "Скины",
+        categoryIcon: "fa-paint-brush",
         icon: "fa-crown"
     },
     {
@@ -503,6 +579,8 @@ const achievements = [
         reward: 4,
         claimed: false,
         completed: false,
+        category: "Скины",
+        categoryIcon: "fa-paint-brush",
         icon: "fa-coins"
     },
     {
@@ -516,6 +594,8 @@ const achievements = [
         reward: 5,
         claimed: false,
         completed: false,
+        category: "Скины",
+        categoryIcon: "fa-paint-brush",
         icon: "fa-lightbulb"
     },
 
@@ -529,6 +609,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "crit",
+        category: "Криты",
+        categoryIcon: "fa-crosshairs",
         target: 10,
         icon: "fa-crosshairs"
     },
@@ -541,6 +623,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "crit",
+        category: "Криты",
+        categoryIcon: "fa-crosshairs",
         target: 25,
         icon: "fa-crosshairs"
     },
@@ -553,6 +637,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "crit",
+        category: "Криты",
+        categoryIcon: "fa-crosshairs",
         target: 50,
         icon: "fa-crosshairs"
     },
@@ -565,6 +651,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "crit",
+        category: "Криты",
+        categoryIcon: "fa-crosshairs",
         target: 75,
         icon: "fa-bullseye"
     },
@@ -577,6 +665,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "crit",
+        category: "Криты",
+        categoryIcon: "fa-crosshairs",
         target: 100,
         icon: "fa-bullseye"
     },
@@ -591,6 +681,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "consecutive",
+        category: "Скорость",
+        categoryIcon: "fa-gauge-high",
         target: 10,
         icon: "fa-gauge-high"
     },
@@ -603,6 +695,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "consecutive",
+        category: "Скорость",
+        categoryIcon: "fa-gauge-high",
         target: 25,
         icon: "fa-gauge-high"
     },
@@ -615,6 +709,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "consecutive",
+        category: "Скорость",
+        categoryIcon: "fa-gauge-high",
         target: 50,
         icon: "fa-gauge-high"
     },
@@ -627,6 +723,8 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "consecutive",
+        category: "Скорость",
+        categoryIcon: "fa-gauge-high",
         target: 100,
         icon: "fa-person-running"
     },
@@ -639,7 +737,60 @@ const achievements = [
         claimed: false,
         completed: false,
         type: "consecutive",
+        category: "Скорость",
+        categoryIcon: "fa-gauge-high",
         target: 200,
         icon: "fa-skull"
     }
 ];
+
+// Функция для получения уникальных категорий
+function getAchievementCategories() {
+    const categories = [];
+    achievements.forEach(a => {
+        if (!categories.includes(a.category)) {
+            categories.push(a.category);
+        }
+    });
+    return categories;
+}
+
+// Обновленная функция инициализации достижений
+function initAchievements() {
+    if (!achievementsListElement) {
+        console.error("achievementsListElement не найден!");
+        return;
+    }
+    
+    achievementsListElement.innerHTML = '';
+    
+    // Создаем категории
+    const categories = getAchievementCategories();
+    
+    categories.forEach(category => {
+        const categoryAchievements = achievements.filter(a => a.category === category);
+        const categoryIcon = categoryAchievements[0]?.categoryIcon || 'fa-star';
+        
+        const section = document.createElement('div');
+        section.className = 'achievements-section';
+        
+        const title = document.createElement('h3');
+        title.className = 'achievements-section-title';
+        title.innerHTML = `<i class="fas ${categoryIcon}"></i> ${category}`;
+        section.appendChild(title);
+        
+        const grid = document.createElement('div');
+        grid.className = 'achievements-subgrid';
+        
+        categoryAchievements.sort((a, b) => a.id - b.id).forEach(a => {
+            grid.appendChild(createAchievementElement(a));
+        });
+        
+        section.appendChild(grid);
+        achievementsListElement.appendChild(section);
+    });
+    
+    updateAchievementsCounter();
+}
+
+window.getAchievementCategories = getAchievementCategories;

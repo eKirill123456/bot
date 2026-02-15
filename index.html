@@ -80,58 +80,54 @@
         
         <!-- Основной контент -->
         <div class="content-area">
-            <!-- Вкладка ИГРА -->
-            <div class="tab-content active" id="gameTab">
-                <div class="game-area">
-                    <section class="clicker-section">
-                        <!-- Секция энергии -->
-                        <div class="energy-section">
-                            <div class="energy-header">
-                                <div class="energy-title">
-                                    <i class="fas fa-bolt"></i> Энергия
-                                </div>
-                                <div class="energy-value">
-                                    <span id="currentEnergy">100</span>/<span id="maxEnergy">100</span>
-                                </div>
-                            </div>
-                            <div class="energy-bar-container">
-                                <div class="energy-bar" id="energyBar"></div>
-                            </div>
-                            <div class="energy-info">
-                                <div>Восст: <span class="energy-regen" id="energyRegen">5</span>/с</div>
-                                <div>Стоим: <span class="energy-cost" id="energyCost">5</span></div>
-                            </div>
-                        </div>
-                        
-                        <div class="click-counter" id="totalPoints">0</div>
-                        <button class="click-button skin-default" id="clickButton">
-                            <i class="fas fa-mouse-pointer"></i>
-                        </button>
-                        <div class="click-rate">за клик: <span id="clickValue">1</span></div>
-                    </section>
-                    
-                    <section class="upgrades-section">
-                        <h2 class="section-title">Улучшения</h2>
-                        <div class="upgrade-list" id="upgradeList"></div>
-                    </section>
+<!-- Вкладка ИГРА -->
+<div class="tab-content active" id="gameTab">
+    <div class="game-area">
+        <section class="clicker-section" style="flex: 2;">
+            <!-- Секция энергии -->
+            <div class="energy-section">
+                <div class="energy-header">
+                    <div class="energy-title">
+                        <i class="fas fa-bolt"></i> Энергия
+                    </div>
+                    <div class="energy-value">
+                        <span id="currentEnergy">100</span>/<span id="maxEnergy">100</span>
+                    </div>
                 </div>
-                
-                <div class="stats">
-                    <div class="stat-item">
-                        <div class="stat-value" id="totalClicks">0</div>
-                        <div class="stat-label">Клики</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value" id="totalPoints">0</div>
-                        <div class="stat-label">Очки</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value" id="pointsPerSecond">0</div>
-                        <div class="stat-label">/сек</div>
-                    </div>
+                <div class="energy-bar-container">
+                    <div class="energy-bar" id="energyBar"></div>
+                </div>
+                <div class="energy-info">
+                    <div>Восст: <span class="energy-regen" id="energyRegen">5</span>/с</div>
+                    <div>Стоим: <span class="energy-cost" id="energyCost">5</span></div>
                 </div>
             </div>
             
+            <div class="click-counter" id="totalPoints">0</div>
+            <button class="click-button skin-default" id="clickButton">
+                <i class="fas fa-mouse-pointer"></i>
+            </button>
+            <div class="click-rate">за клик: <span id="clickValue">1</span></div>
+        </section>
+        
+        <!-- Убрана секция улучшений -->
+    </div>
+    
+    <div class="stats">
+        <div class="stat-item">
+            <div class="stat-value" id="totalClicks">0</div>
+            <div class="stat-label">Клики</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value" id="totalPoints">0</div>
+            <div class="stat-label">Очки</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value" id="pointsPerSecond">0</div>
+            <div class="stat-label">/сек</div>
+        </div>
+    </div>
+</div>
             <!-- Вкладка МАГАЗИН (общая) -->
             <div class="tab-content" id="shopTab">
                 <div class="shop-container">

@@ -1463,6 +1463,254 @@ function showMessage(text, color = "#00adb5", duration = 3000) {
     }, duration);
 }
 
+// Функции для магазина с вкладками
+function initShopTabs() {
+    console.log("Инициализация вкладок магазина");
+    
+    const tabUpgrades = document.getElementById('shopTabUpgrades');
+    const tabExclusive = document.getElementById('shopTabExclusive');
+    const tabSkins = document.getElementById('shopTabSkins');
+    const tabCases = document.getElementById('shopTabCases');
+    
+    const contentUpgrades = document.getElementById('shopUpgradesContent');
+    const contentExclusive = document.getElementById('shopExclusiveContent');
+    const contentSkins = document.getElementById('shopSkinsContent');
+    const contentCases = document.getElementById('shopCasesContent');
+    
+    if (tabUpgrades) {
+        tabUpgrades.onclick = () => {
+            tabUpgrades.classList.add('active');
+            tabExclusive.classList.remove('active');
+            tabSkins.classList.remove('active');
+            tabCases.classList.remove('active');
+            
+            contentUpgrades.classList.add('active');
+            contentExclusive.classList.remove('active');
+            contentSkins.classList.remove('active');
+            contentCases.classList.remove('active');
+            
+            // Загружаем соответствующие данные
+            loadShopUpgrades();
+        };
+    }
+    
+    if (tabExclusive) {
+        tabExclusive.onclick = () => {
+            tabExclusive.classList.add('active');
+            tabUpgrades.classList.remove('active');
+            tabSkins.classList.remove('active');
+            tabCases.classList.remove('active');
+            
+            contentExclusive.classList.add('active');
+            contentUpgrades.classList.remove('active');
+            contentSkins.classList.remove('active');
+            contentCases.classList.remove('active');
+            
+            loadShopExclusive();
+        };
+    }
+    
+    if (tabSkins) {
+        tabSkins.onclick = () => {
+            tabSkins.classList.add('active');
+            tabUpgrades.classList.remove('active');
+            tabExclusive.classList.remove('active');
+            tabCases.classList.remove('active');
+            
+            contentSkins.classList.add('active');
+            contentUpgrades.classList.remove('active');
+            contentExclusive.classList.remove('active');
+            contentCases.classList.remove('active');
+            
+            loadShopSkins();
+        };
+    }
+    
+    if (tabCases) {
+        tabCases.onclick = () => {
+            tabCases.classList.add('active');
+            tabUpgrades.classList.remove('active');
+            tabExclusive.classList.remove('active');
+            tabSkins.classList.remove('active');
+            
+            contentCases.classList.add('active');
+            contentUpgrades.classList.remove('active');
+            contentExclusive.classList.remove('active');
+            contentSkins.classList.remove('active');
+            
+            loadShopCases();
+        };
+    }
+}
+
+function loadShopUpgrades() {
+    const list = document.getElementById('shopUpgradesList');
+    if (!list) return;
+    
+    list.innerHTML = '';
+    // Загружаем обычные улучшения (из upgrades.js)
+    if (typeof upgrades !== 'undefined') {
+        upgrades.forEach(upgrade => {
+            const item = createShopUpgradeElement(upgrade);
+            list.appendChild(item);
+        });
+    }
+}
+
+function loadShopExclusive() {
+    const list = document.getElementById('shopExclusiveList');
+    if (!list) return;
+    
+    list.innerHTML = '';
+    // Загружаем эксклюзивные улучшения (из shop.js)
+    if (typeof allExclusiveUpgrades !== 'undefined') {
+        allExclusiveUpgrades.forEach(upgrade => {
+            const item = createShopExclusiveElement(upgrade);
+            list.appendChild(item);
+        });
+    }
+}
+
+function loadShopSkins() {
+    const list = document.getElementById('shopSkinsList');
+    if (!list) return;
+    
+    list.innerHTML = '';
+    // Загружаем скины
+    if (typeof skins !== 'undefined') {
+        skins.forEach(skin => {
+            const item = createShopSkinElement(skin);
+            list.appendChild(item);
+        });
+    }
+}
+
+function loadShopCases() {
+    const list = document.getElementById('shopCasesList');
+    if (!list) return;
+    
+    list.innerHTML = '';
+    // Загружаем кейсы
+    if (typeof lootBoxes !== 'undefined') {
+        lootBoxes.forEach(box => {
+            const item = createShopCaseElement(box);
+            list.appendChild(item);
+        });
+    }
+}
+
+function createShopUpgradeElement(upgrade) {
+    const div = document.createElement('div');
+    div.className = 'shop-item';
+    div.innerHTML = `
+        <div class="shop-item-icon"><i class="fas fa-arrow-up"></i></div>
+        <div class="shop-item-content">
+            <div class="shop-item-title">${upgrade.name}</div>
+            <div class="shop-item-description">${upgrade.description}</div>
+            <div class="shop-item-effect">Уровень: ${upgrade.level}/${upgrade.maxLevel}</div>
+            <div class="shop-item-price"><i class="fas fa-star"></i> ${upgrade.cost}</div>
+            <button class="shop-buy-button" onclick="buyUpgrade(${upgrade.id})">Купить</button>
+        </div>
+    `;
+    return div;
+}
+
+function createShopExclusiveElement(upgrade) {
+    const div = document.createElement('div');
+    div.className = `shop-item ${upgrade.special ? 'special' : ''} ${upgrade.purchased ? 'purchased' : ''}`;
+    
+    let effectText = '';
+    switch(upgrade.effect) {
+        case 'goldenTouch': effectText = `${upgrade.value * 100}% шанс на ключ`; break;
+        case 'energyMultiplier': effectText = `Энергия +${((upgrade.value-1)*100)}%`; break;
+        case 'autoSpeed': effectText = `Автокликеры x${upgrade.value}`; break;
+        case 'clickMultiplier': effectText = `Клик x${upgrade.value}`; break;
+        default: effectText = upgrade.description;
+    }
+    
+    div.innerHTML = `
+        <div class="shop-item-icon"><i class="fas ${upgrade.icon}"></i></div>
+        <div class="shop-item-content">
+            <div class="shop-item-title">${upgrade.name}</div>
+            <div class="shop-item-description">${upgrade.description}</div>
+            <div class="shop-item-effect">${effectText}</div>
+            <div class="shop-item-price"><i class="fas fa-key"></i> ${upgrade.price}</div>
+            <button class="shop-buy-button ${upgrade.purchased ? 'purchased' : ''}" 
+                    onclick="buyExclusiveUpgrade(${upgrade.id})" 
+                    ${upgrade.purchased ? 'disabled' : ''}>
+                ${upgrade.purchased ? 'Куплено' : 'Купить'}
+            </button>
+        </div>
+    `;
+    return div;
+}
+
+function createShopSkinElement(skin) {
+    const div = document.createElement('div');
+    div.className = `skin-item ${skin.purchased ? 'purchased' : ''} ${skin.equipped ? 'equipped' : ''}`;
+    div.innerHTML = `
+        <div class="skin-preview" style="background: ${skin.preview}">
+            <i class="fas ${skin.icon}"></i>
+        </div>
+        <div class="skin-info">
+            <div class="skin-name">${skin.name}</div>
+            <div class="skin-description">${skin.description}</div>
+            <div class="skin-price"><i class="fas fa-key"></i> ${skin.price}</div>
+            <button class="skin-button ${skin.purchased ? 'purchased' : ''} ${skin.equipped ? 'equipped' : ''}" 
+                    onclick="buyOrEquipSkin(${skin.id})" 
+                    ${skin.equipped ? 'disabled' : ''}>
+                ${skin.equipped ? 'Экипирован' : (skin.purchased ? 'Экипировать' : 'Купить')}
+            </button>
+        </div>
+    `;
+    return div;
+}
+
+function createShopCaseElement(box) {
+    const div = document.createElement('div');
+    div.className = 'case-item';
+    div.innerHTML = `
+        <div class="case-image" style="border-color: ${box.color}">${box.image}</div>
+        <div class="case-info">
+            <div class="case-name" style="color: ${box.color}">${box.name}</div>
+            <div class="case-description">${box.description}</div>
+            <div class="case-price"><i class="fas fa-key"></i> ${box.price}</div>
+            <div class="case-buttons">
+                <button class="case-open-button" onclick="openLootBox(${box.id})" 
+                        style="background: linear-gradient(145deg, ${box.color}, ${box.color}dd)">
+                    Открыть
+                </button>
+                <button class="case-info-button" onclick="showLootBoxChances(${box.id})">
+                    <i class="fas fa-info-circle"></i>
+                </button>
+            </div>
+        </div>
+    `;
+    return div;
+}
+
+// Обновляем функцию initShop
+const originalInitShop = initShop;
+initShop = function() {
+    if (typeof originalInitShop === 'function') {
+        originalInitShop();
+    }
+    initShopTabs();
+    loadShopUpgrades();
+    loadShopExclusive();
+    loadShopSkins();
+    loadShopCases();
+};
+
+// Добавляем в window
+window.initShopTabs = initShopTabs;
+window.loadShopUpgrades = loadShopUpgrades;
+window.loadShopExclusive = loadShopExclusive;
+window.loadShopSkins = loadShopSkins;
+window.loadShopCases = loadShopCases;
+
+
+
 window.initGame = initGame;
 window.switchTab = switchTab;
 window.playClickSound = playClickSound;
@@ -1511,3 +1759,4 @@ document.addEventListener('DOMContentLoaded', function() {
     initGame();
 
 });
+

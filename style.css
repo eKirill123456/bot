@@ -1220,3 +1220,227 @@ h1 {
 #tabSkins, #tabCases, #skinsTab, #casesTab {
     display: none;
 }
+
+/* Достижения - категории */
+.achievements-categories {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.achievement-category {
+    background: linear-gradient(145deg, #333, #444);
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.3s;
+}
+
+.achievement-category i {
+    font-size: 0.9rem;
+}
+
+.achievement-category.active {
+    background: linear-gradient(145deg, #00adb5, #00969c);
+    transform: scale(1.05);
+}
+
+.achievement-category:hover {
+    transform: scale(1.05);
+}
+
+/* Достижения по категориям */
+.achievements-section {
+    margin-bottom: 20px;
+}
+
+.achievements-section-title {
+    color: #ffd700;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ffd700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.achievements-section-title i {
+    color: #00adb5;
+}
+
+.achievements-subgrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+/* Улучшаем внешний вид достижений */
+.achievement-item {
+    background: linear-gradient(145deg, #2a2a3a, #1e1e2e);
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-left: 4px solid #555;
+    transition: all 0.3s;
+}
+
+.achievement-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.achievement-item.completed {
+    border-left-color: #ffd700;
+    background: linear-gradient(145deg, #2a2a3a, #1e1e2e);
+}
+
+.achievement-icon {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(145deg, #333, #444);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    color: #ffd700;
+    flex-shrink: 0;
+}
+
+.achievement-item.completed .achievement-icon {
+    background: linear-gradient(145deg, #ffd700, #ffa500);
+    color: #1a1a2e;
+}
+
+.achievement-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.achievement-name {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.achievement-description {
+    font-size: 0.7rem;
+    color: #aaa;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.achievement-reward {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    color: #ffd700;
+    font-size: 0.7rem;
+    background: rgba(255, 215, 0, 0.1);
+    padding: 2px 6px;
+    border-radius: 12px;
+    width: fit-content;
+}
+
+.achievement-progress {
+    margin-top: 5px;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 4px;
+    background: #333;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: #ffd700;
+    border-radius: 2px;
+    transition: width 0.3s;
+}
+
+.progress-text {
+    font-size: 0.6rem;
+    color: #aaa;
+    margin-top: 2px;
+    text-align: right;
+}
+
+.claim-button {
+    background: linear-gradient(145deg, #ffd700, #ffa500);
+    border: none;
+    color: #1a1a2e;
+    padding: 5px 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.7rem;
+    min-width: 55px;
+    transition: all 0.2s;
+}
+
+.claim-button:hover:not(:disabled) {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.claim-button:disabled {
+    background: #555;
+    cursor: not-allowed;
+    color: #aaa;
+}
+
+.claim-button.claimed {
+    background: #4CAF50;
+    color: white;
+}
+
+/* Статистика достижений */
+.achievements-stats {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.achievements-stat {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px 15px;
+    border-radius: 8px;
+    min-width: 100px;
+}
+
+.achievements-stat-value {
+    font-size: 1.3rem;
+    color: #ffd700;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+.achievements-stat-label {
+    color: #ccc;
+    font-size: 0.7rem;
+}

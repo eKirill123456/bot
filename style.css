@@ -11,7 +11,7 @@ body {
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
     color: #fff;
     min-height: 100vh;
-    padding: 3px;
+    padding: 2px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,129 +24,142 @@ body {
     border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     overflow: hidden;
-    padding: 5px;
+    padding: 3px;
+    display: flex;
+    flex-direction: column;
+    height: 98vh;
 }
 
-/* Шапка */
+/* Шапка - верхняя часть */
 header {
-    text-align: center;
-    margin-bottom: 3px;
-    padding-bottom: 3px;
-    border-bottom: 1px solid #00adb5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px 5px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    margin-bottom: 2px;
+    flex-shrink: 0;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 h1 {
-    font-size: 1rem;
-    margin-bottom: 2px;
+    font-size: 0.9rem;
     color: #00adb5;
     text-shadow: 0 0 5px rgba(0, 173, 181, 0.5);
 }
 
 .subtitle {
-    font-size: 0.65rem;
-    color: #ccc;
-    margin-bottom: 3px;
+    display: none;
 }
 
-.header-controls {
-    display: flex;
-    justify-content: center;
-    gap: 2px;
-    margin-top: 2px;
-    flex-wrap: wrap;
-}
-
-/* Ключи */
+/* Ключи - вверху справа */
 .keys-display {
     background: linear-gradient(145deg, #ffd700, #ffa500);
     color: #1a1a2e;
-    padding: 2px 6px;
+    padding: 2px 8px;
     border-radius: 20px;
     font-weight: bold;
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     display: inline-flex;
     align-items: center;
-    gap: 3px;
+    gap: 4px;
     box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
     cursor: pointer;
 }
 
 .keys-display i {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
 }
 
-/* Кнопки управления */
-.reset-button, .sound-toggle, .promo-button {
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 0.6rem;
+/* Кнопка настроек */
+.settings-button {
+    background: linear-gradient(145deg, #6c5ce7, #a29bfe);
     border: none;
     color: white;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 0.65rem;
     cursor: pointer;
     font-weight: bold;
     display: inline-flex;
     align-items: center;
-    gap: 2px;
+    gap: 4px;
 }
 
-.reset-button i, .sound-toggle i, .promo-button i {
-    font-size: 0.7rem;
+.settings-button i {
+    font-size: 0.75rem;
 }
 
-.reset-button {
-    background: linear-gradient(145deg, #ff4757, #ff3838);
+/* Очки - вверху по центру */
+.points-display {
+    background: linear-gradient(145deg, #00adb5, #00969c);
+    color: white;
+    padding: 2px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
 }
 
-.sound-toggle {
-    background: linear-gradient(145deg, #6c5ce7, #a29bfe);
+.points-display i {
+    font-size: 0.8rem;
+    color: #ffd700;
 }
 
-.promo-button {
-    background: linear-gradient(145deg, #9b59b6, #8e44ad);
-}
-
-/* Табы - горизонтальный скролл */
+/* Табы - основная навигация внизу */
 .tabs {
     display: flex;
-    margin-bottom: 3px;
+    justify-content: center;
+    margin-top: auto;
     gap: 2px;
-    overflow-x: auto;
-    padding: 2px 0;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-}
-
-.tabs::-webkit-scrollbar {
-    display: none;
+    padding: 3px 0;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    flex-shrink: 0;
 }
 
 .tab-button {
     background: linear-gradient(145deg, #333, #444);
     border: none;
     color: white;
-    padding: 3px 5px;
-    border-radius: 4px;
+    padding: 4px 6px;
+    border-radius: 20px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 0.55rem;
+    font-size: 0.6rem;
     display: flex;
     align-items: center;
-    gap: 2px;
-    flex: 0 0 auto;
-    white-space: nowrap;
+    gap: 3px;
+    flex: 1;
+    justify-content: center;
+    max-width: 80px;
 }
 
 .tab-button i {
-    font-size: 0.6rem;
+    font-size: 0.7rem;
 }
 
 .tab-counter {
     background: #ffd700;
     color: #1a1a2e;
-    padding: 1px 3px;
+    padding: 1px 4px;
     border-radius: 10px;
     font-size: 0.5rem;
-    margin-left: 1px;
+    margin-left: 2px;
 }
 
 .tab-button.active {
@@ -155,17 +168,111 @@ h1 {
 
 .tab-content {
     display: none;
+    flex: 1;
+    overflow-y: auto;
+    padding: 2px;
 }
 
 .tab-content.active {
     display: block;
 }
 
+/* Основной контент */
+.content-area {
+    flex: 1;
+    overflow-y: auto;
+    margin: 2px 0;
+    padding: 2px;
+}
+
+/* Модальное окно настроек */
+.settings-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 3000;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.settings-box {
+    background-color: #1a1a2e;
+    padding: 15px;
+    border-radius: 12px;
+    max-width: 300px;
+    width: 100%;
+    border: 2px solid #6c5ce7;
+}
+
+.settings-title {
+    font-size: 1rem;
+    color: #6c5ce7;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.settings-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.settings-btn {
+    background: linear-gradient(145deg, #333, #444);
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s;
+}
+
+.settings-btn.reset {
+    background: linear-gradient(145deg, #ff4757, #ff3838);
+}
+
+.settings-btn.sound {
+    background: linear-gradient(145deg, #6c5ce7, #a29bfe);
+}
+
+.settings-btn.promo {
+    background: linear-gradient(145deg, #9b59b6, #8e44ad);
+}
+
+.settings-btn i {
+    font-size: 1.1rem;
+    width: 24px;
+}
+
+.settings-close {
+    background: #555;
+    border: none;
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    width: 100%;
+}
+
 /* Игровая область */
 .game-area {
     display: flex;
     flex-direction: row;
-    gap: 3px;
+    gap: 2px;
+    height: 100%;
 }
 
 .clicker-section {
@@ -173,18 +280,18 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 3px;
-    background-color: rgba(255, 255, 255, 0.03);
-    border-radius: 6px;
+    padding: 2px;
+    background-color: rgba(255, 255, 255, 0.02);
+    border-radius: 4px;
     min-width: 0;
 }
 
 /* Секция энергии */
 .energy-section {
     width: 100%;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
     background-color: rgba(0, 0, 0, 0.3);
-    padding: 3px;
+    padding: 2px;
     border-radius: 4px;
     border: 1px solid #ffd166;
 }
@@ -193,11 +300,11 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
 }
 
 .energy-title {
-    font-size: 0.6rem;
+    font-size: 0.5rem;
     color: #ffd166;
     display: flex;
     align-items: center;
@@ -205,22 +312,22 @@ h1 {
 }
 
 .energy-title i {
-    font-size: 0.6rem;
+    font-size: 0.5rem;
 }
 
 .energy-value {
-    font-size: 0.65rem;
+    font-size: 0.55rem;
     font-weight: bold;
     color: #00ff9d;
 }
 
 .energy-bar-container {
     width: 100%;
-    height: 4px;
+    height: 3px;
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 2px;
     overflow: hidden;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
 }
 
 .energy-bar {
@@ -233,31 +340,31 @@ h1 {
 .energy-info {
     display: flex;
     justify-content: space-between;
-    font-size: 0.5rem;
+    font-size: 0.45rem;
     color: #aaa;
 }
 
 /* Кнопка клика */
 .click-counter {
-    font-size: 1rem;
-    margin: 2px 0;
+    font-size: 0.9rem;
+    margin: 1px 0;
     color: #00ff9d;
     text-shadow: 0 0 5px rgba(0, 255, 157, 0.5);
-    min-height: 20px;
+    min-height: 18px;
     display: flex;
     align-items: center;
 }
 
 .click-button {
-    width: 65px;
-    height: 65px;
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
     border: none;
     color: white;
-    font-size: 0.7rem;
+    font-size: 0.6rem;
     font-weight: bold;
     cursor: pointer;
-    margin: 2px 0;
+    margin: 1px 0;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
     transition: all 0.1s;
     position: relative;
@@ -265,7 +372,7 @@ h1 {
 }
 
 .click-button i {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 }
 
 .click-button:active:not(:disabled) {
@@ -273,7 +380,7 @@ h1 {
 }
 
 .click-rate {
-    font-size: 0.6rem;
+    font-size: 0.5rem;
     color: #ffd166;
     margin-top: 1px;
 }
@@ -281,18 +388,18 @@ h1 {
 /* Улучшения */
 .upgrades-section {
     flex: 1;
-    padding: 3px;
-    background-color: rgba(255, 255, 255, 0.03);
-    border-radius: 6px;
-    max-height: 300px;
+    padding: 2px;
+    background-color: rgba(255, 255, 255, 0.02);
+    border-radius: 4px;
+    max-height: 100%;
     overflow-y: auto;
     min-width: 0;
 }
 
 .section-title {
-    font-size: 0.7rem;
+    font-size: 0.6rem;
     color: #ffd166;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
     padding-bottom: 1px;
     border-bottom: 1px solid #ffd166;
     text-align: center;
@@ -301,13 +408,13 @@ h1 {
 .upgrade-list {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 1px;
 }
 
 .upgrade-item {
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 4px;
-    padding: 3px;
+    background-color: rgba(255, 255, 255, 0.03);
+    border-radius: 3px;
+    padding: 2px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -321,7 +428,7 @@ h1 {
 }
 
 .upgrade-name {
-    font-size: 0.6rem;
+    font-size: 0.5rem;
     color: #00adb5;
     white-space: nowrap;
     overflow: hidden;
@@ -329,7 +436,7 @@ h1 {
 }
 
 .upgrade-description {
-    font-size: 0.5rem;
+    font-size: 0.45rem;
     color: #aaa;
     margin: 1px 0;
     white-space: nowrap;
@@ -339,8 +446,8 @@ h1 {
 
 .upgrade-stats {
     display: flex;
-    gap: 3px;
-    font-size: 0.5rem;
+    gap: 2px;
+    font-size: 0.45rem;
     color: #ffd166;
     flex-wrap: wrap;
 }
@@ -349,21 +456,21 @@ h1 {
     background: linear-gradient(145deg, #ff9a3c, #ff6f3c);
     border: none;
     color: white;
-    padding: 2px 4px;
+    padding: 2px 3px;
     border-radius: 3px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 0.5rem;
-    min-width: 35px;
+    font-size: 0.45rem;
+    min-width: 30px;
 }
 
 /* Статистика */
 .stats {
     display: flex;
     flex-direction: row;
-    gap: 2px;
-    margin-top: 3px;
-    padding-top: 3px;
+    gap: 1px;
+    margin-top: 2px;
+    padding-top: 2px;
     border-top: 1px solid #00adb5;
     flex-wrap: wrap;
 }
@@ -372,28 +479,28 @@ h1 {
     flex: 1;
     text-align: center;
     background-color: rgba(0, 173, 181, 0.1);
-    padding: 2px;
-    border-radius: 4px;
-    min-width: 50px;
+    padding: 1px;
+    border-radius: 3px;
+    min-width: 45px;
 }
 
 .stat-value {
-    font-size: 0.6rem;
+    font-size: 0.55rem;
     color: #00ff9d;
     margin-top: 1px;
 }
 
 .stat-label {
     color: #ccc;
-    font-size: 0.5rem;
+    font-size: 0.45rem;
 }
 
 /* Достижения */
 .achievements-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 3px;
-    margin-top: 3px;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 2px;
+    margin-top: 2px;
 }
 
 .achievement-item {
@@ -407,14 +514,14 @@ h1 {
 }
 
 .achievement-icon {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     background: linear-gradient(145deg, #333, #444);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.6rem;
+    font-size: 0.55rem;
     color: #ffd700;
     flex-shrink: 0;
 }
@@ -425,7 +532,7 @@ h1 {
 }
 
 .achievement-name {
-    font-size: 0.6rem;
+    font-size: 0.5rem;
     font-weight: bold;
     color: #fff;
     white-space: nowrap;
@@ -434,7 +541,7 @@ h1 {
 }
 
 .achievement-description {
-    font-size: 0.5rem;
+    font-size: 0.45rem;
     color: #aaa;
     white-space: nowrap;
     overflow: hidden;
@@ -446,7 +553,7 @@ h1 {
     align-items: center;
     gap: 2px;
     color: #ffd700;
-    font-size: 0.5rem;
+    font-size: 0.45rem;
     background: rgba(255, 215, 0, 0.1);
     padding: 1px 3px;
     border-radius: 8px;
@@ -457,41 +564,41 @@ h1 {
     background: linear-gradient(145deg, #ffd700, #ffa500);
     border: none;
     color: #1a1a2e;
-    padding: 2px 4px;
+    padding: 2px 3px;
     border-radius: 3px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 0.5rem;
-    min-width: 35px;
+    font-size: 0.45rem;
+    min-width: 32px;
     flex-shrink: 0;
 }
 
 /* Магазин */
 .shop-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 3px;
-    margin-top: 3px;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 2px;
+    margin-top: 2px;
 }
 
 .shop-item {
     background: linear-gradient(145deg, #2a2a3a, #1e1e2e);
     border-radius: 4px;
-    padding: 4px;
+    padding: 3px;
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 3px;
 }
 
 .shop-item-icon {
-    width: 25px;
-    height: 25px;
+    width: 22px;
+    height: 22px;
     background: linear-gradient(145deg, #ffd700, #ffa500);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.7rem;
+    font-size: 0.6rem;
     color: #1a1a2e;
     flex-shrink: 0;
 }
@@ -502,7 +609,7 @@ h1 {
 }
 
 .shop-item-title {
-    font-size: 0.6rem;
+    font-size: 0.55rem;
     font-weight: bold;
     color: #ffd700;
     white-space: nowrap;
@@ -512,7 +619,7 @@ h1 {
 
 .shop-item-description {
     color: #ccc;
-    font-size: 0.5rem;
+    font-size: 0.45rem;
     line-height: 1.1;
     white-space: nowrap;
     overflow: hidden;
@@ -521,9 +628,9 @@ h1 {
 
 .shop-item-effect {
     background: rgba(255, 215, 0, 0.1);
-    padding: 2px;
-    border-radius: 3px;
-    font-size: 0.5rem;
+    padding: 1px;
+    border-radius: 2px;
+    font-size: 0.45rem;
     color: #ffd700;
     margin: 1px 0;
     white-space: nowrap;
@@ -535,7 +642,7 @@ h1 {
     display: flex;
     align-items: center;
     gap: 2px;
-    font-size: 0.6rem;
+    font-size: 0.5rem;
     color: #ffd700;
 }
 
@@ -543,40 +650,40 @@ h1 {
     background: linear-gradient(145deg, #ffd700, #ffa500);
     border: none;
     color: #1a1a2e;
-    padding: 3px 5px;
+    padding: 2px 4px;
     border-radius: 3px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 0.5rem;
-    min-width: 40px;
+    font-size: 0.45rem;
+    min-width: 35px;
     flex-shrink: 0;
 }
 
 /* Скины */
 .skins-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 3px;
-    margin-top: 3px;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 2px;
+    margin-top: 2px;
 }
 
 .skin-item {
     background: linear-gradient(145deg, #2a2a3a, #1e1e2e);
     border-radius: 4px;
-    padding: 4px;
+    padding: 3px;
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 3px;
 }
 
 .skin-preview {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: white;
     flex-shrink: 0;
 }
@@ -587,7 +694,7 @@ h1 {
 }
 
 .skin-name {
-    font-size: 0.6rem;
+    font-size: 0.5rem;
     font-weight: bold;
     color: #fff;
     white-space: nowrap;
@@ -596,7 +703,7 @@ h1 {
 }
 
 .skin-description {
-    font-size: 0.5rem;
+    font-size: 0.45rem;
     color: #aaa;
     white-space: nowrap;
     overflow: hidden;
@@ -607,7 +714,7 @@ h1 {
     display: flex;
     align-items: center;
     gap: 2px;
-    font-size: 0.55rem;
+    font-size: 0.5rem;
     color: #ffd700;
 }
 
@@ -615,41 +722,41 @@ h1 {
     background: linear-gradient(145deg, #ff6b6b, #ff4757);
     border: none;
     color: white;
-    padding: 3px 5px;
+    padding: 2px 4px;
     border-radius: 3px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 0.5rem;
-    min-width: 40px;
+    font-size: 0.45rem;
+    min-width: 35px;
     flex-shrink: 0;
 }
 
 /* Кейсы */
 .cases-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 3px;
-    margin-top: 3px;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 2px;
+    margin-top: 2px;
 }
 
 .case-item {
     background: linear-gradient(145deg, #2a2a3a, #1e1e2e);
     border-radius: 4px;
-    padding: 4px;
+    padding: 3px;
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 3px;
 }
 
 .case-image {
-    width: 25px;
-    height: 25px;
+    width: 22px;
+    height: 22px;
     background: linear-gradient(145deg, #333, #444);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     flex-shrink: 0;
 }
 
@@ -659,7 +766,7 @@ h1 {
 }
 
 .case-name {
-    font-size: 0.6rem;
+    font-size: 0.5rem;
     font-weight: bold;
     white-space: nowrap;
     overflow: hidden;
@@ -667,7 +774,7 @@ h1 {
 }
 
 .case-description {
-    font-size: 0.5rem;
+    font-size: 0.45rem;
     color: #aaa;
     white-space: nowrap;
     overflow: hidden;
@@ -678,7 +785,7 @@ h1 {
     display: flex;
     align-items: center;
     gap: 2px;
-    font-size: 0.55rem;
+    font-size: 0.5rem;
     color: #ffd700;
 }
 
@@ -689,118 +796,75 @@ h1 {
 }
 
 .case-open-button {
-    padding: 3px 5px;
+    padding: 2px 4px;
     border-radius: 3px;
     border: none;
     color: white;
     font-weight: bold;
-    font-size: 0.5rem;
+    font-size: 0.45rem;
     cursor: pointer;
 }
 
 .case-info-button {
-    padding: 3px 5px;
+    padding: 2px 4px;
     border-radius: 3px;
     border: none;
     background: #3498db;
     color: white;
-    font-size: 0.5rem;
+    font-size: 0.45rem;
     cursor: pointer;
-}
-
-/* Telegram панель */
-.telegram-panel {
-    background: linear-gradient(145deg, #0088cc, #0077b5);
-    border-radius: 4px;
-    padding: 3px;
-    margin-bottom: 3px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    color: white;
-}
-
-.telegram-user {
-    display: flex;
-    align-items: center;
-    gap: 3px;
-    font-size: 0.6rem;
-}
-
-.telegram-user i {
-    font-size: 0.8rem;
-}
-
-.telegram-buttons {
-    display: flex;
-    gap: 3px;
-}
-
-.telegram-button {
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    color: white;
-    padding: 2px 5px;
-    border-radius: 3px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 0.55rem;
-    display: flex;
-    align-items: center;
-    gap: 2px;
 }
 
 /* Лидерборд */
 .leaderboard-table {
     overflow-x: auto;
-    margin: 3px 0;
+    margin: 2px 0;
 }
 
 .leaderboard-header-row {
     display: grid;
-    grid-template-columns: 30px 1fr 50px 40px 30px;
+    grid-template-columns: 25px 1fr 45px 35px 25px;
     background: #00adb5;
     color: white;
-    padding: 3px;
+    padding: 2px;
     font-weight: bold;
-    font-size: 0.55rem;
+    font-size: 0.5rem;
     text-align: center;
-    min-width: 250px;
+    min-width: 220px;
 }
 
 .leaderboard-row {
     display: grid;
-    grid-template-columns: 30px 1fr 50px 40px 30px;
-    padding: 2px 3px;
+    grid-template-columns: 25px 1fr 45px 35px 25px;
+    padding: 2px;
     border-bottom: 1px solid #333;
-    font-size: 0.55rem;
+    font-size: 0.5rem;
     text-align: center;
     align-items: center;
-    min-width: 250px;
+    min-width: 220px;
 }
 
 .leaderboard-update {
     background: linear-gradient(145deg, #ffd700, #ffa500);
     border: none;
     color: #1a1a2e;
-    padding: 4px 8px;
+    padding: 3px 6px;
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 0.6rem;
+    font-size: 0.55rem;
     width: 100%;
-    margin-top: 3px;
+    margin-top: 2px;
 }
 
-/* Модальные окна */
+/* Модальное окно промокодов */
 .promo-modal, .confirm-reset {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(0, 0, 0, 0.95);
     z-index: 2000;
     display: none;
     justify-content: center;
@@ -810,27 +874,27 @@ h1 {
 
 .promo-box, .confirm-box {
     background-color: #1a1a2e;
-    padding: 10px;
-    border-radius: 8px;
-    max-width: 280px;
+    padding: 12px;
+    border-radius: 10px;
+    max-width: 260px;
     width: 100%;
     text-align: center;
     border: 1px solid #9b59b6;
 }
 
 .promo-title {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     margin-bottom: 8px;
 }
 
 .promo-input {
     width: 100%;
-    padding: 5px;
+    padding: 4px;
     border-radius: 4px;
     border: 1px solid #333;
     background: rgba(255, 255, 255, 0.1);
     color: white;
-    font-size: 0.7rem;
+    font-size: 0.6rem;
     margin-bottom: 5px;
     text-align: center;
 }
@@ -849,7 +913,7 @@ h1 {
     color: white;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 0.65rem;
+    font-size: 0.6rem;
 }
 
 .promo-close {
@@ -860,66 +924,19 @@ h1 {
     color: white;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 0.65rem;
+    font-size: 0.6rem;
 }
 
 /* Футер */
 footer {
-    text-align: center;
-    margin-top: 3px;
-    padding-top: 3px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    color: #aaa;
-    font-size: 0.5rem;
-}
-
-/* Стили для скинов кнопки */
-.click-button.skin-default {
-    background: linear-gradient(145deg, #00adb5, #00969c);
-}
-
-.click-button.skin-fire {
-    background: linear-gradient(145deg, #ff6b6b, #ff4757);
-}
-
-.click-button.skin-ice {
-    background: linear-gradient(145deg, #4ecdc4, #45b7aa);
-}
-
-.click-button.skin-royal {
-    background: linear-gradient(145deg, #9b59b6, #8e44ad);
-}
-
-.click-button.skin-gold {
-    background: linear-gradient(145deg, #f1c40f, #f39c12);
-    color: #1a1a2e;
-}
-
-.click-button.skin-dark {
-    background: linear-gradient(145deg, #2c3e50, #34495e);
-}
-
-.click-button.skin-neon {
-    background: linear-gradient(145deg, #00ff9d, #00b8ff);
-}
-
-.click-button.skin-rainbow {
-    background: linear-gradient(145deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff);
-}
-
-.click-button.skin-crystal {
-    background: linear-gradient(145deg, #a8e6cf, #d4edf5);
-}
-
-.click-button.skin-lava {
-    background: linear-gradient(145deg, #ff8c42, #ff4d4d);
+    display: none;
 }
 
 /* Анимация клика */
 .click-animation {
     position: fixed;
     pointer-events: none;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     font-weight: bold;
     color: #ffd166;
     z-index: 100;
@@ -933,6 +950,6 @@ footer {
     }
     100% {
         opacity: 0;
-        transform: translateY(-30px) scale(1.2);
+        transform: translateY(-20px) scale(1.2);
     }
 }

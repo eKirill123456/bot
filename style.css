@@ -11,7 +11,7 @@ body {
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
     color: #fff;
     min-height: 100vh;
-    padding: 5px;
+    padding: 3px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,38 +21,38 @@ body {
     max-width: 1400px;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.7);
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     overflow: hidden;
-    padding: 10px;
+    padding: 5px;
 }
 
 /* Шапка */
 header {
     text-align: center;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #00adb5;
+    margin-bottom: 3px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #00adb5;
 }
 
 h1 {
-    font-size: 1.8rem;
-    margin-bottom: 5px;
+    font-size: 1rem;
+    margin-bottom: 2px;
     color: #00adb5;
-    text-shadow: 0 0 10px rgba(0, 173, 181, 0.5);
+    text-shadow: 0 0 5px rgba(0, 173, 181, 0.5);
 }
 
 .subtitle {
-    font-size: 0.9rem;
+    font-size: 0.65rem;
     color: #ccc;
-    margin-bottom: 8px;
+    margin-bottom: 3px;
 }
 
 .header-controls {
     display: flex;
     justify-content: center;
-    gap: 5px;
-    margin-top: 8px;
+    gap: 2px;
+    margin-top: 2px;
     flex-wrap: wrap;
 }
 
@@ -60,31 +60,37 @@ h1 {
 .keys-display {
     background: linear-gradient(145deg, #ffd700, #ffa500);
     color: #1a1a2e;
-    padding: 5px 12px;
-    border-radius: 50px;
+    padding: 2px 6px;
+    border-radius: 20px;
     font-weight: bold;
-    font-size: 0.9rem;
+    font-size: 0.65rem;
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    gap: 3px;
+    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
     cursor: pointer;
-    transition: all 0.3s;
+}
+
+.keys-display i {
+    font-size: 0.7rem;
 }
 
 /* Кнопки управления */
 .reset-button, .sound-toggle, .promo-button {
-    padding: 5px 12px;
-    border-radius: 8px;
-    font-size: 0.8rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.6rem;
     border: none;
     color: white;
     cursor: pointer;
     font-weight: bold;
-    transition: all 0.3s;
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 2px;
+}
+
+.reset-button i, .sound-toggle i, .promo-button i {
+    font-size: 0.7rem;
 }
 
 .reset-button {
@@ -99,46 +105,48 @@ h1 {
     background: linear-gradient(145deg, #9b59b6, #8e44ad);
 }
 
-/* Табы - ВСЕГДА В СТРОКУ */
+/* Табы - горизонтальный скролл */
 .tabs {
     display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
-    gap: 3px;
-    flex-wrap: nowrap;
+    margin-bottom: 3px;
+    gap: 2px;
     overflow-x: auto;
-    padding: 5px 0;
+    padding: 2px 0;
     -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.tabs::-webkit-scrollbar {
+    display: none;
 }
 
 .tab-button {
     background: linear-gradient(145deg, #333, #444);
     border: none;
     color: white;
-    padding: 6px 8px;
-    border-radius: 6px;
+    padding: 3px 5px;
+    border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
-    transition: all 0.3s;
-    font-size: 0.7rem;
+    font-size: 0.55rem;
     display: flex;
     align-items: center;
-    gap: 3px;
+    gap: 2px;
     flex: 0 0 auto;
     white-space: nowrap;
 }
 
 .tab-button i {
-    font-size: 0.8rem;
+    font-size: 0.6rem;
 }
 
 .tab-counter {
     background: #ffd700;
     color: #1a1a2e;
-    padding: 2px 4px;
-    border-radius: 20px;
-    font-size: 0.6rem;
-    margin-left: 2px;
+    padding: 1px 3px;
+    border-radius: 10px;
+    font-size: 0.5rem;
+    margin-left: 1px;
 }
 
 .tab-button.active {
@@ -153,11 +161,11 @@ h1 {
     display: block;
 }
 
-/* Игровая область - ВСЕГДА В СТРОКУ */
+/* Игровая область */
 .game-area {
     display: flex;
     flex-direction: row;
-    gap: 8px;
+    gap: 3px;
 }
 
 .clicker-section {
@@ -165,19 +173,19 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 8px;
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
+    padding: 3px;
+    background-color: rgba(255, 255, 255, 0.03);
+    border-radius: 6px;
     min-width: 0;
 }
 
 /* Секция энергии */
 .energy-section {
     width: 100%;
-    margin-bottom: 8px;
+    margin-bottom: 3px;
     background-color: rgba(0, 0, 0, 0.3);
-    padding: 6px;
-    border-radius: 8px;
+    padding: 3px;
+    border-radius: 4px;
     border: 1px solid #ffd166;
 }
 
@@ -185,109 +193,107 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
 }
 
 .energy-title {
-    font-size: 0.9rem;
+    font-size: 0.6rem;
     color: #ffd166;
     display: flex;
     align-items: center;
-    gap: 3px;
+    gap: 2px;
+}
+
+.energy-title i {
+    font-size: 0.6rem;
 }
 
 .energy-value {
-    font-size: 1rem;
+    font-size: 0.65rem;
     font-weight: bold;
     color: #00ff9d;
 }
 
 .energy-bar-container {
     width: 100%;
-    height: 8px;
+    height: 4px;
     background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
+    border-radius: 2px;
     overflow: hidden;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
 }
 
 .energy-bar {
     height: 100%;
     background: linear-gradient(90deg, #00adb5, #00ff9d);
-    border-radius: 4px;
+    border-radius: 2px;
     transition: width 0.3s ease;
 }
 
 .energy-info {
     display: flex;
     justify-content: space-between;
-    font-size: 0.7rem;
+    font-size: 0.5rem;
     color: #aaa;
 }
 
 /* Кнопка клика */
 .click-counter {
-    font-size: 1.8rem;
-    margin: 5px 0;
+    font-size: 1rem;
+    margin: 2px 0;
     color: #00ff9d;
-    text-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
-    min-height: 40px;
+    text-shadow: 0 0 5px rgba(0, 255, 157, 0.5);
+    min-height: 20px;
     display: flex;
     align-items: center;
 }
 
 .click-button {
-    width: 100px;
-    height: 100px;
+    width: 65px;
+    height: 65px;
     border-radius: 50%;
     border: none;
     color: white;
-    font-size: 1rem;
+    font-size: 0.7rem;
     font-weight: bold;
     cursor: pointer;
-    margin: 5px 0;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    margin: 2px 0;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
     transition: all 0.1s;
     position: relative;
     overflow: hidden;
 }
 
-.click-button:hover:not(:disabled) {
-    filter: brightness(1.1);
+.click-button i {
+    font-size: 0.9rem;
 }
 
 .click-button:active:not(:disabled) {
     transform: scale(0.95);
 }
 
-.click-button:disabled {
-    background: linear-gradient(145deg, #555, #666);
-    cursor: not-allowed;
-    opacity: 0.7;
-}
-
 .click-rate {
-    font-size: 0.9rem;
+    font-size: 0.6rem;
     color: #ffd166;
-    margin-top: 3px;
+    margin-top: 1px;
 }
 
 /* Улучшения */
 .upgrades-section {
     flex: 1;
-    padding: 8px;
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    max-height: 400px;
+    padding: 3px;
+    background-color: rgba(255, 255, 255, 0.03);
+    border-radius: 6px;
+    max-height: 300px;
     overflow-y: auto;
     min-width: 0;
 }
 
 .section-title {
-    font-size: 1rem;
+    font-size: 0.7rem;
     color: #ffd166;
-    margin-bottom: 8px;
-    padding-bottom: 3px;
+    margin-bottom: 3px;
+    padding-bottom: 1px;
     border-bottom: 1px solid #ffd166;
     text-align: center;
 }
@@ -295,18 +301,18 @@ h1 {
 .upgrade-list {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 2px;
 }
 
 .upgrade-item {
-    background-color: rgba(255, 255, 255, 0.08);
-    border-radius: 6px;
-    padding: 6px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    padding: 3px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    gap: 5px;
+    gap: 2px;
 }
 
 .upgrade-info {
@@ -315,7 +321,7 @@ h1 {
 }
 
 .upgrade-name {
-    font-size: 0.85rem;
+    font-size: 0.6rem;
     color: #00adb5;
     white-space: nowrap;
     overflow: hidden;
@@ -323,9 +329,9 @@ h1 {
 }
 
 .upgrade-description {
-    font-size: 0.65rem;
+    font-size: 0.5rem;
     color: #aaa;
-    margin: 2px 0;
+    margin: 1px 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -333,8 +339,8 @@ h1 {
 
 .upgrade-stats {
     display: flex;
-    gap: 5px;
-    font-size: 0.65rem;
+    gap: 3px;
+    font-size: 0.5rem;
     color: #ffd166;
     flex-wrap: wrap;
 }
@@ -343,22 +349,22 @@ h1 {
     background: linear-gradient(145deg, #ff9a3c, #ff6f3c);
     border: none;
     color: white;
-    padding: 4px 8px;
-    border-radius: 4px;
+    padding: 2px 4px;
+    border-radius: 3px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 0.7rem;
-    min-width: 50px;
+    font-size: 0.5rem;
+    min-width: 35px;
 }
 
 /* Статистика */
 .stats {
     display: flex;
     flex-direction: row;
-    gap: 5px;
-    margin-top: 8px;
-    padding-top: 8px;
-    border-top: 2px solid #00adb5;
+    gap: 2px;
+    margin-top: 3px;
+    padding-top: 3px;
+    border-top: 1px solid #00adb5;
     flex-wrap: wrap;
 }
 
@@ -366,50 +372,49 @@ h1 {
     flex: 1;
     text-align: center;
     background-color: rgba(0, 173, 181, 0.1);
-    padding: 4px;
-    border-radius: 6px;
-    min-width: 70px;
+    padding: 2px;
+    border-radius: 4px;
+    min-width: 50px;
 }
 
 .stat-value {
-    font-size: 0.9rem;
+    font-size: 0.6rem;
     color: #00ff9d;
-    margin-top: 2px;
+    margin-top: 1px;
 }
 
 .stat-label {
     color: #ccc;
-    font-size: 0.65rem;
+    font-size: 0.5rem;
 }
 
 /* Достижения */
 .achievements-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 5px;
-    margin-top: 8px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 3px;
+    margin-top: 3px;
 }
 
 .achievement-item {
     background: linear-gradient(145deg, #2a2a3a, #1e1e2e);
-    border-radius: 6px;
-    padding: 6px;
+    border-radius: 4px;
+    padding: 3px;
     display: flex;
-    flex-direction: row;
     align-items: center;
-    gap: 5px;
-    border-left: 3px solid #555;
+    gap: 3px;
+    border-left: 2px solid #555;
 }
 
 .achievement-icon {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     background: linear-gradient(145deg, #333, #444);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     color: #ffd700;
     flex-shrink: 0;
 }
@@ -420,7 +425,7 @@ h1 {
 }
 
 .achievement-name {
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     font-weight: bold;
     color: #fff;
     white-space: nowrap;
@@ -429,7 +434,7 @@ h1 {
 }
 
 .achievement-description {
-    font-size: 0.6rem;
+    font-size: 0.5rem;
     color: #aaa;
     white-space: nowrap;
     overflow: hidden;
@@ -441,10 +446,10 @@ h1 {
     align-items: center;
     gap: 2px;
     color: #ffd700;
-    font-size: 0.6rem;
+    font-size: 0.5rem;
     background: rgba(255, 215, 0, 0.1);
-    padding: 2px 4px;
-    border-radius: 10px;
+    padding: 1px 3px;
+    border-radius: 8px;
     width: fit-content;
 }
 
@@ -452,42 +457,41 @@ h1 {
     background: linear-gradient(145deg, #ffd700, #ffa500);
     border: none;
     color: #1a1a2e;
-    padding: 4px 6px;
-    border-radius: 4px;
+    padding: 2px 4px;
+    border-radius: 3px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 0.65rem;
-    min-width: 50px;
+    font-size: 0.5rem;
+    min-width: 35px;
     flex-shrink: 0;
 }
 
 /* Магазин */
 .shop-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 5px;
-    margin-top: 8px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 3px;
+    margin-top: 3px;
 }
 
 .shop-item {
     background: linear-gradient(145deg, #2a2a3a, #1e1e2e);
-    border-radius: 8px;
-    padding: 8px;
+    border-radius: 4px;
+    padding: 4px;
     display: flex;
-    flex-direction: row;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
 }
 
 .shop-item-icon {
-    width: 35px;
-    height: 35px;
+    width: 25px;
+    height: 25px;
     background: linear-gradient(145deg, #ffd700, #ffa500);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
+    font-size: 0.7rem;
     color: #1a1a2e;
     flex-shrink: 0;
 }
@@ -498,7 +502,7 @@ h1 {
 }
 
 .shop-item-title {
-    font-size: 0.85rem;
+    font-size: 0.6rem;
     font-weight: bold;
     color: #ffd700;
     white-space: nowrap;
@@ -508,8 +512,8 @@ h1 {
 
 .shop-item-description {
     color: #ccc;
-    font-size: 0.65rem;
-    line-height: 1.2;
+    font-size: 0.5rem;
+    line-height: 1.1;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -517,11 +521,11 @@ h1 {
 
 .shop-item-effect {
     background: rgba(255, 215, 0, 0.1);
-    padding: 3px;
-    border-radius: 4px;
-    font-size: 0.65rem;
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.5rem;
     color: #ffd700;
-    margin: 2px 0;
+    margin: 1px 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -530,8 +534,8 @@ h1 {
 .shop-item-price {
     display: flex;
     align-items: center;
-    gap: 3px;
-    font-size: 0.8rem;
+    gap: 2px;
+    font-size: 0.6rem;
     color: #ffd700;
 }
 
@@ -539,41 +543,40 @@ h1 {
     background: linear-gradient(145deg, #ffd700, #ffa500);
     border: none;
     color: #1a1a2e;
-    padding: 4px 8px;
-    border-radius: 4px;
+    padding: 3px 5px;
+    border-radius: 3px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 0.7rem;
-    min-width: 50px;
+    font-size: 0.5rem;
+    min-width: 40px;
     flex-shrink: 0;
 }
 
 /* Скины */
 .skins-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 5px;
-    margin-top: 8px;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 3px;
+    margin-top: 3px;
 }
 
 .skin-item {
     background: linear-gradient(145deg, #2a2a3a, #1e1e2e);
-    border-radius: 8px;
-    padding: 8px;
+    border-radius: 4px;
+    padding: 4px;
     display: flex;
-    flex-direction: row;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
 }
 
 .skin-preview {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    font-size: 0.9rem;
     color: white;
     flex-shrink: 0;
 }
@@ -584,7 +587,7 @@ h1 {
 }
 
 .skin-name {
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     font-weight: bold;
     color: #fff;
     white-space: nowrap;
@@ -593,7 +596,7 @@ h1 {
 }
 
 .skin-description {
-    font-size: 0.6rem;
+    font-size: 0.5rem;
     color: #aaa;
     white-space: nowrap;
     overflow: hidden;
@@ -603,8 +606,8 @@ h1 {
 .skin-price {
     display: flex;
     align-items: center;
-    gap: 3px;
-    font-size: 0.7rem;
+    gap: 2px;
+    font-size: 0.55rem;
     color: #ffd700;
 }
 
@@ -612,42 +615,41 @@ h1 {
     background: linear-gradient(145deg, #ff6b6b, #ff4757);
     border: none;
     color: white;
-    padding: 4px 8px;
-    border-radius: 4px;
+    padding: 3px 5px;
+    border-radius: 3px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 0.65rem;
-    min-width: 50px;
+    font-size: 0.5rem;
+    min-width: 40px;
     flex-shrink: 0;
 }
 
 /* Кейсы */
 .cases-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 5px;
-    margin-top: 8px;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 3px;
+    margin-top: 3px;
 }
 
 .case-item {
     background: linear-gradient(145deg, #2a2a3a, #1e1e2e);
-    border-radius: 8px;
-    padding: 8px;
+    border-radius: 4px;
+    padding: 4px;
     display: flex;
-    flex-direction: row;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
 }
 
 .case-image {
-    width: 35px;
-    height: 35px;
+    width: 25px;
+    height: 25px;
     background: linear-gradient(145deg, #333, #444);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    font-size: 0.9rem;
     flex-shrink: 0;
 }
 
@@ -657,7 +659,7 @@ h1 {
 }
 
 .case-name {
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     font-weight: bold;
     white-space: nowrap;
     overflow: hidden;
@@ -665,7 +667,7 @@ h1 {
 }
 
 .case-description {
-    font-size: 0.6rem;
+    font-size: 0.5rem;
     color: #aaa;
     white-space: nowrap;
     overflow: hidden;
@@ -675,43 +677,43 @@ h1 {
 .case-price {
     display: flex;
     align-items: center;
-    gap: 3px;
-    font-size: 0.7rem;
+    gap: 2px;
+    font-size: 0.55rem;
     color: #ffd700;
 }
 
 .case-buttons {
     display: flex;
-    gap: 3px;
+    gap: 2px;
     flex-shrink: 0;
 }
 
 .case-open-button {
-    padding: 4px 6px;
-    border-radius: 4px;
+    padding: 3px 5px;
+    border-radius: 3px;
     border: none;
     color: white;
     font-weight: bold;
-    font-size: 0.65rem;
+    font-size: 0.5rem;
     cursor: pointer;
 }
 
 .case-info-button {
-    padding: 4px 6px;
-    border-radius: 4px;
+    padding: 3px 5px;
+    border-radius: 3px;
     border: none;
     background: #3498db;
     color: white;
-    font-size: 0.65rem;
+    font-size: 0.5rem;
     cursor: pointer;
 }
 
 /* Telegram панель */
 .telegram-panel {
     background: linear-gradient(145deg, #0088cc, #0077b5);
-    border-radius: 6px;
-    padding: 6px;
-    margin-bottom: 8px;
+    border-radius: 4px;
+    padding: 3px;
+    margin-bottom: 3px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -722,69 +724,73 @@ h1 {
 .telegram-user {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 3px;
+    font-size: 0.6rem;
+}
+
+.telegram-user i {
     font-size: 0.8rem;
 }
 
 .telegram-buttons {
     display: flex;
-    gap: 5px;
+    gap: 3px;
 }
 
 .telegram-button {
     background: rgba(255, 255, 255, 0.2);
     border: none;
     color: white;
-    padding: 4px 8px;
-    border-radius: 4px;
+    padding: 2px 5px;
+    border-radius: 3px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 0.7rem;
+    font-size: 0.55rem;
     display: flex;
     align-items: center;
-    gap: 3px;
+    gap: 2px;
 }
 
 /* Лидерборд */
 .leaderboard-table {
     overflow-x: auto;
-    margin: 8px 0;
+    margin: 3px 0;
 }
 
 .leaderboard-header-row {
     display: grid;
-    grid-template-columns: 40px 1fr 60px 50px 40px;
+    grid-template-columns: 30px 1fr 50px 40px 30px;
     background: #00adb5;
     color: white;
-    padding: 5px;
+    padding: 3px;
     font-weight: bold;
-    font-size: 0.7rem;
+    font-size: 0.55rem;
     text-align: center;
-    min-width: 280px;
+    min-width: 250px;
 }
 
 .leaderboard-row {
     display: grid;
-    grid-template-columns: 40px 1fr 60px 50px 40px;
-    padding: 4px 5px;
+    grid-template-columns: 30px 1fr 50px 40px 30px;
+    padding: 2px 3px;
     border-bottom: 1px solid #333;
-    font-size: 0.7rem;
+    font-size: 0.55rem;
     text-align: center;
     align-items: center;
-    min-width: 280px;
+    min-width: 250px;
 }
 
 .leaderboard-update {
     background: linear-gradient(145deg, #ffd700, #ffa500);
     border: none;
     color: #1a1a2e;
-    padding: 6px 12px;
-    border-radius: 6px;
+    padding: 4px 8px;
+    border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     width: 100%;
-    margin-top: 8px;
+    margin-top: 3px;
 }
 
 /* Модальные окна */
@@ -799,67 +805,72 @@ h1 {
     display: none;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    padding: 5px;
 }
 
 .promo-box, .confirm-box {
     background-color: #1a1a2e;
-    padding: 15px;
-    border-radius: 12px;
-    max-width: 350px;
+    padding: 10px;
+    border-radius: 8px;
+    max-width: 280px;
     width: 100%;
     text-align: center;
-    border: 2px solid #9b59b6;
+    border: 1px solid #9b59b6;
+}
+
+.promo-title {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
 }
 
 .promo-input {
     width: 100%;
-    padding: 8px;
-    border-radius: 6px;
-    border: 2px solid #333;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #333;
     background: rgba(255, 255, 255, 0.1);
     color: white;
-    font-size: 0.9rem;
-    margin-bottom: 10px;
+    font-size: 0.7rem;
+    margin-bottom: 5px;
     text-align: center;
 }
 
 .promo-buttons {
     display: flex;
-    gap: 5px;
-    margin-bottom: 10px;
+    gap: 3px;
+    margin-bottom: 5px;
 }
 
 .promo-activate {
     flex: 2;
-    padding: 6px;
+    padding: 4px;
     background: linear-gradient(145deg, #9b59b6, #8e44ad);
     border: none;
     color: white;
-    border-radius: 6px;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 0.8rem;
+    font-size: 0.65rem;
 }
 
 .promo-close {
     flex: 1;
-    padding: 6px;
+    padding: 4px;
     background: #555;
     border: none;
     color: white;
-    border-radius: 6px;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 0.8rem;
+    font-size: 0.65rem;
 }
 
 /* Футер */
 footer {
     text-align: center;
-    margin-top: 10px;
-    padding-top: 8px;
+    margin-top: 3px;
+    padding-top: 3px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     color: #aaa;
-    font-size: 0.7rem;
+    font-size: 0.5rem;
 }
 
 /* Стили для скинов кнопки */
@@ -894,7 +905,6 @@ footer {
 
 .click-button.skin-rainbow {
     background: linear-gradient(145deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff);
-    background-size: 400% 400%;
 }
 
 .click-button.skin-crystal {
@@ -909,11 +919,11 @@ footer {
 .click-animation {
     position: fixed;
     pointer-events: none;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: bold;
     color: #ffd166;
     z-index: 100;
-    animation: floatUp 1s ease-out forwards;
+    animation: floatUp 0.8s ease-out forwards;
 }
 
 @keyframes floatUp {
@@ -923,6 +933,6 @@ footer {
     }
     100% {
         opacity: 0;
-        transform: translateY(-50px) scale(1.2);
+        transform: translateY(-30px) scale(1.2);
     }
 }

@@ -11,7 +11,7 @@ body {
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
     color: #fff;
     min-height: 100vh;
-    padding: 20px;
+    padding: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,39 +21,38 @@ body {
     max-width: 1400px;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.7);
-    border-radius: 20px;
+    border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     overflow: hidden;
-    padding: 30px;
+    padding: 10px;
 }
 
 /* Шапка */
 header {
     text-align: center;
-    margin-bottom: 30px;
-    padding-bottom: 20px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
     border-bottom: 2px solid #00adb5;
-    position: relative;
 }
 
 h1 {
-    font-size: 2.8rem;
-    margin-bottom: 10px;
+    font-size: 1.8rem;
+    margin-bottom: 5px;
     color: #00adb5;
     text-shadow: 0 0 10px rgba(0, 173, 181, 0.5);
 }
 
 .subtitle {
-    font-size: 1.2rem;
+    font-size: 0.9rem;
     color: #ccc;
-    margin-bottom: 15px;
+    margin-bottom: 8px;
 }
 
 .header-controls {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-top: 15px;
+    gap: 5px;
+    margin-top: 8px;
     flex-wrap: wrap;
 }
 
@@ -61,269 +60,124 @@ h1 {
 .keys-display {
     background: linear-gradient(145deg, #ffd700, #ffa500);
     color: #1a1a2e;
-    padding: 10px 25px;
+    padding: 5px 12px;
     border-radius: 50px;
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 0.9rem;
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
     box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
-    margin-left: 15px;
     cursor: pointer;
     transition: all 0.3s;
-}
-
-.keys-display:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
-}
-
-.keys-display i {
-    color: #1a1a2e;
 }
 
 /* Кнопки управления */
-.reset-button {
-    background: linear-gradient(145deg, #ff4757, #ff3838);
+.reset-button, .sound-toggle, .promo-button {
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-size: 0.8rem;
     border: none;
     color: white;
-    padding: 10px 20px;
-    border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
     transition: all 0.3s;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    box-shadow: 0 4px 10px rgba(255, 71, 87, 0.3);
+    gap: 5px;
+}
+
+.reset-button {
+    background: linear-gradient(145deg, #ff4757, #ff3838);
 }
 
 .sound-toggle {
     background: linear-gradient(145deg, #6c5ce7, #a29bfe);
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 4px 10px rgba(108, 92, 231, 0.3);
 }
 
-.reset-button:hover {
-    background: linear-gradient(145deg, #ff3838, #ff4757);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(255, 71, 87, 0.4);
+.promo-button {
+    background: linear-gradient(145deg, #9b59b6, #8e44ad);
 }
 
-.sound-toggle:hover {
-    background: linear-gradient(145deg, #a29bfe, #6c5ce7);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(108, 92, 231, 0.4);
-}
-
-.reset-button:active, .sound-toggle:active {
-    transform: translateY(0);
-}
-
-.sound-toggle.disabled {
-    background: linear-gradient(145deg, #555, #666);
-    opacity: 0.7;
-}
-
-.sound-toggle.disabled:hover {
-    background: linear-gradient(145deg, #555, #666);
-    transform: none;
-    box-shadow: 0 4px 10px rgba(85, 85, 85, 0.3);
-}
-
-/* Модальное окно подтверждения */
-.confirm-reset {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-}
-
-.confirm-box {
-    background-color: #1a1a2e;
-    padding: 30px;
-    border-radius: 15px;
-    max-width: 400px;
-    width: 90%;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    border: 2px solid #ff4757;
-}
-
-.confirm-title {
-    font-size: 1.8rem;
-    color: #ff4757;
-    margin-bottom: 15px;
-}
-
-.confirm-text {
-    font-size: 1.1rem;
-    margin-bottom: 25px;
-    color: #ddd;
-    line-height: 1.5;
-}
-
-.confirm-buttons {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-}
-
-.confirm-yes {
-    background: linear-gradient(145deg, #ff4757, #ff3838);
-    border: none;
-    color: white;
-    padding: 12px 25px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.2s;
-    flex: 1;
-}
-
-.confirm-no {
-    background: linear-gradient(145deg, #00adb5, #00969c);
-    border: none;
-    color: white;
-    padding: 12px 25px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.2s;
-    flex: 1;
-}
-
-.confirm-yes:hover {
-    background: linear-gradient(145deg, #ff3838, #ff4757);
-    transform: scale(1.05);
-}
-
-.confirm-no:hover {
-    background: linear-gradient(145deg, #00969c, #00adb5);
-    transform: scale(1.05);
-}
-
-/* Табы */
+/* Табы - ВСЕГДА В СТРОКУ */
 .tabs {
     display: flex;
     justify-content: center;
-    margin-bottom: 30px;
-    gap: 15px;
-    flex-wrap: wrap;
+    margin-bottom: 10px;
+    gap: 3px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 5px 0;
+    -webkit-overflow-scrolling: touch;
 }
 
 .tab-button {
     background: linear-gradient(145deg, #333, #444);
     border: none;
     color: white;
-    padding: 15px 30px;
-    border-radius: 10px;
+    padding: 6px 8px;
+    border-radius: 6px;
     cursor: pointer;
     font-weight: bold;
     transition: all 0.3s;
-    font-size: 1.1rem;
+    font-size: 0.7rem;
     display: flex;
     align-items: center;
-    gap: 10px;
-    min-width: 200px;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.tab-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transform: translateX(-100%);
-    transition: transform 0.5s;
-}
-
-.tab-button:hover::before {
-    transform: translateX(100%);
-}
-
-.tab-button:hover {
-    background: linear-gradient(145deg, #444, #555);
-    transform: translateY(-2px);
-}
-
-.tab-button.active {
-    background: linear-gradient(145deg, #00adb5, #00969c);
-    box-shadow: 0 4px 15px rgba(0, 173, 181, 0.3);
+    gap: 3px;
+    flex: 0 0 auto;
+    white-space: nowrap;
 }
 
 .tab-button i {
-    font-size: 1.2rem;
+    font-size: 0.8rem;
 }
 
 .tab-counter {
     background: #ffd700;
     color: #1a1a2e;
-    padding: 2px 8px;
+    padding: 2px 4px;
     border-radius: 20px;
-    font-size: 0.8rem;
-    margin-left: 5px;
+    font-size: 0.6rem;
+    margin-left: 2px;
+}
+
+.tab-button.active {
+    background: linear-gradient(145deg, #00adb5, #00969c);
 }
 
 .tab-content {
     display: none;
-    animation: fadeIn 0.3s ease;
 }
 
 .tab-content.active {
     display: block;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Игровая область */
+/* Игровая область - ВСЕГДА В СТРОКУ */
 .game-area {
     display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
+    flex-direction: row;
+    gap: 8px;
 }
 
 .clicker-section {
     flex: 1;
-    min-width: 300px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    padding: 8px;
     background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
+    border-radius: 10px;
+    min-width: 0;
 }
 
+/* Секция энергии */
 .energy-section {
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 8px;
     background-color: rgba(0, 0, 0, 0.3);
-    padding: 15px;
-    border-radius: 10px;
+    padding: 6px;
+    border-radius: 8px;
     border: 1px solid #ffd166;
 }
 
@@ -331,77 +185,67 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
 }
 
 .energy-title {
-    font-size: 1.3rem;
+    font-size: 0.9rem;
     color: #ffd166;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 3px;
 }
 
 .energy-value {
-    font-size: 1.4rem;
+    font-size: 1rem;
     font-weight: bold;
     color: #00ff9d;
 }
 
 .energy-bar-container {
     width: 100%;
-    height: 20px;
+    height: 8px;
     background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
+    border-radius: 4px;
     overflow: hidden;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
 }
 
 .energy-bar {
     height: 100%;
     background: linear-gradient(90deg, #00adb5, #00ff9d);
-    border-radius: 10px;
+    border-radius: 4px;
     transition: width 0.3s ease;
-    width: 100%;
 }
 
 .energy-info {
     display: flex;
     justify-content: space-between;
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     color: #aaa;
 }
 
-.energy-regen {
-    color: #00ff9d;
-    font-weight: bold;
-}
-
-.energy-cost {
-    color: #ff4757;
-    font-weight: bold;
-}
-
+/* Кнопка клика */
 .click-counter {
-    font-size: 3.5rem;
-    margin: 20px 0;
+    font-size: 1.8rem;
+    margin: 5px 0;
     color: #00ff9d;
     text-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
-    min-height: 90px;
+    min-height: 40px;
     display: flex;
     align-items: center;
 }
 
 .click-button {
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     border: none;
     color: white;
-    font-size: 1.8rem;
+    font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    margin: 20px 0;
+    margin: 5px 0;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
     transition: all 0.1s;
     position: relative;
@@ -414,7 +258,6 @@ h1 {
 
 .click-button:active:not(:disabled) {
     transform: scale(0.95);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
 }
 
 .click-button:disabled {
@@ -423,1104 +266,603 @@ h1 {
     opacity: 0.7;
 }
 
-.click-button::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.3);
-    transform: translate(-50%, -50%);
-    transition: width 0.3s, height 0.3s;
-}
-
-.click-button:active:not(:disabled)::after {
-    width: 200px;
-    height: 200px;
-}
-
-.no-energy {
-    animation: noEnergyPulse 0.5s ease-in-out;
-}
-
-@keyframes noEnergyPulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-}
-
 .click-rate {
-    font-size: 1.5rem;
+    font-size: 0.9rem;
     color: #ffd166;
-    margin-top: 10px;
+    margin-top: 3px;
 }
 
+/* Улучшения */
 .upgrades-section {
     flex: 1;
-    min-width: 300px;
-    padding: 20px;
+    padding: 8px;
     background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
-    max-height: 600px;
+    border-radius: 10px;
+    max-height: 400px;
     overflow-y: auto;
+    min-width: 0;
 }
 
 .section-title {
-    font-size: 1.8rem;
+    font-size: 1rem;
     color: #ffd166;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
+    margin-bottom: 8px;
+    padding-bottom: 3px;
     border-bottom: 1px solid #ffd166;
     text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
 }
 
 .upgrade-list {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 5px;
 }
 
 .upgrade-item {
     background-color: rgba(255, 255, 255, 0.08);
-    border-radius: 10px;
-    padding: 15px;
+    border-radius: 6px;
+    padding: 6px;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    transition: all 0.3s;
-}
-
-.upgrade-item:hover {
-    background-color: rgba(255, 255, 255, 0.12);
-    transform: translateY(-3px);
+    gap: 5px;
 }
 
 .upgrade-info {
     flex: 1;
+    min-width: 0;
 }
 
 .upgrade-name {
-    font-size: 1.3rem;
-    margin-bottom: 5px;
+    font-size: 0.85rem;
     color: #00adb5;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .upgrade-description {
-    font-size: 0.9rem;
+    font-size: 0.65rem;
     color: #aaa;
-    margin-bottom: 8px;
+    margin: 2px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .upgrade-stats {
     display: flex;
-    gap: 15px;
-    font-size: 0.9rem;
+    gap: 5px;
+    font-size: 0.65rem;
     color: #ffd166;
+    flex-wrap: wrap;
 }
 
 .upgrade-button {
     background: linear-gradient(145deg, #ff9a3c, #ff6f3c);
     border: none;
     color: white;
-    padding: 10px 20px;
-    border-radius: 8px;
+    padding: 4px 8px;
+    border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
-    transition: all 0.2s;
-    min-width: 120px;
-}
-
-.upgrade-button:hover:not(:disabled) {
-    background: linear-gradient(145deg, #ff6f3c, #ff9a3c);
-    transform: scale(1.05);
-}
-
-.upgrade-button:disabled {
-    background: #555;
-    cursor: not-allowed;
-    opacity: 0.6;
-}
-
-.upgrade-maxed {
-    background: linear-gradient(145deg, #6c5ce7, #a29bfe) !important;
-    cursor: default !important;
-}
-
-.upgrade-maxed:hover {
-    background: linear-gradient(145deg, #6c5ce7, #a29bfe) !important;
-    transform: none !important;
-}
-
-.upgrade-item.maxed {
-    border: 2px solid #6c5ce7;
-    background-color: rgba(108, 92, 231, 0.1);
+    font-size: 0.7rem;
+    min-width: 50px;
 }
 
 /* Статистика */
 .stats {
     display: flex;
-    justify-content: space-around;
-    margin-top: 30px;
-    padding-top: 20px;
+    flex-direction: row;
+    gap: 5px;
+    margin-top: 8px;
+    padding-top: 8px;
     border-top: 2px solid #00adb5;
     flex-wrap: wrap;
-    gap: 15px;
 }
 
 .stat-item {
+    flex: 1;
     text-align: center;
     background-color: rgba(0, 173, 181, 0.1);
-    padding: 15px;
-    border-radius: 10px;
-    min-width: 180px;
+    padding: 4px;
+    border-radius: 6px;
+    min-width: 70px;
 }
 
 .stat-value {
-    font-size: 1.8rem;
+    font-size: 0.9rem;
     color: #00ff9d;
-    margin-top: 5px;
+    margin-top: 2px;
 }
 
 .stat-label {
     color: #ccc;
-    font-size: 1rem;
+    font-size: 0.65rem;
 }
 
 /* Достижения */
-.achievements-container {
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
-    padding: 30px;
-    min-height: 500px;
-}
-
-.achievements-stats {
-    display: flex;
-    gap: 30px;
-    justify-content: center;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-}
-
-.achievements-stat {
-    text-align: center;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 15px 25px;
-    border-radius: 10px;
-    min-width: 150px;
-}
-
-.achievements-stat-value {
-    font-size: 2rem;
-    color: #ffd700;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.achievements-stat-label {
-    color: #aaa;
-    font-size: 0.9rem;
-}
-
 .achievements-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 5px;
+    margin-top: 8px;
 }
 
 .achievement-item {
     background: linear-gradient(145deg, #2a2a3a, #1e1e2e);
-    border-radius: 12px;
-    padding: 20px;
+    border-radius: 6px;
+    padding: 6px;
     display: flex;
+    flex-direction: row;
     align-items: center;
-    gap: 15px;
-    transition: all 0.3s;
-    border-left: 4px solid #555;
-    position: relative;
-    overflow: hidden;
-}
-
-.achievement-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-    transform: translateX(-100%);
-    transition: transform 0.5s;
-}
-
-.achievement-item:hover::before {
-    transform: translateX(100%);
-}
-
-.achievement-item.completed {
-    border-left-color: #ffd700;
-    background: linear-gradient(145deg, #2a2a3a, #1e1e2e);
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
+    gap: 5px;
+    border-left: 3px solid #555;
 }
 
 .achievement-icon {
-    width: 60px;
-    height: 60px;
+    width: 25px;
+    height: 25px;
     background: linear-gradient(145deg, #333, #444);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.8rem;
+    font-size: 0.8rem;
     color: #ffd700;
     flex-shrink: 0;
 }
 
-.achievement-item.completed .achievement-icon {
-    background: linear-gradient(145deg, #ffd700, #ffa500);
-    color: #1a1a2e;
-}
-
 .achievement-info {
     flex: 1;
+    min-width: 0;
 }
 
 .achievement-name {
-    font-size: 1.2rem;
+    font-size: 0.8rem;
     font-weight: bold;
     color: #fff;
-    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .achievement-description {
-    font-size: 0.9rem;
+    font-size: 0.6rem;
     color: #aaa;
-    margin-bottom: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .achievement-reward {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 2px;
     color: #ffd700;
-    font-weight: bold;
-    font-size: 0.9rem;
+    font-size: 0.6rem;
     background: rgba(255, 215, 0, 0.1);
-    padding: 4px 8px;
-    border-radius: 20px;
+    padding: 2px 4px;
+    border-radius: 10px;
     width: fit-content;
-}
-
-.achievement-progress {
-    margin-top: 10px;
-}
-
-.progress-bar-container {
-    width: 100%;
-    height: 8px;
-    background: #333;
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.progress-bar {
-    height: 100%;
-    background: #ffd700;
-    border-radius: 4px;
-    transition: width 0.3s;
-}
-
-.progress-text {
-    font-size: 0.8rem;
-    color: #aaa;
-    margin-top: 5px;
-    text-align: right;
 }
 
 .claim-button {
     background: linear-gradient(145deg, #ffd700, #ffa500);
     border: none;
     color: #1a1a2e;
-    padding: 10px 20px;
-    border-radius: 8px;
+    padding: 4px 6px;
+    border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 0.9rem;
-    transition: all 0.2s;
-    min-width: 100px;
-    margin-left: 10px;
+    font-size: 0.65rem;
+    min-width: 50px;
     flex-shrink: 0;
 }
 
-.claim-button:hover:not(:disabled) {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-}
-
-.claim-button:disabled {
-    background: #555;
-    cursor: not-allowed;
-    color: #aaa;
-}
-
-.claim-button.claimed {
-    background: #4CAF50;
-    cursor: default;
-}
-
 /* Магазин */
-.shop-container {
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
-    padding: 30px;
-    min-height: 500px;
-}
-
-.shop-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.shop-header h2 {
-    font-size: 2rem;
-    color: #ffd700;
-    margin-bottom: 10px;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-}
-
-.shop-header p {
-    color: #ccc;
-    font-size: 1.1rem;
-}
-
-.shop-stats {
-    display: flex;
-    gap: 30px;
-    justify-content: center;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
-}
-
-.shop-stat {
-    text-align: center;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 20px 30px;
-    border-radius: 15px;
-    min-width: 200px;
-}
-
-.shop-stat-value {
-    font-size: 2.5rem;
-    color: #ffd700;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.shop-stat-label {
-    color: #ccc;
-    font-size: 1rem;
-}
-
 .shop-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 25px;
-    margin-top: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 5px;
+    margin-top: 8px;
 }
 
 .shop-item {
     background: linear-gradient(145deg, #2a2a3a, #1e1e2e);
-    border-radius: 15px;
-    padding: 25px;
+    border-radius: 8px;
+    padding: 8px;
     display: flex;
-    flex-direction: column;
-    gap: 15px;
-    transition: all 0.3s;
-    border: 2px solid transparent;
-    position: relative;
-    overflow: hidden;
-}
-
-.shop-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #ffd700, #ffa500, #ffd700);
-    transform: translateX(-100%);
-    transition: transform 0.5s;
-}
-
-.shop-item:hover::before {
-    transform: translateX(100%);
-}
-
-.shop-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
-    border-color: #ffd700;
-}
-
-.shop-item.purchased {
-    opacity: 0.8;
-    border-color: #4CAF50;
-    background: linear-gradient(145deg, #1e1e2e, #1a1a2a);
-}
-
-.shop-item.purchased::before {
-    background: linear-gradient(90deg, #4CAF50, #45a049, #4CAF50);
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
 }
 
 .shop-item-icon {
-    width: 80px;
-    height: 80px;
+    width: 35px;
+    height: 35px;
     background: linear-gradient(145deg, #ffd700, #ffa500);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2.5rem;
+    font-size: 1rem;
     color: #1a1a2e;
-    margin-bottom: 10px;
-    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
-}
-
-.shop-item.purchased .shop-item-icon {
-    background: linear-gradient(145deg, #4CAF50, #45a049);
+    flex-shrink: 0;
 }
 
 .shop-item-content {
     flex: 1;
+    min-width: 0;
 }
 
 .shop-item-title {
-    font-size: 1.5rem;
+    font-size: 0.85rem;
     font-weight: bold;
     color: #ffd700;
-    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .shop-item-description {
     color: #ccc;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    margin-bottom: 15px;
+    font-size: 0.65rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .shop-item-effect {
     background: rgba(255, 215, 0, 0.1);
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    font-size: 0.95rem;
+    padding: 3px;
+    border-radius: 4px;
+    font-size: 0.65rem;
     color: #ffd700;
-    border-left: 3px solid #ffd700;
+    margin: 2px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .shop-item-price {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 1.3rem;
-    font-weight: bold;
+    gap: 3px;
+    font-size: 0.8rem;
     color: #ffd700;
-    margin-bottom: 15px;
-}
-
-.shop-item-price i {
-    font-size: 1.1rem;
 }
 
 .shop-buy-button {
     background: linear-gradient(145deg, #ffd700, #ffa500);
     border: none;
     color: #1a1a2e;
-    padding: 15px 20px;
-    border-radius: 10px;
+    padding: 4px 8px;
+    border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 1.1rem;
-    transition: all 0.3s;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+    font-size: 0.7rem;
+    min-width: 50px;
+    flex-shrink: 0;
 }
 
-.shop-buy-button:hover:not(:disabled) {
-    transform: scale(1.02);
-    box-shadow: 0 5px 20px rgba(255, 215, 0, 0.5);
-}
-
-.shop-buy-button:disabled {
-    background: #555;
-    cursor: not-allowed;
-    color: #aaa;
-}
-
-.shop-buy-button.purchased {
-    background: #4CAF50;
-    cursor: default;
-}
-
-.shop-buy-button.purchased:hover {
-    transform: none;
-    box-shadow: none;
-}
-
-/* Анимация клика */
-.click-animation {
-    position: fixed;
-    pointer-events: none;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #ffd166;
-    z-index: 100;
-    animation: floatUp 1s ease-out forwards;
-}
-
-@keyframes floatUp {
-    0% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(-100px) scale(1.5);
-    }
-}
-
-/* Уведомление о покупке */
-.purchase-notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: linear-gradient(145deg, #4CAF50, #45a049);
-    color: white;
-    padding: 15px 25px;
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(76, 175, 80, 0.3);
-    z-index: 1000;
-    animation: slideIn 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-@keyframes slideIn {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-/* Футер */
-footer {
-    text-align: center;
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    color: #aaa;
-    font-size: 0.9rem;
-}
-
-/* Адаптивность */
-@media (max-width: 768px) {
-    .game-area {
-        flex-direction: column;
-    }
-    
-    .click-button {
-        width: 180px;
-        height: 180px;
-    }
-    
-    h1 {
-        font-size: 2.2rem;
-    }
-    
-    .confirm-buttons {
-        flex-direction: column;
-    }
-    
-    .header-controls {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .reset-button, .sound-toggle {
-        width: 250px;
-    }
-    
-    .tabs {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .tab-button {
-        width: 100%;
-        max-width: 300px;
-    }
-    
-    .shop-grid, .achievements-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .achievement-item {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .claim-button {
-        margin-left: 0;
-        margin-top: 10px;
-        width: 100%;
-    }
-}
-
-/* Стили для промокодов */
-.promo-button {
-    background: linear-gradient(145deg, #9b59b6, #8e44ad);
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 4px 10px rgba(155, 89, 182, 0.3);
-}
-
-.promo-button:hover {
-    background: linear-gradient(145deg, #8e44ad, #9b59b6);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(155, 89, 182, 0.4);
-}
-
-.promo-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 2000;
-    justify-content: center;
-    align-items: center;
-}
-
-.promo-box {
-    background-color: #1a1a2e;
-    padding: 30px;
-    border-radius: 15px;
-    max-width: 500px;
-    width: 90%;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    border: 2px solid #9b59b6;
-}
-
-.promo-title {
-    font-size: 1.8rem;
-    color: #9b59b6;
-    margin-bottom: 20px;
-}
-
-.promo-input {
-    width: 100%;
-    padding: 15px;
-    border-radius: 8px;
-    border: 2px solid #333;
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    text-align: center;
-    letter-spacing: 2px;
-}
-
-.promo-input:focus {
-    outline: none;
-    border-color: #9b59b6;
-}
-
-.promo-buttons {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.promo-activate {
-    background: linear-gradient(145deg, #9b59b6, #8e44ad);
-    border: none;
-    color: white;
-    padding: 12px 25px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.2s;
-    flex: 2;
-}
-
-.promo-close {
-    background: linear-gradient(145deg, #555, #666);
-    border: none;
-    color: white;
-    padding: 12px 25px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.2s;
-    flex: 1;
-}
-
-.promo-activate:hover {
-    background: linear-gradient(145deg, #8e44ad, #9b59b6);
-    transform: scale(1.02);
-}
-
-.promo-close:hover {
-    background: linear-gradient(145deg, #666, #777);
-    transform: scale(1.02);
-}
-
-.promo-list {
-    max-height: 200px;
-    overflow-y: auto;
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 8px;
-}
-
-.promo-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #333;
-    color: #ccc;
-}
-
-.promo-item:last-child {
-    border-bottom: none;
-}
-
-.promo-code {
-    font-family: monospace;
-    font-size: 1.1rem;
-    color: #9b59b6;
-    font-weight: bold;
-}
-
-.promo-reward {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    color: #ffd700;
-}
-
-.promo-used {
-    color: #4CAF50;
-    font-size: 0.9rem;
-}
-
-.promo-status {
-    font-size: 0.9rem;
-    padding: 3px 8px;
-    border-radius: 20px;
-}
-
-.promo-status.active {
-    background: rgba(76, 175, 80, 0.2);
-    color: #4CAF50;
-}
-
-.promo-status.used {
-    background: rgba(255, 71, 87, 0.2);
-    color: #ff4757;
-}
-
-.promo-message {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 15px 25px;
-    border-radius: 10px;
-    color: white;
-    font-weight: bold;
-    z-index: 2100;
-    animation: slideIn 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.promo-message.success {
-    background: linear-gradient(145deg, #4CAF50, #45a049);
-}
-
-.promo-message.error {
-    background: linear-gradient(145deg, #ff4757, #ff3838);
-}
-
-.promo-message.info {
-    background: linear-gradient(145deg, #00adb5, #00969c);
-}
-
-/* Специальные улучшения в магазине */
-.shop-item.special {
-    border: 2px solid #9b59b6;
-    background: linear-gradient(145deg, #2a1a3a, #1e1a2e);
-    position: relative;
-    overflow: hidden;
-}
-
-.shop-item.special::before {
-    content: '⭐';
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.2rem;
-    color: #ffd700;
-    z-index: 1;
-}
-
-.shop-item.special .shop-item-title {
-    color: #9b59b6;
-}
-
-.shop-item.special .shop-item-icon {
-    background: linear-gradient(145deg, #9b59b6, #8e44ad);
-}
-
-.shop-item.special .shop-item-effect {
-    border-left-color: #9b59b6;
-    color: #9b59b6;
-}
-
-.shop-item.hidden {
-    display: none;
-}
-
-/* Стили для скинов */
-.skins-container {
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
-    padding: 30px;
-    min-height: 500px;
-}
-
-.skins-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.skins-header h2 {
-    font-size: 2rem;
-    color: #ff6b6b;
-    margin-bottom: 10px;
-    text-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
-}
-
-.skins-header p {
-    color: #ccc;
-    font-size: 1.1rem;
-}
-
-.skins-stats {
-    display: flex;
-    gap: 30px;
-    justify-content: center;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
-}
-
-.skins-stat {
-    text-align: center;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 20px 30px;
-    border-radius: 15px;
-    min-width: 200px;
-}
-
-.skins-stat-value {
-    font-size: 2.5rem;
-    color: #ff6b6b;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.skins-stat-label {
-    color: #ccc;
-    font-size: 1rem;
-}
-
+/* Скины */
 .skins-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 25px;
-    margin-top: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 5px;
+    margin-top: 8px;
 }
 
 .skin-item {
     background: linear-gradient(145deg, #2a2a3a, #1e1e2e);
-    border-radius: 15px;
-    padding: 20px;
+    border-radius: 8px;
+    padding: 8px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    gap: 15px;
-    transition: all 0.3s;
-    border: 2px solid transparent;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-}
-
-.skin-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(255, 107, 107, 0.2);
-    border-color: #ff6b6b;
-}
-
-.skin-item.purchased {
-    border-color: #4CAF50;
-    background: linear-gradient(145deg, #1e1e2e, #1a1a2a);
-}
-
-.skin-item.equipped {
-    border-color: #ff6b6b;
-    background: linear-gradient(145deg, #2a1a1a, #1e1a1a);
-    box-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
+    gap: 8px;
 }
 
 .skin-preview {
-    width: 120px;
-    height: 120px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 3rem;
+    font-size: 1.2rem;
     color: white;
-    margin-bottom: 10px;
-    transition: all 0.3s;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-}
-
-.skin-preview:hover {
-    transform: scale(1.1);
+    flex-shrink: 0;
 }
 
 .skin-info {
-    text-align: center;
-    width: 100%;
+    flex: 1;
+    min-width: 0;
 }
 
 .skin-name {
-    font-size: 1.3rem;
+    font-size: 0.8rem;
     font-weight: bold;
     color: #fff;
-    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .skin-description {
-    font-size: 0.9rem;
+    font-size: 0.6rem;
     color: #aaa;
-    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .skin-price {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-size: 1.2rem;
-    font-weight: bold;
+    gap: 3px;
+    font-size: 0.7rem;
     color: #ffd700;
-    margin-bottom: 15px;
-}
-
-.skin-price i {
-    font-size: 1rem;
 }
 
 .skin-button {
     background: linear-gradient(145deg, #ff6b6b, #ff4757);
     border: none;
     color: white;
-    padding: 12px 20px;
-    border-radius: 8px;
+    padding: 4px 8px;
+    border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 1rem;
-    transition: all 0.3s;
-    width: 100%;
+    font-size: 0.65rem;
+    min-width: 50px;
+    flex-shrink: 0;
 }
 
-.skin-button:hover:not(:disabled) {
-    transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+/* Кейсы */
+.cases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 5px;
+    margin-top: 8px;
 }
 
-.skin-button:disabled {
-    background: #555;
-    cursor: not-allowed;
+.case-item {
+    background: linear-gradient(145deg, #2a2a3a, #1e1e2e);
+    border-radius: 8px;
+    padding: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
 }
 
-.skin-button.purchased {
-    background: #4CAF50;
+.case-image {
+    width: 35px;
+    height: 35px;
+    background: linear-gradient(145deg, #333, #444);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
 }
 
-.skin-button.equipped {
-    background: #ff6b6b;
-    cursor: default;
+.case-info {
+    flex: 1;
+    min-width: 0;
 }
 
-.skin-button.equipped:hover {
-    transform: none;
-    box-shadow: none;
-}
-
-.skin-tag {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: #ff6b6b;
-    color: white;
-    padding: 4px 8px;
-    border-radius: 20px;
+.case-name {
     font-size: 0.8rem;
     font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.skin-tag.purchased {
-    background: #4CAF50;
+.case-description {
+    font-size: 0.6rem;
+    color: #aaa;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.skin-tag.equipped {
-    background: #ffd700;
+.case-price {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 0.7rem;
+    color: #ffd700;
+}
+
+.case-buttons {
+    display: flex;
+    gap: 3px;
+    flex-shrink: 0;
+}
+
+.case-open-button {
+    padding: 4px 6px;
+    border-radius: 4px;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-size: 0.65rem;
+    cursor: pointer;
+}
+
+.case-info-button {
+    padding: 4px 6px;
+    border-radius: 4px;
+    border: none;
+    background: #3498db;
+    color: white;
+    font-size: 0.65rem;
+    cursor: pointer;
+}
+
+/* Telegram панель */
+.telegram-panel {
+    background: linear-gradient(145deg, #0088cc, #0077b5);
+    border-radius: 6px;
+    padding: 6px;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.telegram-user {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8rem;
+}
+
+.telegram-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.telegram-button {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+/* Лидерборд */
+.leaderboard-table {
+    overflow-x: auto;
+    margin: 8px 0;
+}
+
+.leaderboard-header-row {
+    display: grid;
+    grid-template-columns: 40px 1fr 60px 50px 40px;
+    background: #00adb5;
+    color: white;
+    padding: 5px;
+    font-weight: bold;
+    font-size: 0.7rem;
+    text-align: center;
+    min-width: 280px;
+}
+
+.leaderboard-row {
+    display: grid;
+    grid-template-columns: 40px 1fr 60px 50px 40px;
+    padding: 4px 5px;
+    border-bottom: 1px solid #333;
+    font-size: 0.7rem;
+    text-align: center;
+    align-items: center;
+    min-width: 280px;
+}
+
+.leaderboard-update {
+    background: linear-gradient(145deg, #ffd700, #ffa500);
+    border: none;
     color: #1a1a2e;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.8rem;
+    width: 100%;
+    margin-top: 8px;
 }
 
-/* Стили для разных скинов кнопки */
+/* Модальные окна */
+.promo-modal, .confirm-reset {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 2000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.promo-box, .confirm-box {
+    background-color: #1a1a2e;
+    padding: 15px;
+    border-radius: 12px;
+    max-width: 350px;
+    width: 100%;
+    text-align: center;
+    border: 2px solid #9b59b6;
+}
+
+.promo-input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 2px solid #333;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.promo-buttons {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.promo-activate {
+    flex: 2;
+    padding: 6px;
+    background: linear-gradient(145deg, #9b59b6, #8e44ad);
+    border: none;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.promo-close {
+    flex: 1;
+    padding: 6px;
+    background: #555;
+    border: none;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+/* Футер */
+footer {
+    text-align: center;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #aaa;
+    font-size: 0.7rem;
+}
+
+/* Стили для скинов кнопки */
 .click-button.skin-default {
     background: linear-gradient(145deg, #00adb5, #00969c);
 }
@@ -1548,1380 +890,39 @@ footer {
 
 .click-button.skin-neon {
     background: linear-gradient(145deg, #00ff9d, #00b8ff);
-    animation: neonPulse 2s infinite;
 }
 
 .click-button.skin-rainbow {
     background: linear-gradient(145deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff);
     background-size: 400% 400%;
-    animation: rainbow 5s ease infinite;
 }
 
 .click-button.skin-crystal {
     background: linear-gradient(145deg, #a8e6cf, #d4edf5);
-    position: relative;
-    overflow: hidden;
 }
 
 .click-button.skin-lava {
     background: linear-gradient(145deg, #ff8c42, #ff4d4d);
-    position: relative;
-    overflow: hidden;
 }
 
-/* Анимации для скинов */
-@keyframes neonPulse {
-    0% { box-shadow: 0 0 20px rgba(0, 255, 157, 0.5); }
-    50% { box-shadow: 0 0 40px rgba(0, 255, 157, 0.8); }
-    100% { box-shadow: 0 0 20px rgba(0, 255, 157, 0.5); }
-}
-
-@keyframes rainbow {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* Стили для активного состояния кнопки */
-.click-button.skin-default:active:not(:disabled) {
-    background: linear-gradient(145deg, #00adb5, #00969c);
-    filter: brightness(0.9);
-}
-
-.click-button.skin-fire:active:not(:disabled) {
-    background: linear-gradient(145deg, #ff6b6b, #ff4757);
-    filter: brightness(0.9);
-}
-
-.click-button.skin-ice:active:not(:disabled) {
-    background: linear-gradient(145deg, #4ecdc4, #45b7aa);
-    filter: brightness(0.9);
-}
-
-.click-button.skin-royal:active:not(:disabled) {
-    background: linear-gradient(145deg, #9b59b6, #8e44ad);
-    filter: brightness(0.9);
-}
-
-.click-button.skin-gold:active:not(:disabled) {
-    background: linear-gradient(145deg, #f1c40f, #f39c12);
-    filter: brightness(0.9);
-}
-
-.click-button.skin-dark:active:not(:disabled) {
-    background: linear-gradient(145deg, #2c3e50, #34495e);
-    filter: brightness(1.2);
-}
-
-.click-button.skin-neon:active:not(:disabled) {
-    background: linear-gradient(145deg, #00ff9d, #00b8ff);
-    filter: brightness(0.9);
-}
-
-.click-button.skin-rainbow:active:not(:disabled) {
-    background: linear-gradient(145deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff);
-    background-size: 400% 400%;
-    filter: brightness(0.9);
-}
-
-.click-button.skin-crystal:active:not(:disabled) {
-    background: linear-gradient(145deg, #a8e6cf, #d4edf5);
-    filter: brightness(0.9);
-}
-
-.click-button.skin-lava:active:not(:disabled) {
-    background: linear-gradient(145deg, #ff8c42, #ff4d4d);
-    filter: brightness(0.9);
-}
-
-/* Дополнительные эффекты для скинов */
-.click-button.skin-crystal::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transform: rotate(45deg);
-    animation: crystalShine 3s infinite;
-    pointer-events: none;
-}
-
-.click-button.skin-lava::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.3), transparent 50%);
-    animation: lavaBubble 2s ease-in-out infinite;
-    pointer-events: none;
-    border-radius: 50%;
-}
-
-@keyframes crystalShine {
-    0% { transform: translateX(-100%) rotate(45deg); }
-    100% { transform: translateX(100%) rotate(45deg); }
-}
-
-@keyframes lavaBubble {
-    0% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 0.7; transform: scale(1.1); }
-    100% { opacity: 0.3; transform: scale(1); }
-}
-
-/* Стили для кейсов */
-.cases-container {
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
-    padding: 30px;
-    min-height: 500px;
-}
-
-.cases-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.cases-header h2 {
-    font-size: 2rem;
-    color: #9b59b6;
-    margin-bottom: 10px;
-    text-shadow: 0 0 10px rgba(155, 89, 182, 0.3);
-}
-
-.cases-header p {
-    color: #ccc;
-    font-size: 1.1rem;
-}
-
-.cases-stats {
-    display: flex;
-    gap: 30px;
-    justify-content: center;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
-}
-
-.cases-stat {
-    text-align: center;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 20px 30px;
-    border-radius: 15px;
-    min-width: 200px;
-}
-
-.cases-stat-value {
-    font-size: 2.5rem;
-    color: #9b59b6;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.cases-stat-label {
-    color: #ccc;
-    font-size: 1rem;
-}
-
-.cases-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 25px;
-    margin-top: 20px;
-}
-
-.case-item {
-    background: linear-gradient(145deg, #2a2a3a, #1e1e2e);
-    border-radius: 15px;
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    transition: all 0.3s;
-    border: 2px solid transparent;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-}
-
-.case-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(155, 89, 182, 0.3);
-    border-color: #9b59b6;
-}
-
-.case-item::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(155, 89, 182, 0.2), transparent 70%);
-    animation: caseGlow 3s infinite;
-    pointer-events: none;
-}
-
-@keyframes caseGlow {
-    0% { transform: rotate(0deg); opacity: 0.3; }
-    50% { transform: rotate(180deg); opacity: 0.6; }
-    100% { transform: rotate(360deg); opacity: 0.3; }
-}
-
-.case-image {
-    width: 100px;
-    height: 100px;
-    background: linear-gradient(145deg, #333, #444);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-    color: white;
-    margin-bottom: 10px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    border: 3px solid #9b59b6;
-}
-
-.case-info {
-    text-align: center;
-    width: 100%;
-}
-
-.case-name {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #9b59b6;
-    margin-bottom: 5px;
-}
-
-.case-description {
-    font-size: 0.9rem;
-    color: #aaa;
-    margin-bottom: 15px;
-}
-
-.case-price {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: #ffd700;
-    margin-bottom: 15px;
-}
-
-.case-price i {
-    font-size: 1.1rem;
-}
-
-.case-buttons {
-    display: flex;
-    gap: 10px;
-    width: 100%;
-}
-
-.case-open-button {
-    background: linear-gradient(145deg, #9b59b6, #8e44ad);
-    border: none;
-    color: white;
-    padding: 12px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 1rem;
-    transition: all 0.3s;
-    flex: 2;
-}
-
-.case-info-button {
-    background: linear-gradient(145deg, #3498db, #2980b9);
-    border: none;
-    color: white;
-    padding: 12px 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 0.9rem;
-    transition: all 0.3s;
-    flex: 1;
-}
-
-.case-open-button:hover:not(:disabled) {
-    transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(155, 89, 182, 0.4);
-}
-
-.case-info-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
-}
-
-.case-open-button:disabled {
-    background: #555;
-    cursor: not-allowed;
-}
-
-/* Telegram панель */
-.telegram-panel {
-    background: linear-gradient(145deg, #0088cc, #0077b5);
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: white;
-}
-
-.telegram-user {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1.1rem;
-}
-
-.telegram-user i {
-    font-size: 1.5rem;
-}
-
-.telegram-buttons {
-    display: flex;
-    gap: 10px;
-}
-
-.telegram-button {
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    color: white;
-    padding: 8px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.telegram-button:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: translateY(-2px);
-}
-
-/* Лидерборд */
-.leaderboard-container {
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
-    padding: 30px;
-    min-height: 500px;
-}
-
-.leaderboard-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.leaderboard-header h2 {
-    font-size: 2rem;
-    color: #ffd700;
-    margin-bottom: 10px;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-}
-
-.leaderboard-header p {
-    color: #ccc;
-    font-size: 1.1rem;
-}
-
-.leaderboard-stats {
-    display: flex;
-    gap: 30px;
-    justify-content: center;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
-}
-
-.leaderboard-stat {
-    text-align: center;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 20px 30px;
-    border-radius: 15px;
-    min-width: 200px;
-}
-
-.leaderboard-stat-value {
-    font-size: 2.5rem;
-    color: #ffd700;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.leaderboard-stat-label {
-    color: #ccc;
-    font-size: 1rem;
-}
-
-.leaderboard-table {
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 30px;
-}
-
-.leaderboard-header-row {
-    display: grid;
-    grid-template-columns: 80px 1fr 120px 100px 80px;
-    background: #00adb5;
-    color: white;
-    padding: 15px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.leaderboard-row {
-    display: grid;
-    grid-template-columns: 80px 1fr 120px 100px 80px;
-    padding: 12px 15px;
-    border-bottom: 1px solid #333;
-    text-align: center;
-    align-items: center;
-}
-
-.leaderboard-row:nth-child(even) {
-    background: rgba(255, 255, 255, 0.05);
-}
-
-.leaderboard-row:hover {
-    background: rgba(0, 173, 181, 0.1);
-}
-
-.leaderboard-rank {
-    font-weight: bold;
-    color: #ffd700;
-}
-
-.leaderboard-name {
-    color: #00ff9d;
-    font-weight: bold;
-    text-align: left;
-}
-
-.leaderboard-score, .leaderboard-clicks, .leaderboard-level {
-    color: #fff;
-}
-
-.leaderboard-update {
-    background: linear-gradient(145deg, #ffd700, #ffa500);
-    border: none;
-    color: #1a1a2e;
-    padding: 15px 30px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 1.1rem;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
-}
-
-.leaderboard-update:hover {
-    transform: scale(1.05);
-    box-shadow: 0 5px 20px rgba(255, 215, 0, 0.5);
-
-}
-
-/* style.css - Все стили игры */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-    color: #fff;
-    min-height: 100vh;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.container {
-    max-width: 1200px;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    overflow: hidden;
-    padding: 15px;
-}
-
-/* Шапка */
-header {
-    text-align: center;
-    margin-bottom: 15px;
-    padding-bottom: 15px;
-    border-bottom: 2px solid #00adb5;
-}
-
-h1 {
-    font-size: 2rem;
-    margin-bottom: 5px;
-    color: #00adb5;
-    text-shadow: 0 0 10px rgba(0, 173, 181, 0.5);
-}
-
-.subtitle {
-    font-size: 1rem;
-    color: #ccc;
-    margin-bottom: 10px;
-}
-
-.header-controls {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 10px;
-    flex-wrap: wrap;
-}
-
-/* Ключи */
-.keys-display {
-    background: linear-gradient(145deg, #ffd700, #ffa500);
-    color: #1a1a2e;
-    padding: 8px 15px;
-    border-radius: 50px;
-    font-weight: bold;
-    font-size: 1rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-/* Кнопки управления */
-.reset-button, .sound-toggle, .promo-button {
-    padding: 8px 15px;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    border: none;
-    color: white;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.reset-button {
-    background: linear-gradient(145deg, #ff4757, #ff3838);
-}
-
-.sound-toggle {
-    background: linear-gradient(145deg, #6c5ce7, #a29bfe);
-}
-
-.promo-button {
-    background: linear-gradient(145deg, #9b59b6, #8e44ad);
-}
-
-/* Табы */
-.tabs {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 15px;
-    gap: 5px;
-    flex-wrap: wrap;
-}
-
-.tab-button {
-    background: linear-gradient(145deg, #333, #444);
-    border: none;
-    color: white;
-    padding: 10px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s;
-    font-size: 0.85rem;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    flex: 1 1 auto;
-    min-width: 70px;
-    justify-content: center;
-}
-
-.tab-button i {
-    font-size: 1rem;
-}
-
-.tab-counter {
-    background: #ffd700;
-    color: #1a1a2e;
-    padding: 2px 5px;
-    border-radius: 20px;
-    font-size: 0.7rem;
-    margin-left: 3px;
-}
-
-.tab-button.active {
-    background: linear-gradient(145deg, #00adb5, #00969c);
-}
-
-.tab-content {
-    display: none;
-}
-
-.tab-content.active {
-    display: block;
-}
-
-/* Игровая область */
-.game-area {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-/* Для ПК */
-@media (min-width: 768px) {
-    .game-area {
-        flex-direction: row;
-    }
-}
-
-.clicker-section {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 15px;
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
-}
-
-/* Секция энергии */
-.energy-section {
-    width: 100%;
-    margin-bottom: 15px;
-    background-color: rgba(0, 0, 0, 0.3);
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid #ffd166;
-}
-
-.energy-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-}
-
-.energy-title {
-    font-size: 1.1rem;
-    color: #ffd166;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.energy-value {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #00ff9d;
-}
-
-.energy-bar-container {
-    width: 100%;
-    height: 15px;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 5px;
-}
-
-.energy-bar {
-    height: 100%;
-    background: linear-gradient(90deg, #00adb5, #00ff9d);
-    border-radius: 10px;
-    transition: width 0.3s ease;
-}
-
-.energy-info {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.8rem;
-    color: #aaa;
-}
-
-.energy-regen {
-    color: #00ff9d;
-    font-weight: bold;
-}
-
-.energy-cost {
-    color: #ff4757;
-    font-weight: bold;
-}
-
-/* Кнопка клика */
-.click-counter {
-    font-size: 2.5rem;
-    margin: 10px 0;
-    color: #00ff9d;
-    text-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
-    min-height: 60px;
-    display: flex;
-    align-items: center;
-}
-
-.click-button {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    border: none;
-    color: white;
-    font-size: 1.3rem;
-    font-weight: bold;
-    cursor: pointer;
-    margin: 10px 0;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    transition: all 0.1s;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Для ПК кнопка больше */
-@media (min-width: 768px) {
-    .click-button {
-        width: 200px;
-        height: 200px;
-        font-size: 1.8rem;
-    }
-    
-    .click-counter {
-        font-size: 3.5rem;
-    }
-}
-
-.click-button:hover:not(:disabled) {
-    filter: brightness(1.1);
-}
-
-.click-button:active:not(:disabled) {
-    transform: scale(0.95);
-}
-
-.click-button:disabled {
-    background: linear-gradient(145deg, #555, #666);
-    cursor: not-allowed;
-    opacity: 0.7;
-}
-
-.click-rate {
-    font-size: 1.1rem;
-    color: #ffd166;
-    margin-top: 5px;
-}
-
-/* Улучшения */
-.upgrades-section {
-    flex: 1;
-    padding: 15px;
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
-    max-height: 500px;
-    overflow-y: auto;
-}
-
-.section-title {
-    font-size: 1.3rem;
-    color: #ffd166;
-    margin-bottom: 15px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #ffd166;
-    text-align: center;
-}
-
-.upgrade-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.upgrade-item {
-    background-color: rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-/* Для ПК улучшения в ряд */
-@media (min-width: 768px) {
-    .upgrade-item {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-}
-
-.upgrade-info {
-    flex: 1;
-}
-
-.upgrade-name {
-    font-size: 1.1rem;
-    color: #00adb5;
-}
-
-.upgrade-description {
-    font-size: 0.8rem;
-    color: #aaa;
-    margin: 3px 0;
-}
-
-.upgrade-stats {
-    display: flex;
-    gap: 10px;
-    font-size: 0.8rem;
-    color: #ffd166;
-    flex-wrap: wrap;
-}
-
-.upgrade-button {
-    background: linear-gradient(145deg, #ff9a3c, #ff6f3c);
-    border: none;
-    color: white;
-    padding: 8px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 0.9rem;
-    width: 100%;
-}
-
-@media (min-width: 768px) {
-    .upgrade-button {
-        width: auto;
-        min-width: 100px;
-    }
-}
-
-/* Статистика */
-.stats {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 2px solid #00adb5;
-}
-
-@media (min-width: 768px) {
-    .stats {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-
-.stat-item {
-    text-align: center;
-    background-color: rgba(0, 173, 181, 0.1);
-    padding: 8px;
-    border-radius: 8px;
-}
-
-.stat-value {
-    font-size: 1.2rem;
-    color: #00ff9d;
-    margin-top: 3px;
-}
-
-.stat-label {
-    color: #ccc;
-    font-size: 0.8rem;
-}
-
-/* Достижения - сетка для мобильных */
-.achievements-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-@media (min-width: 768px) {
-    .achievements-grid {
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    }
-}
-
-.achievement-item {
-    background: linear-gradient(145deg, #2a2a3a, #1e1e2e);
-    border-radius: 10px;
-    padding: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    border-left: 4px solid #555;
-}
-
-@media (min-width: 768px) {
-    .achievement-item {
-        flex-direction: row;
-        align-items: center;
-    }
-}
-
-.achievement-icon {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(145deg, #333, #444);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    color: #ffd700;
-}
-
-.achievement-info {
-    flex: 1;
-}
-
-.achievement-name {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #fff;
-}
-
-.achievement-description {
-    font-size: 0.8rem;
-    color: #aaa;
-}
-
-.achievement-reward {
-    display: flex;
-    align-items: center;
-    gap: 3px;
-    color: #ffd700;
-    font-size: 0.8rem;
-    background: rgba(255, 215, 0, 0.1);
-    padding: 3px 6px;
-    border-radius: 20px;
-    width: fit-content;
-}
-
-.claim-button {
-    background: linear-gradient(145deg, #ffd700, #ffa500);
-    border: none;
-    color: #1a1a2e;
-    padding: 8px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 0.8rem;
-    width: 100%;
-}
-
-@media (min-width: 768px) {
-    .claim-button {
-        width: auto;
-        min-width: 80px;
-    }
-}
-
-/* Магазин - сетка для мобильных */
-.shop-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-@media (min-width: 768px) {
-    .shop-grid {
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    }
-}
-
-.shop-item {
-    background: linear-gradient(145deg, #2a2a3a, #1e1e2e);
-    border-radius: 12px;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.shop-item-icon {
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(145deg, #ffd700, #ffa500);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    color: #1a1a2e;
-}
-
-.shop-item-title {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #ffd700;
-}
-
-.shop-item-description {
-    color: #ccc;
-    font-size: 0.8rem;
-    line-height: 1.3;
-}
-
-.shop-item-effect {
-    background: rgba(255, 215, 0, 0.1);
-    padding: 6px;
-    border-radius: 6px;
-    font-size: 0.8rem;
-    color: #ffd700;
-}
-
-.shop-item-price {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 1.1rem;
-    color: #ffd700;
-}
-
-.shop-buy-button {
-    background: linear-gradient(145deg, #ffd700, #ffa500);
-    border: none;
-    color: #1a1a2e;
-    padding: 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 0.9rem;
-    width: 100%;
-}
-
-/* Скины - сетка для мобильных */
-.skins-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-@media (min-width: 768px) {
-    .skins-grid {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    }
-}
-
-.skin-item {
-    background: linear-gradient(145deg, #2a2a3a, #1e1e2e);
-    border-radius: 12px;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-}
-
-.skin-preview {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    color: white;
-}
-
-.skin-name {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #fff;
-}
-
-.skin-description {
-    font-size: 0.8rem;
-    color: #aaa;
-    text-align: center;
-}
-
-.skin-price {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 1rem;
-    color: #ffd700;
-}
-
-.skin-button {
-    background: linear-gradient(145deg, #ff6b6b, #ff4757);
-    border: none;
-    color: white;
-    padding: 8px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 0.9rem;
-    width: 100%;
-}
-
-/* Кейсы - сетка для мобильных */
-.cases-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-@media (min-width: 768px) {
-    .cases-grid {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    }
-}
-
-.case-item {
-    background: linear-gradient(145deg, #2a2a3a, #1e1e2e);
-    border-radius: 12px;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-}
-
-.case-image {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(145deg, #333, #444);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-}
-
-.case-name {
-    font-size: 1.1rem;
-    font-weight: bold;
-}
-
-.case-price {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 1.1rem;
-    color: #ffd700;
-}
-
-.case-buttons {
-    display: flex;
-    gap: 8px;
-    width: 100%;
-}
-
-.case-open-button {
-    flex: 2;
-    padding: 8px;
-    border-radius: 6px;
-    border: none;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.case-info-button {
-    flex: 1;
-    padding: 8px;
-    border-radius: 6px;
-    border: none;
-    background: #3498db;
-    color: white;
-    cursor: pointer;
-}
-
-/* Telegram панель */
-.telegram-panel {
-    background: linear-gradient(145deg, #0088cc, #0077b5);
-    border-radius: 8px;
-    padding: 10px;
-    margin-bottom: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    color: white;
-}
-
-@media (min-width: 768px) {
-    .telegram-panel {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-}
-
-.telegram-user {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.9rem;
-}
-
-.telegram-buttons {
-    display: flex;
-    gap: 8px;
-}
-
-.telegram-button {
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    color: white;
-    padding: 6px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 0.8rem;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    flex: 1;
-}
-
-/* Лидерборд */
-.leaderboard-table {
-    overflow-x: auto;
-}
-
-.leaderboard-header-row {
-    display: grid;
-    grid-template-columns: 50px 1fr 70px 60px 50px;
-    background: #00adb5;
-    color: white;
-    padding: 8px;
-    font-weight: bold;
-    font-size: 0.8rem;
-    text-align: center;
-    min-width: 300px;
-}
-
-.leaderboard-row {
-    display: grid;
-    grid-template-columns: 50px 1fr 70px 60px 50px;
-    padding: 6px 8px;
-    border-bottom: 1px solid #333;
-    font-size: 0.8rem;
-    text-align: center;
-    align-items: center;
-    min-width: 300px;
-}
-
-.leaderboard-update {
-    background: linear-gradient(145deg, #ffd700, #ffa500);
-    border: none;
-    color: #1a1a2e;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 0.9rem;
-    width: 100%;
-    margin-top: 15px;
-}
-
-/* Модальные окна */
-.promo-modal, .confirm-reset {
+/* Анимация клика */
+.click-animation {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
-    z-index: 2000;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
-}
-
-.promo-box, .confirm-box {
-    background-color: #1a1a2e;
-    padding: 20px;
-    border-radius: 15px;
-    max-width: 400px;
-    width: 100%;
-    text-align: center;
-    border: 2px solid #9b59b6;
-}
-
-.promo-input {
-    width: 100%;
-    padding: 12px;
-    border-radius: 8px;
-    border: 2px solid #333;
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+    pointer-events: none;
     font-size: 1rem;
-    margin-bottom: 15px;
-    text-align: center;
+    font-weight: bold;
+    color: #ffd166;
+    z-index: 100;
+    animation: floatUp 1s ease-out forwards;
 }
 
-.promo-buttons {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
-}
-
-.promo-activate {
-    flex: 2;
-    padding: 10px;
-    background: linear-gradient(145deg, #9b59b6, #8e44ad);
-    border: none;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.promo-close {
-    flex: 1;
-    padding: 10px;
-    background: #555;
-    border: none;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-/* Футер */
-footer {
-    text-align: center;
-    margin-top: 15px;
-    padding-top: 10px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    color: #aaa;
-    font-size: 0.8rem;
+@keyframes floatUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50px) scale(1.2);
+    }
 }

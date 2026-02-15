@@ -60,9 +60,15 @@
                     <i class="fas fa-cog"></i>
                 </button>
             </div>
-            <div class="points-display" id="pointsDisplay">
-                <i class="fas fa-star"></i>
-                <span id="clickCount">0</span>
+            <div class="stats-top">
+                <div class="stat-top-item">
+                    <i class="fas fa-mouse-pointer"></i>
+                    <span id="clicksPerSecond">0</span>
+                </div>
+                <div class="stat-top-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span id="energyEfficiency">1.0</span>
+                </div>
             </div>
             <div class="header-right">
                 <div class="keys-display" id="keysDisplay" title="Магазин">
@@ -71,22 +77,6 @@
                 </div>
             </div>
         </header>
-
-        <!-- Telegram панель (скрыта по умолчанию) -->
-        <div class="telegram-panel" id="telegramPanel" style="display: none;">
-            <div class="telegram-user">
-                <i class="fab fa-telegram"></i>
-                <span id="telegramUser">Загрузка...</span>
-            </div>
-            <div class="telegram-buttons">
-                <button class="telegram-button" id="shareButton">
-                    <i class="fas fa-share-alt"></i> Поделиться
-                </button>
-                <button class="telegram-button" id="inviteButton">
-                    <i class="fas fa-user-plus"></i> Пригласить
-                </button>
-            </div>
-        </div>
         
         <!-- Основной контент (переключается табами) -->
         <div class="content-area">
@@ -132,12 +122,12 @@
                         <div class="stat-label">Клики</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-value" id="pointsPerSecond">0</div>
-                        <div class="stat-label">/сек</div>
+                        <div class="stat-value" id="totalPoints">0</div>
+                        <div class="stat-label">Очки</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-value" id="energyEfficiency">1.0</div>
-                        <div class="stat-label">Эфф-ть</div>
+                        <div class="stat-value" id="pointsPerSecond">0</div>
+                        <div class="stat-label">/сек</div>
                     </div>
                 </div>
             </div>
@@ -240,6 +230,53 @@
                     </button>
                 </div>
             </div>
+
+            <!-- Вкладка ПРОФИЛЬ (новая) -->
+            <div class="tab-content" id="profileTab">
+                <div class="profile-container">
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="profile-name" id="profileName">Игрок</div>
+                    </div>
+                    
+                    <div class="profile-stats">
+                        <div class="profile-stat">
+                            <div class="profile-stat-value" id="profileReferrals">0</div>
+                            <div class="profile-stat-label">Приглашено</div>
+                        </div>
+                        <div class="profile-stat">
+                            <div class="profile-stat-value" id="profileBonus">0</div>
+                            <div class="profile-stat-label">Бонусов</div>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-buttons">
+                        <button class="profile-button share" id="profileShareBtn">
+                            <i class="fas fa-share-alt"></i> Поделиться
+                        </button>
+                        <button class="profile-button invite" id="profileInviteBtn">
+                            <i class="fas fa-user-plus"></i> Пригласить
+                        </button>
+                    </div>
+                    
+                    <div class="referral-link" id="referralLinkContainer" style="display: none;">
+                        <input type="text" class="referral-input" id="referralLink" readonly>
+                        <button class="referral-copy" id="referralCopyBtn">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="referral-info">
+                        <h3 class="referral-title">Как это работает?</h3>
+                        <p class="referral-text">• Приглашай друзей по ссылке</p>
+                        <p class="referral-text">• Получай +2 ключа за каждого</p>
+                        <p class="referral-text">• Друзья получают +1 ключ</p>
+                        <p class="referral-text">• Больше друзей - больше бонусов!</p>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <!-- Нижняя панель с табами -->
@@ -267,6 +304,9 @@
             <button class="tab-button" id="tabLeaderboard">
                 <i class="fas fa-trophy"></i>
                 <span class="tab-counter" id="leaderboardCounter">0/100</span>
+            </button>
+            <button class="tab-button" id="tabProfile">
+                <i class="fas fa-user"></i>
             </button>
         </div>
     </div>

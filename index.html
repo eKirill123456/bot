@@ -78,7 +78,7 @@
             </div>
         </header>
         
-        <!-- Основной контент (переключается табами) -->
+        <!-- Основной контент -->
         <div class="content-area">
             <!-- Вкладка ИГРА -->
             <div class="tab-content active" id="gameTab">
@@ -132,6 +132,60 @@
                 </div>
             </div>
             
+            <!-- Вкладка МАГАЗИН (общая) -->
+            <div class="tab-content" id="shopTab">
+                <div class="shop-container">
+                    <!-- Статистика магазина -->
+                    <div class="shop-stats">
+                        <div class="shop-stat">
+                            <div class="shop-stat-value" id="shopKeysCount">0</div>
+                            <div class="shop-stat-label">Ключи</div>
+                        </div>
+                        <div class="shop-stat">
+                            <div class="shop-stat-value" id="shopTotalCount">0/40</div>
+                            <div class="shop-stat-label">Всего</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Вкладки внутри магазина -->
+                    <div class="shop-tabs">
+                        <button class="shop-tab-button active" id="shopTabUpgrades">
+                            <i class="fas fa-arrow-up"></i> Улучшения
+                        </button>
+                        <button class="shop-tab-button" id="shopTabExclusive">
+                            <i class="fas fa-crown"></i> Эксклюзив
+                        </button>
+                        <button class="shop-tab-button" id="shopTabSkins">
+                            <i class="fas fa-paint-brush"></i> Скины
+                        </button>
+                        <button class="shop-tab-button" id="shopTabCases">
+                            <i class="fas fa-gift"></i> Кейсы
+                        </button>
+                    </div>
+                    
+                    <!-- Контент вкладок магазина -->
+                    <div class="shop-tab-content active" id="shopUpgradesContent">
+                        <h3 class="shop-section-title">Обычные улучшения</h3>
+                        <div class="shop-grid" id="shopUpgradesList"></div>
+                    </div>
+                    
+                    <div class="shop-tab-content" id="shopExclusiveContent">
+                        <h3 class="shop-section-title">Эксклюзивные улучшения</h3>
+                        <div class="shop-grid" id="shopExclusiveList"></div>
+                    </div>
+                    
+                    <div class="shop-tab-content" id="shopSkinsContent">
+                        <h3 class="shop-section-title">Скины для кнопки</h3>
+                        <div class="skins-grid" id="shopSkinsList"></div>
+                    </div>
+                    
+                    <div class="shop-tab-content" id="shopCasesContent">
+                        <h3 class="shop-section-title">Кейсы с наградами</h3>
+                        <div class="cases-grid" id="shopCasesList"></div>
+                    </div>
+                </div>
+            </div>
+            
             <!-- Вкладка ДОСТИЖЕНИЯ -->
             <div class="tab-content" id="achievementsTab">
                 <div class="achievements-container">
@@ -150,88 +204,7 @@
                 </div>
             </div>
             
-            <!-- Вкладка МАГАЗИН -->
-            <div class="tab-content" id="shopTab">
-                <div class="shop-container">
-                    <div class="shop-stats">
-                        <div class="shop-stat">
-                            <div class="shop-stat-value" id="shopKeysCount">0</div>
-                            <div class="shop-stat-label">Ключи</div>
-                        </div>
-                        <div class="shop-stat">
-                            <div class="shop-stat-value" id="purchasedCount">0/15</div>
-                            <div class="shop-stat-label">Куплено</div>
-                        </div>
-                    </div>
-                    
-                    <div class="shop-grid" id="shopList"></div>
-                </div>
-            </div>
-            
-            <!-- Вкладка СКИНЫ -->
-            <div class="tab-content" id="skinsTab">
-                <div class="skins-container">
-                    <div class="skins-stats">
-                        <div class="skins-stat">
-                            <div class="skins-stat-value" id="skinsKeysCount">0</div>
-                            <div class="skins-stat-label">Ключи</div>
-                        </div>
-                        <div class="skins-stat">
-                            <div class="skins-stat-value" id="equippedSkin">Класс</div>
-                            <div class="skins-stat-label">Скин</div>
-                        </div>
-                    </div>
-                    
-                    <div class="skins-grid" id="skinsList"></div>
-                </div>
-            </div>
-            
-            <!-- Вкладка КЕЙСЫ -->
-            <div class="tab-content" id="casesTab">
-                <div class="cases-container">
-                    <div class="cases-stats">
-                        <div class="cases-stat">
-                            <div class="cases-stat-value" id="casesKeysCount">0</div>
-                            <div class="cases-stat-label">Ключи</div>
-                        </div>
-                    </div>
-                    
-                    <div class="cases-grid" id="casesList"></div>
-                </div>
-            </div>
-            
-            <!-- Вкладка ЛИДЕРЫ -->
-            <div class="tab-content" id="leaderboardTab">
-                <div class="leaderboard-container">
-                    <div class="leaderboard-stats">
-                        <div class="leaderboard-stat">
-                            <div class="leaderboard-stat-value" id="playerRank">-</div>
-                            <div class="leaderboard-stat-label">Место</div>
-                        </div>
-                        <div class="leaderboard-stat">
-                            <div class="leaderboard-stat-value" id="totalPlayers">0</div>
-                            <div class="leaderboard-stat-label">Игроков</div>
-                        </div>
-                    </div>
-                    
-                    <div class="leaderboard-table">
-                        <div class="leaderboard-header-row">
-                            <div>#</div>
-                            <div>Игрок</div>
-                            <div>Очки</div>
-                            <div>Клики</div>
-                            <div>Ур</div>
-                        </div>
-                        <div id="leaderboardList"></div>
-                    </div>
-                    
-                    <button class="leaderboard-update" id="updateLeaderboardBtn">
-                        <i class="fas fa-sync-alt"></i> Обновить
-                    </button>
-                </div>
-            </div>
-
-            <!-- Вкладка ПРОФИЛЬ (новая) -->
+            <!-- Вкладка ПРОФИЛЬ -->
             <div class="tab-content" id="profileTab">
                 <div class="profile-container">
                     <div class="profile-header">
@@ -269,7 +242,7 @@
                     </div>
                     
                     <div class="referral-info">
-                        <h3 class="referral-title">Как это работает?</h3>
+                        <h3 class="referral-title">Реферальная система</h3>
                         <p class="referral-text">• Приглашай друзей по ссылке</p>
                         <p class="referral-text">• Получай +2 ключа за каждого</p>
                         <p class="referral-text">• Друзья получают +1 ключ</p>
@@ -283,27 +256,14 @@
         <div class="tabs">
             <button class="tab-button active" id="tabGame">
                 <i class="fas fa-gamepad"></i>
-                <span class="tab-counter" id="gameCounter">0</span>
+            </button>
+            <button class="tab-button" id="tabShop">
+                <i class="fas fa-store"></i>
+                <span class="tab-counter" id="shopCounter">0/40</span>
             </button>
             <button class="tab-button" id="tabAchievements">
                 <i class="fas fa-trophy"></i>
                 <span class="tab-counter" id="achievementsCounter">0/50</span>
-            </button>
-            <button class="tab-button" id="tabShop">
-                <i class="fas fa-store"></i>
-                <span class="tab-counter" id="shopCounter">0/15</span>
-            </button>
-            <button class="tab-button" id="tabSkins">
-                <i class="fas fa-paint-brush"></i>
-                <span class="tab-counter" id="skinsCounter">0/10</span>
-            </button>
-            <button class="tab-button" id="tabCases">
-                <i class="fas fa-gift"></i>
-                <span class="tab-counter" id="casesCounter">0/4</span>
-            </button>
-            <button class="tab-button" id="tabLeaderboard">
-                <i class="fas fa-trophy"></i>
-                <span class="tab-counter" id="leaderboardCounter">0/100</span>
             </button>
             <button class="tab-button" id="tabProfile">
                 <i class="fas fa-user"></i>

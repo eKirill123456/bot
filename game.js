@@ -1216,8 +1216,6 @@ function createShopUpgradeElement(upgrade) {
     return div;
 }
 
-
-
 function applyExclusiveEffect(upgrade) {
     switch(upgrade.effect) {
         case 'goldenTouch': goldenTouchChance = upgrade.value; break;
@@ -1893,12 +1891,14 @@ window.loadGame = loadGame;
 window.recalculateValues = recalculateValues;
 window.showMessage = showMessage;
 window.buyShopUpgrade = buyShopUpgrade;
+window.refreshShopUpgradesList = refreshShopUpgradesList;
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM загружен, запускаем игру...");
     initGame();
 
 });
+
 
 
 

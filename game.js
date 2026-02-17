@@ -622,8 +622,6 @@ function resetProgress() {
     
     if (typeof initAchievements === 'function') initAchievements();
     if (typeof initShop === 'function') initShop();
-    if (typeof renderSkins === 'function') renderSkins();
-    if (typeof updateSkinsCounter === 'function') updateSkinsCounter();
     
     updateKeysDisplay(); 
     updateAchievementsStats(); 

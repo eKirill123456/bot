@@ -538,6 +538,8 @@ function playAchievementSound() {
 
 function toggleSound() {
     soundEnabled = !soundEnabled;
+    
+    // Обновляем кнопку звука в шапке
     if (soundToggle) {
         if (soundEnabled) {
             soundToggle.innerHTML = '<i class="fas fa-volume-up"></i> Звук ВКЛ';
@@ -548,10 +550,20 @@ function toggleSound() {
             soundToggle.classList.add('disabled');
         }
     }
+    
+    // Обновляем кнопку звука в настройках
+    const settingsSound = document.getElementById('settingsSound');
+    if (settingsSound) {
+        if (soundEnabled) {
+            settingsSound.innerHTML = '<i class="fas fa-volume-up"></i> Звук ВКЛ';
+        } else {
+            settingsSound.innerHTML = '<i class="fas fa-volume-mute"></i> Звук ВЫКЛ';
+        }
+    }
+    
     localStorage.setItem('clickerGameSound', soundEnabled);
     updateGlobalVariables();
 }
-
 function updateEnergyDisplay() {
     if (!currentEnergyElement || !maxEnergyElement || !energyBar || !energyRegenElement || !energyCostElement) return;
     
@@ -1625,4 +1637,5 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM загружен, запускаем игру...");
     initGame();
 });
+
 

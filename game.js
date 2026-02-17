@@ -1138,7 +1138,7 @@ function buyShopUpgrade(upgradeId) {
         updateUI();
         updateEnergyDisplay();
         
-        // Обновляем отображение в магазине
+        // Обновляем отображение в магазине - ПЕРЕЗАГРУЖАЕМ СПИСОК
         refreshShopUpgradesList();
         
         // Показываем сообщение
@@ -1159,10 +1159,17 @@ function refreshShopUpgradesList() {
     const list = document.getElementById('shopUpgradesList');
     if (!list) return;
     
-    // Перезагружаем список
-    loadShopUpgrades();
+    // Очищаем список
+    list.innerHTML = '';
+    
+    // Перезагружаем все улучшения
+    if (typeof upgrades !== 'undefined') {
+        upgrades.forEach(upgrade => {
+            const item = createShopUpgradeElement(upgrade);
+            list.appendChild(item);
+        });
+    }
 }
-
 // Обновляем функцию createShopUpgradeElement, чтобы использовать правильный обработчик
 function createShopUpgradeElement(upgrade) {
     const div = document.createElement('div');
@@ -1892,6 +1899,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initGame();
 
 });
+
 
 
 

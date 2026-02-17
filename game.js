@@ -1009,15 +1009,33 @@ function buttonAnimation(button) {
         }
     }, 100);
 }
-
 function updateUI() {
-    if (clickCountElement) clickCountElement.textContent = formatNumber(clickCount);
+    // Обновляем основные счетчики
+    if (clickCountElement) {
+        clickCountElement.textContent = formatNumber(clickCount);
+    } else {
+        // Если clickCountElement не найден, пробуем обновить другие элементы
+        const totalPointsElements = document.querySelectorAll('#totalPoints');
+        totalPointsElements.forEach(el => {
+            el.textContent = formatNumber(totalPoints);
+        });
+    }
+    
     if (totalClicksElement) totalClicksElement.textContent = formatNumber(totalClicks);
     if (totalPointsElement) totalPointsElement.textContent = formatNumber(totalPoints);
+    
+    // Обновляем clickValueElement
+    if (clickValueElement) {
+        clickValueElement.textContent = clickValue.toFixed(1);
+    }
+    
+    // Обновляем pointsPerSecond
     if (pointsPerSecondElement) {
         const pps = pointsPerSecond * autoSpeedMultiplier * autoMultiplier * allMultiplier * masterMultiplier;
         pointsPerSecondElement.textContent = formatNumber(pps);
     }
+    
+    // Обновляем energyEfficiency
     if (energyEfficiencyElement) {
         energyEfficiencyElement.textContent = energyEfficiency.toFixed(1);
     }
@@ -1942,3 +1960,4 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM загружен, запускаем игру...");
     initGame();
 });
+

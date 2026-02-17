@@ -1090,6 +1090,127 @@ function buyExclusiveUpgrade(upgradeId) {
     } else showMessage("Недостаточно ключей!", "#ff4757");
 }
 
+// Функция для покупки обычных улучшений из магазина
+function buyShopUpgrade(upgradeId) {
+    console.log("Покупка улучшения из магазина:", upgradeId);
+    
+    const upgrade = upgrades.find(u => u.id === upgradeId);
+    if (!upgrade || upgrade.level >= upgrade.maxLevel) {
+        if (upgrade) showMessage("Достигнут максимальный уровень улучшения!", "#6c5ce7");
+        return;
+    }
+    
+    // Проверяем, хватает ли очков
+    if (clickCount >= upgrade.cost) {
+        // Списываем очки
+        clickCount -= upgrade.cost;
+        
+        // Повышаем уровень
+        upgrade.level++;
+        
+        // Применяем эффект улучшения
+        if (upgrade.type === 'click') {
+            clickValue += upgrade.value;
+        } else if (upgrade.type === 'auto') {
+            pointsPerSecond += upgrade.value;
+        } else if (upgrade.type === 'multiplier') {
+            recalculateMultiplier();
+        } else if (upgrade.type === 'energy') {
+            maxEnergy += upgrade.value;
+            currentEnergy = Math.min(maxEnergy * energyMultiplier, currentEnergy + upgrade.value * 0.5);
+        } else if (upgrade.type === 'regen') {
+            energyRegen += upgrade.value;
+        } else if (upgrade.type === 'crit') {
+            critChance += upgrade.value;
+        }
+        
+        // Пересчитываем стоимость следующего уровня
+        const costMultiplier = upgrade.type === 'multiplier' ? 1.25 : 
+                              upgrade.type === 'energy' ? 1.3 : 
+                              upgrade.type === 'regen' ? 1.35 : 
+                              upgrade.type === 'crit' ? 1.4 : 1.2;
+        
+        if (upgrade.level < upgrade.maxLevel) {
+            upgrade.cost = Math.floor(upgrade.baseCost * Math.pow(costMultiplier, upgrade.level));
+        }
+        
+        // Обновляем интерфейс
+        updateUI();
+        updateEnergyDisplay();
+        
+        // Обновляем отображение в магазине
+        refreshShopUpgradesList();
+        
+        // Показываем сообщение
+        showMessage(`Куплено: ${upgrade.name} (ур. ${upgrade.level})`, "#4CAF50");
+        
+        if (soundEnabled) playBuySound();
+        checkAchievements();
+        updateGlobalVariables();
+        saveGame();
+        
+    } else {
+        showMessage("Недостаточно очков!", "#ff4757");
+    }
+}
+
+// Функция для обновления списка улучшений в магазине
+function refreshShopUpgradesList() {
+    const list = document.getElementById('shopUpgradesList');
+    if (!list) return;
+    
+    // Перезагружаем список
+    loadShopUpgrades();
+}
+
+// Обновляем функцию createShopUpgradeElement, чтобы использовать правильный обработчик
+function createShopUpgradeElement(upgrade) {
+    const div = document.createElement('div');
+    div.className = 'shop-item';
+    
+    // Определяем статус (максимальный уровень или нет)
+    const isMaxed = upgrade.level >= upgrade.maxLevel;
+    const buttonText = isMaxed ? 'МАКС' : 'Купить';
+    const buttonDisabled = isMaxed ? 'disabled' : '';
+    
+    // Рассчитываем прогресс
+    const progressPercent = Math.min(100, (upgrade.level / upgrade.maxLevel) * 100);
+    
+    // Определяем эффект для отображения
+    let effectText = '';
+    if (upgrade.type === 'click') effectText = `+${upgrade.value} за клик`;
+    else if (upgrade.type === 'auto') effectText = `+${upgrade.value} в сек`;
+    else if (upgrade.type === 'multiplier') {
+        const multiplier = Math.pow(upgrade.value, upgrade.level);
+        effectText = `×${multiplier.toFixed(1)} множитель`;
+    }
+    else if (upgrade.type === 'energy') effectText = `+${upgrade.value} энергии`;
+    else if (upgrade.type === 'regen') effectText = `+${upgrade.value} реген`;
+    else if (upgrade.type === 'crit') effectText = `+${upgrade.value*100}% крита`;
+    
+    div.innerHTML = `
+        <div class="shop-item-icon"><i class="fas fa-arrow-up"></i></div>
+        <div class="shop-item-content">
+            <div class="shop-item-title">${upgrade.name}</div>
+            <div class="shop-item-description">${upgrade.description}</div>
+            <div class="shop-item-effect">${effectText}</div>
+            <div class="shop-stats-row">
+                <span class="shop-item-level">Ур. ${upgrade.level}/${upgrade.maxLevel}</span>
+                <span class="shop-item-cost"><i class="fas fa-star"></i> ${upgrade.cost}</span>
+            </div>
+            <div class="shop-progress-bar">
+                <div class="shop-progress-fill" style="width: ${progressPercent}%"></div>
+            </div>
+            <button class="shop-buy-button" onclick="buyShopUpgrade(${upgrade.id})" ${buttonDisabled}>
+                ${buttonText}
+            </button>
+        </div>
+    `;
+    return div;
+}
+
+
+
 function applyExclusiveEffect(upgrade) {
     switch(upgrade.effect) {
         case 'goldenTouch': goldenTouchChance = upgrade.value; break;
@@ -1770,6 +1891,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initGame();
 
 });
+
 
 
 

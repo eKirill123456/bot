@@ -1885,12 +1885,14 @@ window.saveGame = saveGame;
 window.loadGame = loadGame;
 window.recalculateValues = recalculateValues;
 window.showMessage = showMessage;
+window.buyShopUpgrade = buyShopUpgrade;
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM загружен, запускаем игру...");
     initGame();
 
 });
+
 
 
 

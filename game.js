@@ -1142,6 +1142,7 @@ function buyExclusiveUpgrade(upgradeId) {
 }
 
 // ИСПРАВЛЕННАЯ ФУНКЦИЯ для покупки обычных улучшений из магазина
+// ИСПРАВЛЕННАЯ ФУНКЦИЯ для покупки обычных улучшений из магазина
 function buyShopUpgrade(upgradeId) {
     console.log("Покупка улучшения из магазина:", upgradeId);
     
@@ -1155,6 +1156,7 @@ function buyShopUpgrade(upgradeId) {
     if (clickCount >= upgrade.cost) {
         // Списываем очки
         clickCount -= upgrade.cost;
+        totalPoints = clickCount; // Синхронизируем totalPoints с clickCount
         
         // Повышаем уровень
         upgrade.level++;
@@ -1162,6 +1164,7 @@ function buyShopUpgrade(upgradeId) {
         // Применяем эффект улучшения
         if (upgrade.type === 'click') {
             clickValue += upgrade.value;
+            if (clickValueElement) clickValueElement.textContent = clickValue.toFixed(1);
         } else if (upgrade.type === 'auto') {
             pointsPerSecond += upgrade.value;
         } else if (upgrade.type === 'multiplier') {
@@ -1197,6 +1200,14 @@ function buyShopUpgrade(upgradeId) {
             updateUpgradeButton(upgradeId);
         }
         
+        // Обновляем все элементы с отображением очков в магазине
+        const allTotalPointsElements = document.querySelectorAll('#totalPoints, .stat-value');
+        allTotalPointsElements.forEach(el => {
+            if (el.id === 'totalPoints' || el.classList.contains('stat-value')) {
+                el.textContent = formatNumber(totalPoints);
+            }
+        });
+        
         // Показываем сообщение
         showMessage(`Куплено: ${upgrade.name} (ур. ${upgrade.level})`, "#4CAF50");
         
@@ -1206,10 +1217,9 @@ function buyShopUpgrade(upgradeId) {
         saveGame();
         
     } else {
-        showMessage("Недостаточно очков!", "#ff4757");
+        showMessage(`Недостаточно очков! Нужно ${upgrade.cost}`, "#ff4757");
     }
 }
-
 // Функция для обновления списка улучшений в магазине
 function refreshShopUpgradesList() {
     const list = document.getElementById('shopUpgradesList');
@@ -1960,4 +1970,5 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM загружен, запускаем игру...");
     initGame();
 });
+
 

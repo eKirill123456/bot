@@ -698,7 +698,9 @@ function resetProgress() {
 }
 
 function showResetConfirmation() { 
-    if (confirmResetElement) confirmResetElement.style.display = 'flex'; 
+    if (confirmResetElement) {
+        confirmResetElement.style.display = 'flex'; 
+    }
     if (soundEnabled) playClickSound(); 
 }
 
@@ -1768,5 +1770,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initGame();
 
 });
+
 
 

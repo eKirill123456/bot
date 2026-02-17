@@ -208,7 +208,16 @@ if (settingsClose) {
 }
 
 if (settingsReset) {
-    settingsReset.onclick = showResetConfirmation;
+    settingsReset.onclick = () => {
+        // Сначала закрываем окно настроек
+        if (settingsModal) {
+            settingsModal.style.display = 'none';
+        }
+        // Затем показываем окно подтверждения сброса
+        if (typeof showResetConfirmation === 'function') {
+            showResetConfirmation();
+        }
+    };
 }
 
 if (settingsSound) {
@@ -1759,4 +1768,5 @@ document.addEventListener('DOMContentLoaded', function() {
     initGame();
 
 });
+
 

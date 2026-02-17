@@ -343,18 +343,41 @@ function initGame() {
         updateGlobalVariables();
     }, 10000);
     
-    // Загружаем настройки звука
-    const savedSound = localStorage.getItem('clickerGameSound');
-    if (savedSound !== null) {
-        soundEnabled = savedSound === 'true';
-        if (soundToggle) {
-            if (!soundEnabled) {
-                soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i> Звук ВЫКЛ';
-                soundToggle.classList.add('disabled');
-            }
+   // В функции initGame() найдите этот блок (после загрузки сохранения)
+
+// Загружаем настройки звука
+const savedSound = localStorage.getItem('clickerGameSound');
+if (savedSound !== null) {
+    soundEnabled = savedSound === 'true';
+} else {
+    soundEnabled = true; // По умолчанию звук включен
+}
+
+// Обновляем кнопку звука в настройках
+function updateSoundButton() {
+    const settingsSound = document.getElementById('settingsSound');
+    if (settingsSound) {
+        if (soundEnabled) {
+            settingsSound.innerHTML = '<i class="fas fa-volume-up"></i> Звук ВКЛ';
+        } else {
+            settingsSound.innerHTML = '<i class="fas fa-volume-mute"></i> Звук ВЫКЛ';
         }
     }
-    
+}
+
+// Обновляем кнопку звука в шапке
+if (soundToggle) {
+    if (soundEnabled) {
+        soundToggle.innerHTML = '<i class="fas fa-volume-up"></i> Звук ВКЛ';
+        soundToggle.classList.remove('disabled');
+    } else {
+        soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i> Звук ВЫКЛ';
+        soundToggle.classList.add('disabled');
+    }
+}
+
+// Обновляем кнопку в настройках
+updateSoundButton();
     updateExclusiveEffects();
     updateGlobalVariables();
     
@@ -1602,3 +1625,4 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM загружен, запускаем игру...");
     initGame();
 });
+

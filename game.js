@@ -1,16 +1,13 @@
 // game.js - Основная логика игры
 
 console.log('start game.js');
-console.log('upgradeList элемент:', document.getElementById('upgradeList'));
 console.log('upgrades массив:', upgrades);
 
 // Элементы DOM
 const clickCountElement = document.getElementById('clickCount');
 const clickButton = document.getElementById('clickButton');
 const clickValueElement = document.getElementById('clickValue');
-const upgradeListElement = document.getElementById('upgradeList');
 const achievementsListElement = document.getElementById('achievementsList');
-const shopListElement = document.getElementById('shopList');
 const totalClicksElement = document.getElementById('totalClicks');
 const totalPointsElement = document.getElementById('totalPoints');
 const pointsPerSecondElement = document.getElementById('pointsPerSecond');
@@ -31,8 +28,7 @@ const achievementsCounterElement = document.getElementById('achievementsCounter'
 
 // Элементы для магазина
 const shopKeysCountElement = document.getElementById('shopKeysCount');
-const purchasedCountElement = document.getElementById('purchasedCount');
-const shopCounterElement = document.getElementById('shopCounter');
+const shopTotalCountElement = document.getElementById('shopTotalCount');
 
 // Элементы энергии
 const currentEnergyElement = document.getElementById('currentEnergy');
@@ -42,21 +38,17 @@ const energyRegenElement = document.getElementById('energyRegen');
 const energyCostElement = document.getElementById('energyCost');
 const energySection = document.querySelector('.energy-section');
 
-// Элементы табов - проверяем, что они существуют
+// Элементы табов
 const tabGame = document.getElementById('tabGame');
 const tabAchievements = document.getElementById('tabAchievements');
 const tabShop = document.getElementById('tabShop');
-const tabSkins = document.getElementById('tabSkins');
-const tabCases = document.getElementById('tabCases');
-const tabLeaderboard = document.getElementById('tabLeaderboard');
+const tabProfile = document.getElementById('tabProfile');
 
 // Элементы контента табов
 const gameTab = document.getElementById('gameTab');
 const achievementsTab = document.getElementById('achievementsTab');
 const shopTab = document.getElementById('shopTab');
-const skinsTab = document.getElementById('skinsTab');
-const casesTab = document.getElementById('casesTab');
-const leaderboardTab = document.getElementById('leaderboardTab');
+const profileTab = document.getElementById('profileTab');
 
 // Элементы уведомлений
 const purchaseNotification = document.getElementById('purchaseNotification');
@@ -184,10 +176,10 @@ function initGame() {
     
     // Проверяем наличие важных элементов
     console.log("Проверка элементов:");
-    console.log("- upgradeList:", upgradeListElement);
     console.log("- clickButton:", clickButton);
     console.log("- keysCount:", keysCountElement);
-    // В функции initGame() добавьте:
+    
+    // Настройки
     const settingsButton = document.getElementById('settingsButton');
     const settingsModal = document.getElementById('settingsModal');
     const settingsClose = document.getElementById('settingsClose');
@@ -195,48 +187,41 @@ function initGame() {
     const settingsSound = document.getElementById('settingsSound');
     const settingsPromo = document.getElementById('settingsPromo');
 
-if (settingsButton) {
-    settingsButton.onclick = () => {
-        settingsModal.style.display = 'flex';
-    };
-}
+    if (settingsButton) {
+        settingsButton.onclick = () => {
+            settingsModal.style.display = 'flex';
+        };
+    }
 
-if (settingsClose) {
-    settingsClose.onclick = () => {
-        settingsModal.style.display = 'none';
-    };
-}
-
-if (settingsReset) {
-    settingsReset.onclick = () => {
-        // Сначала закрываем окно настроек
-        if (settingsModal) {
+    if (settingsClose) {
+        settingsClose.onclick = () => {
             settingsModal.style.display = 'none';
-        }
-        // Затем показываем окно подтверждения сброса
-        if (typeof showResetConfirmation === 'function') {
-            showResetConfirmation();
-        }
-    };
-}
+        };
+    }
 
-if (settingsSound) {
-    settingsSound.onclick = toggleSound;
-}
+    if (settingsReset) {
+        settingsReset.onclick = () => {
+            if (settingsModal) {
+                settingsModal.style.display = 'none';
+            }
+            if (typeof showResetConfirmation === 'function') {
+                showResetConfirmation();
+            }
+        };
+    }
 
-if (settingsPromo) {
-    settingsPromo.onclick = () => {
-        settingsModal.style.display = 'none';
-        showPromoModal();
-    };
-}
-    
-    // Инициализация модулей с проверкой
-    if (typeof initUpgrades === 'function') {
-        console.log("Инициализация улучшений...");
-        initUpgrades();
+    if (settingsSound) {
+        settingsSound.onclick = toggleSound;
+    }
+
+    if (settingsPromo) {
+        settingsPromo.onclick = () => {
+            settingsModal.style.display = 'none';
+            showPromoModal();
+        };
     }
     
+    // Инициализация модулей
     if (typeof initAchievements === 'function') {
         console.log("Инициализация достижений...");
         initAchievements();
@@ -247,14 +232,10 @@ if (settingsPromo) {
         initPromoCodes();
     }
     
+    // Инициализация магазина
     if (typeof initShop === 'function') {
         console.log("Инициализация магазина...");
         initShop();
-    }
-    
-    if (typeof initSkins === 'function') {
-        console.log("Инициализация скинов...");
-        initSkins();
     }
     
     // Telegram и лидерборд
@@ -282,7 +263,7 @@ if (settingsPromo) {
     updateAchievementsStats();
     updateShopStats();
     
-    // НАЗНАЧАЕМ ОБРАБОТЧИКИ НАПРЯМУЮ (без addEventListener)
+    // Назначаем обработчики
     if (clickButton) {
         clickButton.onclick = handleClick;
         console.log("Обработчик клика назначен");
@@ -321,19 +302,9 @@ if (settingsPromo) {
         console.log("Обработчик tabShop назначен");
     }
     
-    if (tabSkins) {
-        tabSkins.onclick = () => switchTab('skins');
-        console.log("Обработчик tabSkins назначен");
-    }
-    
-    if (tabCases) {
-        tabCases.onclick = () => switchTab('cases');
-        console.log("Обработчик tabCases назначен");
-    }
-    
-    if (tabLeaderboard) {
-        tabLeaderboard.onclick = () => switchTab('leaderboard');
-        console.log("Обработчик tabLeaderboard назначен");
+    if (tabProfile) {
+        tabProfile.onclick = () => switchTab('profile');
+        console.log("Обработчик tabProfile назначен");
     }
     
     // Обработчики модальных окон
@@ -389,37 +360,30 @@ if (settingsPromo) {
     
     console.log("Игра инициализирована успешно!");
 }
+
 function switchTab(tab) {
     console.log("Переключение на вкладку:", tab);
     
-    // Получаем элементы заново на случай, если они изменились
+    // Получаем элементы заново
     const tabGame = document.getElementById('tabGame');
     const tabAchievements = document.getElementById('tabAchievements');
     const tabShop = document.getElementById('tabShop');
-    const tabSkins = document.getElementById('tabSkins');
-    const tabCases = document.getElementById('tabCases');
-    const tabLeaderboard = document.getElementById('tabLeaderboard');
+    const tabProfile = document.getElementById('tabProfile');
     const gameTab = document.getElementById('gameTab');
     const achievementsTab = document.getElementById('achievementsTab');
     const shopTab = document.getElementById('shopTab');
-    const skinsTab = document.getElementById('skinsTab');
-    const casesTab = document.getElementById('casesTab');
-    const leaderboardTab = document.getElementById('leaderboardTab');
+    const profileTab = document.getElementById('profileTab');
     
     // Убираем активный класс со всех табов
     if (tabGame) tabGame.classList.remove('active');
     if (tabAchievements) tabAchievements.classList.remove('active');
     if (tabShop) tabShop.classList.remove('active');
-    if (tabSkins) tabSkins.classList.remove('active');
-    if (tabCases) tabCases.classList.remove('active');
-    if (tabLeaderboard) tabLeaderboard.classList.remove('active');
+    if (tabProfile) tabProfile.classList.remove('active');
     
     if (gameTab) gameTab.classList.remove('active');
     if (achievementsTab) achievementsTab.classList.remove('active');
     if (shopTab) shopTab.classList.remove('active');
-    if (skinsTab) skinsTab.classList.remove('active');
-    if (casesTab) casesTab.classList.remove('active');
-    if (leaderboardTab) leaderboardTab.classList.remove('active');
+    if (profileTab) profileTab.classList.remove('active');
     
     // Активируем нужный таб
     if (tab === 'game') {
@@ -438,34 +402,10 @@ function switchTab(tab) {
         if (typeof initShop === 'function') initShop();
         updateShopStats();
         console.log("Активирована вкладка Магазин");
-    } else if (tab === 'skins') {
-        if (tabSkins) tabSkins.classList.add('active');
-        if (skinsTab) skinsTab.classList.add('active');
-        if (typeof renderSkins === 'function') renderSkins();
-        if (typeof updateSkinsKeys === 'function') updateSkinsKeys();
-        console.log("Активирована вкладка Скины");
-    } else if (tab === 'cases') {
-        if (tabCases) tabCases.classList.add('active');
-        if (casesTab) casesTab.classList.add('active');
-        if (typeof renderLootBoxes === 'function') renderLootBoxes();
-        if (typeof updateLootBoxesKeys === 'function') updateLootBoxesKeys();
-        console.log("Активирована вкладка Кейсы");
-    } else if (tab === 'leaderboard') {
-        if (tabLeaderboard) tabLeaderboard.classList.add('active');
-        if (leaderboardTab) leaderboardTab.classList.add('active');
-        if (typeof renderLeaderboard === 'function') renderLeaderboard();
-        
-        const playerName = document.getElementById('telegramUser')?.textContent || 'Игрок';
-        const rank = typeof getPlayerRank === 'function' ? getPlayerRank(playerName) : '-';
-        const playerRankEl = document.getElementById('playerRank');
-        const totalPlayersEl = document.getElementById('totalPlayers');
-        
-        if (playerRankEl) playerRankEl.textContent = rank !== '-' ? rank : '-';
-        if (totalPlayersEl) totalPlayersEl.textContent = leaderboard?.length || 0;
-        console.log("Активирована вкладка Лидеры");
-        if (typeof initLeaderboardButton === 'function') {
-    initLeaderboardButton();
-}
+    } else if (tab === 'profile') {
+        if (tabProfile) tabProfile.classList.add('active');
+        if (profileTab) profileTab.classList.add('active');
+        console.log("Активирована вкладка Профиль");
     }
 }
 
@@ -680,7 +620,6 @@ function resetProgress() {
     updateUI(); 
     updateEnergyDisplay();
     
-    if (typeof initUpgrades === 'function') initUpgrades();
     if (typeof initAchievements === 'function') initAchievements();
     if (typeof initShop === 'function') initShop();
     if (typeof renderSkins === 'function') renderSkins();
@@ -707,161 +646,6 @@ function showResetConfirmation() {
 function closeResetConfirmation() { 
     if (confirmResetElement) confirmResetElement.style.display = 'none'; 
     if (soundEnabled) playClickSound(); 
-}
-
-function initUpgrades() {
-    if (!upgradeListElement) {
-        console.error("upgradeListElement не найден!");
-        return;
-    }
-    if (typeof upgrades === 'undefined') {
-        console.error("upgrades не определен!");
-        return;
-    }
-    
-    console.log("Инициализация улучшений, найдено:", upgrades.length);
-    upgradeListElement.innerHTML = '';
-    upgrades.forEach(upgrade => {
-        upgradeListElement.appendChild(createUpgradeElement(upgrade));
-        updateUpgradeButton(upgrade.id);
-    });
-}
-
-function createUpgradeElement(upgrade) {
-    const el = document.createElement('div');
-    el.className = 'upgrade-item' + (upgrade.level >= upgrade.maxLevel ? ' maxed' : '');
-    el.id = `upgrade-${upgrade.id}`;
-    
-    let effectText = '';
-    if (upgrade.type === 'multiplier') {
-        const multiplier = Math.pow(upgrade.value, Math.min(upgrade.level, upgrade.maxLevel));
-        effectText = `Множитель: ×${multiplier.toFixed(1)}`;
-    } else if (upgrade.type === 'energy') effectText = `+${upgrade.value} к максимуму энергии`;
-    else if (upgrade.type === 'regen') effectText = `+${upgrade.value} к регенерации`;
-    else if (upgrade.type === 'crit') effectText = `Шанс крита: ${(upgrade.level * upgrade.value * 100).toFixed(1)}%`;
-    else effectText = `Эффект: +${upgrade.value} ${upgrade.type === 'click' ? 'за клик' : 'в секунду'}`;
-    
-    const progressPercent = Math.min(100, (upgrade.level / upgrade.maxLevel) * 100);
-    
-    el.innerHTML = `
-        <div class="upgrade-info">
-            <div class="upgrade-name">${upgrade.name} (${upgrade.level}/${upgrade.maxLevel})</div>
-            <div class="upgrade-description">${upgrade.description}</div>
-            <div class="upgrade-stats">
-                <div class="upgrade-effect">${effectText}</div>
-                <div class="upgrade-cost">Стоимость: ${upgrade.level >= upgrade.maxLevel ? 'МАКС.' : upgrade.cost}</div>
-            </div>
-            <div class="upgrade-progress" style="margin-top: 8px;">
-                <div style="background: #333; height: 6px; border-radius: 3px; overflow: hidden;">
-                    <div style="background: ${upgrade.level >= upgrade.maxLevel ? '#6c5ce7' : '#00adb5'}; width: ${progressPercent}%; height: 100%; border-radius: 3px;"></div>
-                </div>
-            </div>
-        </div>
-        <button class="upgrade-button" onclick="buyUpgrade(${upgrade.id})" id="upgrade-btn-${upgrade.id}">
-            ${upgrade.level >= upgrade.maxLevel ? 'МАКС.' : 'Купить'}
-        </button>
-    `;
-    return el;
-}
-
-function updateUpgradeButton(upgradeId) {
-    const upgrade = upgrades.find(u => u.id === upgradeId);
-    const button = document.getElementById(`upgrade-btn-${upgradeId}`);
-    const upgradeElement = document.getElementById(`upgrade-${upgradeId}`);
-    if (!upgrade || !button) return;
-    
-    if (upgrade.level >= upgrade.maxLevel) {
-        button.disabled = true;
-        button.textContent = "МАКС.";
-        button.classList.add('upgrade-maxed');
-        if (upgradeElement) upgradeElement.classList.add('maxed');
-        return;
-    }
-    
-    if (clickCount >= upgrade.cost) {
-        button.disabled = false;
-        button.textContent = "Купить";
-        button.classList.remove('upgrade-maxed');
-        if (upgradeElement) upgradeElement.classList.remove('maxed');
-    } else {
-        button.disabled = true;
-        button.textContent = "Недостаточно очков";
-        button.classList.remove('upgrade-maxed');
-    }
-}
-
-function buyUpgrade(upgradeId) {
-    const upgrade = upgrades.find(u => u.id === upgradeId);
-    if (!upgrade || upgrade.level >= upgrade.maxLevel) {
-        if (upgrade) showMessage("Достигнут максимальный уровень улучшения!", "#6c5ce7");
-        return;
-    }
-    if (clickCount >= upgrade.cost) {
-        clickCount -= upgrade.cost;
-        upgrade.level++;
-        
-        if (upgrade.type === 'click') {
-            clickValue += upgrade.value;
-            if (clickValueElement) clickValueElement.textContent = clickValue.toFixed(1);
-        } else if (upgrade.type === 'auto') pointsPerSecond += upgrade.value;
-        else if (upgrade.type === 'multiplier') recalculateMultiplier();
-        else if (upgrade.type === 'energy') {
-            maxEnergy += upgrade.value;
-            currentEnergy = Math.min(maxEnergy * energyMultiplier, currentEnergy + upgrade.value * 0.5);
-            updateEnergyDisplay();
-        } else if (upgrade.type === 'regen') {
-            energyRegen += upgrade.value;
-            updateEnergyDisplay();
-        } else if (upgrade.type === 'crit') critChance += upgrade.value;
-        
-        const costMultiplier = upgrade.type === 'multiplier' ? 1.25 : upgrade.type === 'energy' ? 1.3 : upgrade.type === 'regen' ? 1.35 : upgrade.type === 'crit' ? 1.4 : 1.2;
-        if (upgrade.level < upgrade.maxLevel) upgrade.cost = Math.floor(upgrade.baseCost * Math.pow(costMultiplier, upgrade.level));
-        
-        updateUI(); 
-        updateEnergyDisplay(); 
-        updateUpgradeButton(upgradeId);
-        updateGlobalVariables();
-        
-        const upgradeElement = document.getElementById(`upgrade-${upgradeId}`);
-        if (upgradeElement) {
-            const progressPercent = Math.min(100, (upgrade.level / upgrade.maxLevel) * 100);
-            const nameElement = upgradeElement.querySelector('.upgrade-name');
-            const costElement = upgradeElement.querySelector('.upgrade-cost');
-            const effectElement = upgradeElement.querySelector('.upgrade-effect');
-            
-            if (nameElement) nameElement.textContent = `${upgrade.name} (${upgrade.level}/${upgrade.maxLevel})`;
-            if (costElement) costElement.textContent = `Стоимость: ${upgrade.level >= upgrade.maxLevel ? 'МАКС.' : upgrade.cost}`;
-            
-            let effectText = '';
-            if (upgrade.type === 'multiplier') {
-                const multiplier = Math.pow(upgrade.value, upgrade.level);
-                effectText = `Множитель: ×${multiplier.toFixed(1)}`;
-            } else if (upgrade.type === 'energy') effectText = `+${upgrade.value} к максимуму энергии`;
-            else if (upgrade.type === 'regen') effectText = `+${upgrade.value} к регенерации`;
-            else if (upgrade.type === 'crit') effectText = `Шанс крита: ${(upgrade.level * upgrade.value * 100).toFixed(1)}%`;
-            else effectText = `Эффект: +${upgrade.value} ${upgrade.type === 'click' ? 'за клик' : 'в секунду'}`;
-            
-            if (effectElement) effectElement.textContent = effectText;
-            
-            const progressBar = upgradeElement.querySelector('.upgrade-progress div div');
-            if (progressBar) {
-                progressBar.style.width = `${progressPercent}%`;
-                progressBar.style.background = upgrade.level >= upgrade.maxLevel ? '#6c5ce7' : '#00adb5';
-            }
-            
-            if (upgrade.level >= upgrade.maxLevel) {
-                const button = upgradeElement.querySelector('.upgrade-button');
-                if (button) button.textContent = 'МАКС.';
-                upgradeElement.classList.add('maxed');
-                showMessage(`Максимальный уровень достигнут: ${upgrade.name}!`, "#6c5ce7");
-            }
-        }
-        
-        buttonAnimation(document.getElementById(`upgrade-btn-${upgradeId}`));
-        if (soundEnabled) playBuySound();
-        checkAchievements();
-        if (upgrade.level === upgrade.maxLevel - 1) showMessage(`Осталось 1 улучшение для ${upgrade.name}!`, "#ffd166");
-    }
 }
 
 function recalculateMultiplier() {
@@ -935,10 +719,6 @@ function handleClick() {
     updateUI(); 
     updateEnergyDisplay();
     
-    if (typeof upgrades !== 'undefined') {
-        upgrades.forEach(upgrade => updateUpgradeButton(upgrade.id));
-    }
-    
     buttonAnimation(clickButton);
     if (soundEnabled) playClickSound();
     checkAchievements();
@@ -1003,91 +783,9 @@ function autoClicker() {
         clickCount += autoPoints;
         totalPoints += autoPoints;
         updateUI();
-        if (typeof upgrades !== 'undefined') {
-            upgrades.forEach(upgrade => updateUpgradeButton(upgrade.id));
-        }
         checkAchievements();
         updateGlobalVariables();
     }
-}
-
-function initShop() {
-    if (!shopListElement) {
-        console.error("shopListElement не найден!");
-        return;
-    }
-    if (typeof allExclusiveUpgrades === 'undefined') {
-        console.error("allExclusiveUpgrades не определен!");
-        return;
-    }
-    
-    shopListElement.innerHTML = '';
-    allExclusiveUpgrades.filter(u => !u.hidden).forEach(upgrade => {
-        shopListElement.appendChild(createShopItem(upgrade));
-    });
-    updateShopCounter();
-}
-
-function createShopItem(upgrade) {
-    const item = document.createElement('div');
-    item.className = `shop-item ${upgrade.purchased ? 'purchased' : ''} ${upgrade.special ? 'special' : ''}`;
-    item.id = `shop-${upgrade.id}`;
-    
-    let effectDesc = '';
-    switch(upgrade.effect) {
-        case 'goldenTouch': effectDesc = `${upgrade.value * 100}% шанс получить ключ при клике`; break;
-        case 'energyMultiplier': effectDesc = `Увеличивает максимальную энергию на ${((upgrade.value - 1) * 100)}%`; break;
-        case 'autoSpeed': effectDesc = `Автокликеры работают в ${upgrade.value} раза быстрее`; break;
-        case 'clickMultiplier': effectDesc = `Увеличивает очки за клик на ${((upgrade.value - 1) * 100)}%`; break;
-        case 'passiveRegen': effectDesc = `Восстанавливает ${upgrade.value * 100}% энергии каждую секунду`; break;
-        case 'luckChance': effectDesc = `Увеличивает шанс золотого касания до ${upgrade.value * 100}%`; break;
-        case 'regenSpeed': effectDesc = `Ускоряет восстановление энергии на ${((upgrade.value - 1) * 100)}%`; break;
-        case 'speedBoost': effectDesc = `Увеличивает максимальную скорость кликов на ${((upgrade.value - 1) * 100)}%`; break;
-        case 'autoMultiplier': effectDesc = `Увеличивает очки от автокликеров на ${((upgrade.value - 1) * 100)}%`; break;
-        case 'allMultiplier': effectDesc = `Увеличивает эффективность всех улучшений на ${((upgrade.value - 1) * 100)}%`; break;
-        case 'masterMultiplier': effectDesc = `Все множители работают на ${((upgrade.value - 1) * 100)}% сильнее`; break;
-        case 'specialMultiplier': effectDesc = `${upgrade.chance * 100}% шанс на x${upgrade.value} очков`; break;
-        case 'enderGift': effectDesc = `Каждую минуту даёт ${upgrade.value} очков`; break;
-        case 'heroBonus': effectDesc = `Все улучшения работают на ${upgrade.value * 100}% эффективнее`; break;
-        case 'legendaryKey': effectDesc = `Даёт 1 ключ каждые ${upgrade.clicksNeeded} кликов`; break;
-    }
-    
-    item.innerHTML = `
-        <div class="shop-item-icon"><i class="fas ${upgrade.icon}"></i></div>
-        <div class="shop-item-content">
-            <div class="shop-item-title">${upgrade.name}</div>
-            <div class="shop-item-description">${upgrade.description}</div>
-            <div class="shop-item-effect"><i class="fas fa-star"></i> ${effectDesc}</div>
-            <div class="shop-item-price"><i class="fas fa-key"></i> ${upgrade.price}</div>
-            <button class="shop-buy-button ${upgrade.purchased ? 'purchased' : ''}" onclick="buyExclusiveUpgrade(${upgrade.id})" ${upgrade.purchased ? 'disabled' : ''}>
-                ${upgrade.purchased ? 'Куплено' : 'Купить'}
-            </button>
-        </div>
-    `;
-    return item;
-}
-
-function buyExclusiveUpgrade(upgradeId) {
-    const upgrade = allExclusiveUpgrades.find(u => u.id === upgradeId);
-    if (!upgrade || upgrade.purchased) {
-        if (upgrade) showMessage("Это улучшение уже куплено!", "#ff4757");
-        return;
-    }
-    if (keys >= upgrade.price) {
-        keys -= upgrade.price; 
-        keysSpent += upgrade.price;
-        upgrade.purchased = true;
-        applyExclusiveEffect(upgrade);
-        updateKeysDisplay(); 
-        updateShopStats(); 
-        initShop(); 
-        updateEnergyDisplay(); 
-        recalculateMultiplier();
-        showPurchaseNotification(`Куплено: ${upgrade.name}!`);
-        if (soundEnabled) playLevelUpSound();
-        checkAchievements();
-        updateGlobalVariables();
-    } else showMessage("Недостаточно ключей!", "#ff4757");
 }
 
 // Функция для покупки обычных улучшений из магазина
@@ -1118,8 +816,10 @@ function buyShopUpgrade(upgradeId) {
         } else if (upgrade.type === 'energy') {
             maxEnergy += upgrade.value;
             currentEnergy = Math.min(maxEnergy * energyMultiplier, currentEnergy + upgrade.value * 0.5);
+            updateEnergyDisplay();
         } else if (upgrade.type === 'regen') {
             energyRegen += upgrade.value;
+            updateEnergyDisplay();
         } else if (upgrade.type === 'crit') {
             critChance += upgrade.value;
         }
@@ -1138,7 +838,7 @@ function buyShopUpgrade(upgradeId) {
         updateUI();
         updateEnergyDisplay();
         
-        // Обновляем отображение в магазине - ПЕРЕЗАГРУЖАЕМ СПИСОК
+        // Обновляем отображение в магазине
         refreshShopUpgradesList();
         
         // Показываем сообщение
@@ -1154,66 +854,28 @@ function buyShopUpgrade(upgradeId) {
     }
 }
 
-// Функция для обновления списка улучшений в магазине
-function refreshShopUpgradesList() {
-    const list = document.getElementById('shopUpgradesList');
-    if (!list) return;
-    
-    // Очищаем список
-    list.innerHTML = '';
-    
-    // Перезагружаем все улучшения
-    if (typeof upgrades !== 'undefined') {
-        upgrades.forEach(upgrade => {
-            const item = createShopUpgradeElement(upgrade);
-            list.appendChild(item);
-        });
+// Функция для покупки эксклюзивных улучшений
+function buyExclusiveUpgrade(upgradeId) {
+    const upgrade = allExclusiveUpgrades.find(u => u.id === upgradeId);
+    if (!upgrade || upgrade.purchased) {
+        if (upgrade) showMessage("Это улучшение уже куплено!", "#ff4757");
+        return;
     }
-}
-// Обновляем функцию createShopUpgradeElement, чтобы использовать правильный обработчик
-function createShopUpgradeElement(upgrade) {
-    const div = document.createElement('div');
-    div.className = 'shop-item';
-    
-    // Определяем статус (максимальный уровень или нет)
-    const isMaxed = upgrade.level >= upgrade.maxLevel;
-    const buttonText = isMaxed ? 'МАКС' : 'Купить';
-    const buttonDisabled = isMaxed ? 'disabled' : '';
-    
-    // Рассчитываем прогресс
-    const progressPercent = Math.min(100, (upgrade.level / upgrade.maxLevel) * 100);
-    
-    // Определяем эффект для отображения
-    let effectText = '';
-    if (upgrade.type === 'click') effectText = `+${upgrade.value} за клик`;
-    else if (upgrade.type === 'auto') effectText = `+${upgrade.value} в сек`;
-    else if (upgrade.type === 'multiplier') {
-        const multiplier = Math.pow(upgrade.value, upgrade.level);
-        effectText = `×${multiplier.toFixed(1)} множитель`;
-    }
-    else if (upgrade.type === 'energy') effectText = `+${upgrade.value} энергии`;
-    else if (upgrade.type === 'regen') effectText = `+${upgrade.value} реген`;
-    else if (upgrade.type === 'crit') effectText = `+${upgrade.value*100}% крита`;
-    
-    div.innerHTML = `
-        <div class="shop-item-icon"><i class="fas fa-arrow-up"></i></div>
-        <div class="shop-item-content">
-            <div class="shop-item-title">${upgrade.name}</div>
-            <div class="shop-item-description">${upgrade.description}</div>
-            <div class="shop-item-effect">${effectText}</div>
-            <div class="shop-stats-row">
-                <span class="shop-item-level">Ур. ${upgrade.level}/${upgrade.maxLevel}</span>
-                <span class="shop-item-cost"><i class="fas fa-star"></i> ${upgrade.cost}</span>
-            </div>
-            <div class="shop-progress-bar">
-                <div class="shop-progress-fill" style="width: ${progressPercent}%"></div>
-            </div>
-            <button class="shop-buy-button" onclick="buyShopUpgrade(${upgrade.id})" ${buttonDisabled}>
-                ${buttonText}
-            </button>
-        </div>
-    `;
-    return div;
+    if (keys >= upgrade.price) {
+        keys -= upgrade.price; 
+        keysSpent += upgrade.price;
+        upgrade.purchased = true;
+        applyExclusiveEffect(upgrade);
+        updateKeysDisplay(); 
+        updateShopStats(); 
+        loadShopExclusive(); // Обновляем список эксклюзивных улучшений
+        updateEnergyDisplay(); 
+        recalculateMultiplier();
+        showPurchaseNotification(`Куплено: ${upgrade.name}!`);
+        if (soundEnabled) playLevelUpSound();
+        checkAchievements();
+        updateGlobalVariables();
+    } else showMessage("Недостаточно ключей!", "#ff4757");
 }
 
 function applyExclusiveEffect(upgrade) {
@@ -1263,17 +925,23 @@ function updateExclusiveEffects() {
 
 function updateShopStats() {
     if (shopKeysCountElement) shopKeysCountElement.textContent = keys;
-    if (purchasedCountElement && typeof allExclusiveUpgrades !== 'undefined') {
-        const purchased = allExclusiveUpgrades.filter(u => u.purchased).length;
-        purchasedCountElement.textContent = `${purchased}/${allExclusiveUpgrades.length}`;
+    
+    // Подсчитываем общее количество купленных предметов
+    let totalPurchased = 0;
+    let totalItems = 0;
+    
+    if (typeof allExclusiveUpgrades !== 'undefined') {
+        totalPurchased += allExclusiveUpgrades.filter(u => u.purchased).length;
+        totalItems += allExclusiveUpgrades.length;
     }
-    updateShopCounter();
-}
-
-function updateShopCounter() {
-    if (shopCounterElement && typeof allExclusiveUpgrades !== 'undefined') {
-        const purchased = allExclusiveUpgrades.filter(u => u.purchased).length;
-        shopCounterElement.textContent = `${purchased}/${allExclusiveUpgrades.length}`;
+    
+    if (typeof skins !== 'undefined') {
+        totalPurchased += skins.filter(s => s.purchased).length;
+        totalItems += skins.length;
+    }
+    
+    if (shopTotalCountElement) {
+        shopTotalCountElement.textContent = `${totalPurchased}/${totalItems}`;
     }
 }
 
@@ -1285,6 +953,7 @@ function showPurchaseNotification(message) {
     setTimeout(() => purchaseNotification.style.display = 'none', 3000);
 }
 
+// Функции для достижений
 function initAchievements() {
     if (!achievementsListElement) {
         console.error("achievementsListElement не найден!");
@@ -1296,8 +965,33 @@ function initAchievements() {
     }
     
     achievementsListElement.innerHTML = '';
-    [...achievements].sort((a,b) => a.completed === b.completed ? a.id - b.id : a.completed ? 1 : -1)
-        .forEach(a => achievementsListElement.appendChild(createAchievementElement(a)));
+    
+    // Создаем категории
+    const categories = getAchievementCategories();
+    
+    categories.forEach(category => {
+        const categoryAchievements = achievements.filter(a => a.category === category);
+        const categoryIcon = categoryAchievements[0]?.categoryIcon || 'fa-star';
+        
+        const section = document.createElement('div');
+        section.className = 'achievements-section';
+        
+        const title = document.createElement('h3');
+        title.className = 'achievements-section-title';
+        title.innerHTML = `<i class="fas ${categoryIcon}"></i> ${category}`;
+        section.appendChild(title);
+        
+        const grid = document.createElement('div');
+        grid.className = 'achievements-subgrid';
+        
+        categoryAchievements.sort((a, b) => a.id - b.id).forEach(a => {
+            grid.appendChild(createAchievementElement(a));
+        });
+        
+        section.appendChild(grid);
+        achievementsListElement.appendChild(section);
+    });
+    
     updateAchievementsCounter();
 }
 
@@ -1439,15 +1133,6 @@ function updateKeysDisplay() {
         availableKeysElement.textContent = avail;
     }
     
-    const skinsKeysCount = document.getElementById('skinsKeysCount');
-    if (skinsKeysCount) skinsKeysCount.textContent = keys;
-    
-    const shopKeysCount = document.getElementById('shopKeysCount');
-    if (shopKeysCount) shopKeysCount.textContent = keys;
-    
-    const casesKeysCount = document.getElementById('casesKeysCount');
-    if (casesKeysCount) casesKeysCount.textContent = keys;
-    
     updateShopStats();
     updateGlobalVariables();
 }
@@ -1483,7 +1168,8 @@ function saveGame() {
         clicksPerMinute, clicksThisMinute, critChance, energySpent, consecutiveClicks, lastClickTime,
         upgrades: typeof upgrades !== 'undefined' ? upgrades.map(u => ({ id: u.id, level: u.level, cost: u.cost })) : [],
         achievements: typeof achievements !== 'undefined' ? achievements.map(a => ({ id: a.id, claimed: a.claimed, completed: a.completed })) : [],
-        exclusiveUpgrades: typeof allExclusiveUpgrades !== 'undefined' ? allExclusiveUpgrades.map(u => ({ id: u.id, purchased: u.purchased, hidden: u.hidden })) : []
+        exclusiveUpgrades: typeof allExclusiveUpgrades !== 'undefined' ? allExclusiveUpgrades.map(u => ({ id: u.id, purchased: u.purchased, hidden: u.hidden })) : [],
+        skins: typeof skins !== 'undefined' ? skins.map(s => ({ id: s.id, purchased: s.purchased, equipped: s.equipped })) : []
     };
     
     if (typeof savePromoCodes === 'function') {
@@ -1491,8 +1177,6 @@ function saveGame() {
         data.promoCodes = promo.promoCodes;
         data.legendaryClickCounter = promo.legendaryClickCounter;
     }
-    
-    if (typeof saveSkins === 'function') data.skins = saveSkins();
     
     localStorage.setItem('clickerGameSave', JSON.stringify(data));
     
@@ -1559,8 +1243,17 @@ function loadGame() {
             });
         }
         
+        if (data.skins && typeof skins !== 'undefined') {
+            data.skins.forEach(s => {
+                const skin = skins.find(sk => sk.id === s.id);
+                if (skin) {
+                    skin.purchased = s.purchased || false;
+                    skin.equipped = s.equipped || false;
+                }
+            });
+        }
+        
         if (typeof loadPromoCodes === 'function') loadPromoCodes(data);
-        if (typeof loadSkins === 'function') loadSkins(data);
         
         updateExclusiveEffects(); 
         recalculateMultiplier();
@@ -1568,7 +1261,6 @@ function loadGame() {
         updateEnergyDisplay(); 
         updateKeysDisplay();
         
-        if (typeof initUpgrades === 'function') initUpgrades();
         if (typeof initAchievements === 'function') initAchievements();
         if (typeof initShop === 'function') initShop();
         
@@ -1580,10 +1272,6 @@ function loadGame() {
     } catch (e) {
         console.error("Ошибка загрузки игры:", e);
     }
-}
-
-function recalculateValues() { 
-    recalculateMultiplier(); 
 }
 
 function showMessage(text, color = "#00adb5", duration = 3000) {
@@ -1617,16 +1305,15 @@ function initShopTabs() {
     if (tabUpgrades) {
         tabUpgrades.onclick = () => {
             tabUpgrades.classList.add('active');
-            tabExclusive.classList.remove('active');
-            tabSkins.classList.remove('active');
-            tabCases.classList.remove('active');
+            if (tabExclusive) tabExclusive.classList.remove('active');
+            if (tabSkins) tabSkins.classList.remove('active');
+            if (tabCases) tabCases.classList.remove('active');
             
             contentUpgrades.classList.add('active');
             contentExclusive.classList.remove('active');
             contentSkins.classList.remove('active');
             contentCases.classList.remove('active');
             
-            // Загружаем соответствующие данные
             loadShopUpgrades();
         };
     }
@@ -1634,9 +1321,9 @@ function initShopTabs() {
     if (tabExclusive) {
         tabExclusive.onclick = () => {
             tabExclusive.classList.add('active');
-            tabUpgrades.classList.remove('active');
-            tabSkins.classList.remove('active');
-            tabCases.classList.remove('active');
+            if (tabUpgrades) tabUpgrades.classList.remove('active');
+            if (tabSkins) tabSkins.classList.remove('active');
+            if (tabCases) tabCases.classList.remove('active');
             
             contentExclusive.classList.add('active');
             contentUpgrades.classList.remove('active');
@@ -1650,9 +1337,9 @@ function initShopTabs() {
     if (tabSkins) {
         tabSkins.onclick = () => {
             tabSkins.classList.add('active');
-            tabUpgrades.classList.remove('active');
-            tabExclusive.classList.remove('active');
-            tabCases.classList.remove('active');
+            if (tabUpgrades) tabUpgrades.classList.remove('active');
+            if (tabExclusive) tabExclusive.classList.remove('active');
+            if (tabCases) tabCases.classList.remove('active');
             
             contentSkins.classList.add('active');
             contentUpgrades.classList.remove('active');
@@ -1666,9 +1353,9 @@ function initShopTabs() {
     if (tabCases) {
         tabCases.onclick = () => {
             tabCases.classList.add('active');
-            tabUpgrades.classList.remove('active');
-            tabExclusive.classList.remove('active');
-            tabSkins.classList.remove('active');
+            if (tabUpgrades) tabUpgrades.classList.remove('active');
+            if (tabExclusive) tabExclusive.classList.remove('active');
+            if (tabSkins) tabSkins.classList.remove('active');
             
             contentCases.classList.add('active');
             contentUpgrades.classList.remove('active');
@@ -1685,7 +1372,6 @@ function loadShopUpgrades() {
     if (!list) return;
     
     list.innerHTML = '';
-    // Загружаем обычные улучшения (из upgrades.js)
     if (typeof upgrades !== 'undefined') {
         upgrades.forEach(upgrade => {
             const item = createShopUpgradeElement(upgrade);
@@ -1699,7 +1385,6 @@ function loadShopExclusive() {
     if (!list) return;
     
     list.innerHTML = '';
-    // Загружаем эксклюзивные улучшения (из shop.js)
     if (typeof allExclusiveUpgrades !== 'undefined') {
         allExclusiveUpgrades.forEach(upgrade => {
             const item = createShopExclusiveElement(upgrade);
@@ -1713,7 +1398,6 @@ function loadShopSkins() {
     if (!list) return;
     
     list.innerHTML = '';
-    // Загружаем скины
     if (typeof skins !== 'undefined') {
         skins.forEach(skin => {
             const item = createShopSkinElement(skin);
@@ -1727,7 +1411,6 @@ function loadShopCases() {
     if (!list) return;
     
     list.innerHTML = '';
-    // Загружаем кейсы
     if (typeof lootBoxes !== 'undefined') {
         lootBoxes.forEach(box => {
             const item = createShopCaseElement(box);
@@ -1739,14 +1422,40 @@ function loadShopCases() {
 function createShopUpgradeElement(upgrade) {
     const div = document.createElement('div');
     div.className = 'shop-item';
+    
+    const isMaxed = upgrade.level >= upgrade.maxLevel;
+    const buttonText = isMaxed ? 'МАКС' : 'Купить';
+    const buttonDisabled = isMaxed ? 'disabled' : '';
+    
+    const progressPercent = Math.min(100, (upgrade.level / upgrade.maxLevel) * 100);
+    
+    let effectText = '';
+    if (upgrade.type === 'click') effectText = `+${upgrade.value} за клик`;
+    else if (upgrade.type === 'auto') effectText = `+${upgrade.value} в сек`;
+    else if (upgrade.type === 'multiplier') {
+        const multiplier = Math.pow(upgrade.value, upgrade.level);
+        effectText = `×${multiplier.toFixed(1)} множитель`;
+    }
+    else if (upgrade.type === 'energy') effectText = `+${upgrade.value} энергии`;
+    else if (upgrade.type === 'regen') effectText = `+${upgrade.value} реген`;
+    else if (upgrade.type === 'crit') effectText = `+${upgrade.value*100}% крита`;
+    
     div.innerHTML = `
         <div class="shop-item-icon"><i class="fas fa-arrow-up"></i></div>
         <div class="shop-item-content">
             <div class="shop-item-title">${upgrade.name}</div>
             <div class="shop-item-description">${upgrade.description}</div>
-            <div class="shop-item-effect">Уровень: ${upgrade.level}/${upgrade.maxLevel}</div>
-            <div class="shop-item-price"><i class="fas fa-star"></i> ${upgrade.cost}</div>
-            <button class="shop-buy-button" onclick="buyUpgrade(${upgrade.id})">Купить</button>
+            <div class="shop-item-effect">${effectText}</div>
+            <div class="shop-stats-row">
+                <span class="shop-item-level">Ур. ${upgrade.level}/${upgrade.maxLevel}</span>
+                <span class="shop-item-cost"><i class="fas fa-star"></i> ${upgrade.cost}</span>
+            </div>
+            <div class="shop-progress-bar">
+                <div class="shop-progress-fill" style="width: ${progressPercent}%"></div>
+            </div>
+            <button class="shop-buy-button" onclick="buyShopUpgrade(${upgrade.id})" ${buttonDisabled}>
+                ${buttonText}
+            </button>
         </div>
     `;
     return div;
@@ -1826,28 +1535,29 @@ function createShopCaseElement(box) {
     return div;
 }
 
-// Обновляем функцию initShop
-const originalInitShop = initShop;
-initShop = function() {
-    if (typeof originalInitShop === 'function') {
-        originalInitShop();
+function refreshShopUpgradesList() {
+    const list = document.getElementById('shopUpgradesList');
+    if (!list) return;
+    
+    list.innerHTML = '';
+    if (typeof upgrades !== 'undefined') {
+        upgrades.forEach(upgrade => {
+            const item = createShopUpgradeElement(upgrade);
+            list.appendChild(item);
+        });
     }
+}
+
+function initShop() {
+    console.log("Инициализация магазина...");
     initShopTabs();
     loadShopUpgrades();
     loadShopExclusive();
     loadShopSkins();
     loadShopCases();
-};
+}
 
-// Добавляем в window
-window.initShopTabs = initShopTabs;
-window.loadShopUpgrades = loadShopUpgrades;
-window.loadShopExclusive = loadShopExclusive;
-window.loadShopSkins = loadShopSkins;
-window.loadShopCases = loadShopCases;
-
-
-
+// Экспортируем функции в глобальную область
 window.initGame = initGame;
 window.switchTab = switchTab;
 window.playClickSound = playClickSound;
@@ -1860,10 +1570,6 @@ window.regenerateEnergy = regenerateEnergy;
 window.resetProgress = resetProgress;
 window.showResetConfirmation = showResetConfirmation;
 window.closeResetConfirmation = closeResetConfirmation;
-window.initUpgrades = initUpgrades;
-window.createUpgradeElement = createUpgradeElement;
-window.updateUpgradeButton = updateUpgradeButton;
-window.buyUpgrade = buyUpgrade;
 window.recalculateMultiplier = recalculateMultiplier;
 window.handleClick = handleClick;
 window.createClickAnimation = createClickAnimation;
@@ -1871,13 +1577,10 @@ window.buttonAnimation = buttonAnimation;
 window.updateUI = updateUI;
 window.formatNumber = formatNumber;
 window.autoClicker = autoClicker;
-window.initShop = initShop;
-window.createShopItem = createShopItem;
 window.buyExclusiveUpgrade = buyExclusiveUpgrade;
 window.applyExclusiveEffect = applyExclusiveEffect;
 window.updateExclusiveEffects = updateExclusiveEffects;
 window.updateShopStats = updateShopStats;
-window.updateShopCounter = updateShopCounter;
 window.showPurchaseNotification = showPurchaseNotification;
 window.initAchievements = initAchievements;
 window.createAchievementElement = createAchievementElement;
@@ -1888,20 +1591,16 @@ window.updateAchievementsStats = updateAchievementsStats;
 window.updateAchievementsCounter = updateAchievementsCounter;
 window.saveGame = saveGame;
 window.loadGame = loadGame;
-window.recalculateValues = recalculateValues;
 window.showMessage = showMessage;
 window.buyShopUpgrade = buyShopUpgrade;
+window.initShop = initShop;
+window.loadShopUpgrades = loadShopUpgrades;
+window.loadShopExclusive = loadShopExclusive;
+window.loadShopSkins = loadShopSkins;
+window.loadShopCases = loadShopCases;
 window.refreshShopUpgradesList = refreshShopUpgradesList;
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM загружен, запускаем игру...");
     initGame();
-
 });
-
-
-
-
-
-
-

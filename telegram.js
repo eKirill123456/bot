@@ -1,70 +1,45 @@
 // telegram.js - Интеграция с Telegram
-
-let tg = window.Telegram?.WebApp || null;
+let tg = null;
 let user = null;
 
 function initTelegram() {
     console.log("Инициализация Telegram...");
     
-    if (window.Telegram?.WebApp) {
-        tg = window.Telegram.WebApp;
-        
-        // Безопасно вызываем методы
+    // Проверяем наличие Telegram WebApp API
+    if (window.Telegram && window.Telegram.WebApp) {
         try {
-            tg.expand();
-        } catch (e) {
-            console.log("expand не поддерживается");
-        }
-        
-        try {
-            tg.enableClosingConfirmation();
-        } catch (e) {
-            console.log("enableClosingConfirmation не поддерживается");
-        }
-        
-        try {
-            user = tg.initDataUnsafe?.user;
-        } catch (e) {
-            console.log("initDataUnsafe не поддерживается");
-        }
-        
-        if (user) {
-            console.log("Пользователь Telegram:", user);
-            const telegramUser = document.getElementById('telegramUser');
-            if (telegramUser) {
-                telegramUser.textContent = `@${user.username || user.first_name}`;
+            tg = window.Telegram.WebApp;
+            
+            // Безопасно вызываем методы
+            if (typeof tg.expand === 'function') {
+                tg.expand();
             }
-        } else {
-            const telegramUser = document.getElementById('telegramUser');
-            if (telegramUser) {
-                telegramUser.textContent = "Гость";
+            
+            if (typeof tg.ready === 'function') {
+                tg.ready();
             }
-        }
-        
-        try {
-            tg.MainButton.setText("Играть");
-            tg.MainButton.show();
-            tg.MainButton.onClick(() => {
-                tg.close();
-            });
+            
+            // Получаем данные пользователя
+            if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+                user = tg.initDataUnsafe.user;
+                console.log("Пользователь Telegram:", user);
+                
+                const telegramUser = document.getElementById('telegramUser');
+                if (telegramUser) {
+                    telegramUser.textContent = user.username ? 
+                        `@${user.username}` : user.first_name;
+                }
+            } else {
+                const telegramUser = document.getElementById('telegramUser');
+                if (telegramUser) {
+                    telegramUser.textContent = "Гость";
+                }
+            }
+            
+            console.log("Telegram инициализирован успешно");
         } catch (e) {
-            console.log("MainButton не поддерживается");
+            console.log("Ошибка при инициализации Telegram:", e);
         }
-        
-        // Назначаем обработчики для кнопок Telegram
-        const shareBtn = document.getElementById('shareButton');
-        const inviteBtn = document.getElementById('inviteButton');
-        
-        if (shareBtn) {
-            shareBtn.onclick = shareResult;
-        }
-        
-        if (inviteBtn) {
-            inviteBtn.onclick = inviteFriend;
-        }
-        
-        // НЕ вызываем loadTelegramSave(), чтобы избежать ошибок
-        console.log("Telegram инициализирован (без CloudStorage)");
     } else {
         console.log("Игра запущена не в Telegram");
         const telegramUser = document.getElementById('telegramUser');
@@ -74,76 +49,67 @@ function initTelegram() {
     }
 }
 
-// Функции для облака - оставляем, но они не будут вызываться
+// Безопасные функции для облака
 function saveToTelegramCloud() {
-    // Просто ничего не делаем, чтобы избежать ошибок
-    console.log("CloudStorage не поддерживается, сохранение только в localStorage");
+    // Заглушка, чтобы избежать ошибок
+    console.log("CloudStorage не поддерживается");
 }
 
 function loadTelegramSave() {
-    // Просто ничего не делаем
-    console.log("CloudStorage не поддерживается, загрузка только из localStorage");
-}
-
-function sendToTelegram(data) {
-    if (tg) {
-        try {
-            tg.sendData(JSON.stringify(data));
-        } catch (e) {
-            console.log("sendData не поддерживается");
-        }
-    }
+    // Заглушка, чтобы избежать ошибок
+    console.log("CloudStorage не поддерживается");
 }
 
 function shareResult() {
-    if (!tg) {
-        // Если не в Telegram, копируем ссылку в буфер обмена
-        const text = `Я набрал ${formatNumber(window.totalPoints || 0)} очков в кликер игре! Сыграй тоже!`;
-        const url = window.location.href;
-        const shareText = `${text} ${url}`;
-        
-        navigator.clipboard.writeText(shareText).then(() => {
-            if (typeof showMessage === 'function') {
-                showMessage("Ссылка скопирована в буфер обмена!", "#00adb5");
-            }
-        });
-        return;
-    }
-    
     try {
         const text = `Я набрал ${formatNumber(window.totalPoints || 0)} очков в кликер игре! Сыграй тоже!`;
         const url = window.location.href;
         
-        tg.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`);
+        if (tg && typeof tg.openTelegramLink === 'function') {
+            tg.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`);
+        } else {
+            // Копируем в буфер обмена
+            navigator.clipboard.writeText(`${text} ${url}`).then(() => {
+                if (typeof showMessage === 'function') {
+                    showMessage("Ссылка скопирована!", "#00adb5");
+                }
+            }).catch(() => {
+                alert(`${text}\n\n${url}`);
+            });
+        }
     } catch (e) {
-        console.log("shareResult не поддерживается");
+        console.log("shareResult ошибка:", e);
     }
 }
 
 function inviteFriend() {
-    if (!tg) {
-        // Если не в Telegram, копируем ссылку
-        const url = window.location.href;
-        navigator.clipboard.writeText(url).then(() => {
-            if (typeof showMessage === 'function') {
-                showMessage("Ссылка на игру скопирована!", "#00adb5");
-            }
-        });
-        return;
-    }
-    
     try {
-        const botUsername = "alumClickerBot";
-        const text = `Присоединяйся к игре!`;
-        const url = `https://t.me/${botUsername}?start=invite`;
+        const url = window.location.href;
         
-        tg.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`);
+        if (tg && typeof tg.openTelegramLink === 'function') {
+            const botUsername = "alumClickerBot";
+            const inviteUrl = `https://t.me/${botUsername}?start=invite`;
+            tg.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(inviteUrl)}`);
+        } else {
+            navigator.clipboard.writeText(url).then(() => {
+                if (typeof showMessage === 'function') {
+                    showMessage("Ссылка на игру скопирована!", "#00adb5");
+                }
+            });
+        }
         
-        window.keys = (window.keys || 0) + 1;
-        if (typeof updateKeysDisplay === 'function') updateKeysDisplay();
-        if (typeof showMessage === 'function') showMessage("+1 ключ за приглашение друга!", "#ffd700");
+        // Даём бонус за приглашение
+        if (typeof window.keys !== 'undefined') {
+            window.keys = (window.keys || 0) + 1;
+            if (typeof updateKeysDisplay === 'function') {
+                updateKeysDisplay();
+            }
+            if (typeof showMessage === 'function') {
+                showMessage("+1 ключ за приглашение!", "#ffd700");
+            }
+        }
     } catch (e) {
-        console.log("inviteFriend не поддерживается");
+        console.log("inviteFriend ошибка:", e);
     }
 }
 
@@ -154,9 +120,9 @@ function formatNumber(num) {
     return Math.floor(num);
 }
 
+// Экспортируем функции
 window.initTelegram = initTelegram;
 window.saveToTelegramCloud = saveToTelegramCloud;
 window.loadTelegramSave = loadTelegramSave;
-window.sendToTelegram = sendToTelegram;
 window.shareResult = shareResult;
 window.inviteFriend = inviteFriend;

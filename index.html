@@ -291,5 +291,113 @@
     <script src="telegram.js"></script>
     <script src="leaderboard.js"></script>
     <script src="game.js"></script>
+<!-- Чит-меню (скрыто по умолчанию) -->
+<div class="cheat-modal" id="cheatModal" style="display: none;">
+    <div class="cheat-box">
+        <div class="cheat-header">
+            <h2 class="cheat-title"><i class="fas fa-bug"></i> DEBUG MENU</h2>
+            <button class="cheat-close" id="cheatClose"><i class="fas fa-times"></i></button>
+        </div>
+        
+        <div class="cheat-content">
+            <div class="cheat-section">
+                <h3 class="cheat-section-title"><i class="fas fa-key"></i> Ключи</h3>
+                <div class="cheat-controls">
+                    <input type="number" id="cheatKeysAmount" class="cheat-input" value="100" min="1" max="10000">
+                    <div class="cheat-buttons">
+                        <button class="cheat-button" onclick="cheatAddKeys()">Добавить</button>
+                        <button class="cheat-button" onclick="cheatRemoveKeys()">Убрать</button>
+                        <button class="cheat-button" onclick="cheatSetKeys()">Установить</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cheat-section">
+                <h3 class="cheat-section-title"><i class="fas fa-star"></i> Очки</h3>
+                <div class="cheat-controls">
+                    <input type="number" id="cheatPointsAmount" class="cheat-input" value="1000" min="1" max="1000000">
+                    <div class="cheat-buttons">
+                        <button class="cheat-button" onclick="cheatAddPoints()">Добавить</button>
+                        <button class="cheat-button" onclick="cheatRemovePoints()">Убрать</button>
+                        <button class="cheat-button" onclick="cheatSetPoints()">Установить</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cheat-section">
+                <h3 class="cheat-section-title"><i class="fas fa-mouse-pointer"></i> Клики</h3>
+                <div class="cheat-controls">
+                    <input type="number" id="cheatClicksAmount" class="cheat-input" value="1000" min="1" max="100000">
+                    <div class="cheat-buttons">
+                        <button class="cheat-button" onclick="cheatAddClicks()">Добавить</button>
+                        <button class="cheat-button" onclick="cheatRemoveClicks()">Убрать</button>
+                        <button class="cheat-button" onclick="cheatSetClicks()">Установить</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cheat-section">
+                <h3 class="cheat-section-title"><i class="fas fa-bolt"></i> Энергия</h3>
+                <div class="cheat-controls">
+                    <input type="number" id="cheatEnergyAmount" class="cheat-input" value="100" min="1" max="1000">
+                    <div class="cheat-buttons">
+                        <button class="cheat-button" onclick="cheatAddEnergy()">Добавить</button>
+                        <button class="cheat-button" onclick="cheatSetEnergy()">Заполнить</button>
+                        <button class="cheat-button" onclick="cheatMaxEnergy()">Макс</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cheat-section">
+                <h3 class="cheat-section-title"><i class="fas fa-crown"></i> Мгновенные улучшения</h3>
+                <div class="cheat-grid">
+                    <button class="cheat-grid-button" onclick="cheatMaxUpgrades()">Макс все улучшения</button>
+                    <button class="cheat-grid-button" onclick="cheatUnlockAllSkins()">Все скины</button>
+                    <button class="cheat-grid-button" onclick="cheatUnlockAllExclusive()">Все эксклюзивы</button>
+                    <button class="cheat-grid-button" onclick="cheatCompleteAchievements()">Все достижения</button>
+                </div>
+            </div>
+
+            <div class="cheat-section">
+                <h3 class="cheat-section-title"><i class="fas fa-gift"></i> Кейсы</h3>
+                <div class="cheat-grid">
+                    <button class="cheat-grid-button" onclick="cheatOpenCase(1, 10)">10 обычных</button>
+                    <button class="cheat-grid-button" onclick="cheatOpenCase(2, 10)">10 редких</button>
+                    <button class="cheat-grid-button" onclick="cheatOpenCase(3, 10)">10 эпических</button>
+                    <button class="cheat-grid-button" onclick="cheatOpenCase(4, 10)">10 легендарных</button>
+                </div>
+            </div>
+
+            <div class="cheat-section">
+                <h3 class="cheat-section-title"><i class="fas fa-tachometer-alt"></i> Множители</h3>
+                <div class="cheat-controls">
+                    <input type="number" id="cheatMultiplier" class="cheat-input" value="2" min="1" max="100" step="0.1">
+                    <div class="cheat-buttons">
+                        <button class="cheat-button" onclick="cheatSetClickMultiplier()">Множитель клика</button>
+                        <button class="cheat-button" onclick="cheatResetMultiplier()">Сброс</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cheat-section">
+                <h3 class="cheat-section-title"><i class="fas fa-skull"></i> Опасные</h3>
+                <div class="cheat-danger">
+                    <button class="cheat-danger-button" onclick="cheatResetGame()">СБРОС ИГРЫ</button>
+                    <button class="cheat-danger-button" onclick="cheatWipeData()">ПОЛНОЕ УДАЛЕНИЕ</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="cheat-footer">
+            <button class="cheat-button cheat-close-btn" id="cheatCloseBtn">Закрыть</button>
+        </div>
+    </div>
+</div>
+
+<!-- Кнопка для быстрого доступа к чит-меню (только если активировано) -->
+<div class="cheat-quick-button" id="cheatQuickButton" style="display: none;" onclick="toggleCheatMenu()">
+    <i class="fas fa-bug"></i>
+</div>
+
 </body>
 </html>

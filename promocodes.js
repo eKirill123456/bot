@@ -108,7 +108,7 @@ const promoCodes = [
         code: "WITHER666",
         reward: null,
         type: "special",
-        specialUpgradeId: 201,
+        specialUpgradeId: 201, // ID из shop.js
         used: false,
         description: "Незер-ключ"
     },
@@ -116,7 +116,7 @@ const promoCodes = [
         code: "ENDERDRAGON",
         reward: null,
         type: "special",
-        specialUpgradeId: 202,
+        specialUpgradeId: 202, // ID из shop.js
         used: false,
         description: "Эндер-ключ"
     },
@@ -124,7 +124,7 @@ const promoCodes = [
         code: "HERO2024",
         reward: null,
         type: "special",
-        specialUpgradeId: 203,
+        specialUpgradeId: 203, // ID из shop.js
         used: false,
         description: "Ключ героя"
     },
@@ -132,7 +132,7 @@ const promoCodes = [
         code: "LEGENDARY",
         reward: null,
         type: "special",
-        specialUpgradeId: 204,
+        specialUpgradeId: 204, // ID из shop.js
         used: false,
         description: "Легендарный ключ"
     },

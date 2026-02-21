@@ -1,5 +1,32 @@
 // promocodes.js - Система промокодов
 
+// promocodes.js - Система промокодов
+
+// Объявляем переменные в начале
+let promoButton, promoModal, promoInput, promoActivate, promoClose, promoList, promoMessage;
+let legendaryClickCounter = 0;
+
+// Убедитесь, что функция showPromoModal определена
+function showPromoModal() {
+    console.log("showPromoModal вызвана");
+    if (!promoModal) {
+        promoModal = document.getElementById('promoModal');
+    }
+    if (!promoModal) return;
+    
+    promoModal.style.display = 'flex';
+    if (promoInput) {
+        promoInput.value = '';
+        promoInput.focus();
+    }
+    updatePromoList();
+    if (typeof playClickSound === 'function') playClickSound();
+}
+
+// Остальной код promocodes.js...
+
+
+
 const promoCodes = [
     // Обычные промокоды (дают ключи)
     {
@@ -578,4 +605,5 @@ window.loadPromoCodes = loadPromoCodes;
 window.resetPromoCodes = resetPromoCodes;
 window.initPromoCodes = initPromoCodes;
 window.forceUpdateKeysDisplay = forceUpdateKeysDisplay;
+
 

@@ -108,7 +108,7 @@ const promoCodes = [
         code: "WITHER666",
         reward: null,
         type: "special",
-        specialUpgradeId: 201, // ID из shop.js
+        specialUpgradeId: 201,
         used: false,
         description: "Незер-ключ"
     },
@@ -116,7 +116,7 @@ const promoCodes = [
         code: "ENDERDRAGON",
         reward: null,
         type: "special",
-        specialUpgradeId: 202, // ID из shop.js
+        specialUpgradeId: 202,
         used: false,
         description: "Эндер-ключ"
     },
@@ -124,7 +124,7 @@ const promoCodes = [
         code: "HERO2024",
         reward: null,
         type: "special",
-        specialUpgradeId: 203, // ID из shop.js
+        specialUpgradeId: 203,
         used: false,
         description: "Ключ героя"
     },
@@ -132,7 +132,7 @@ const promoCodes = [
         code: "LEGENDARY",
         reward: null,
         type: "special",
-        specialUpgradeId: 204, // ID из shop.js
+        specialUpgradeId: 204,
         used: false,
         description: "Легендарный ключ"
     },
@@ -422,18 +422,23 @@ function activatePromoCode() {
         }
         
     } else if (promo.type === 'special') {
-        const specialUpgrade = window.allExclusiveUpgrades ? 
-            window.allExclusiveUpgrades.find(u => u.id === promo.specialUpgradeId) : 
-            null;
-        
-        if (specialUpgrade) {
-            specialUpgrade.hidden = false;
-            showPromoMessage(`Открыто улучшение: ${specialUpgrade.name}!`, "success");
+        // ИСПРАВЛЕНО: используем функцию из shop.js
+        if (typeof activateSpecialUpgrade === 'function') {
+            const activatedUpgrade = activateSpecialUpgrade(promo.code);
             
-            const shopTab = document.getElementById('shopTab');
-            if (shopTab && shopTab.classList.contains('active') && typeof initShop === 'function') {
-                initShop();
+            if (activatedUpgrade) {
+                showPromoMessage(`Открыто улучшение: ${activatedUpgrade.name}!`, "success");
+                
+                // Обновляем отображение магазина, если он открыт
+                const shopTab = document.getElementById('shopTab');
+                if (shopTab && shopTab.classList.contains('active') && typeof loadShopExclusive === 'function') {
+                    loadShopExclusive();
+                }
+            } else {
+                showPromoMessage("Ошибка активации улучшения!", "error");
             }
+        } else {
+            showPromoMessage("Ошибка системы улучшений!", "error");
         }
     }
     

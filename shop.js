@@ -132,10 +132,8 @@ const exclusiveUpgrades = [
         icon: "fa-crown",
         special: false,
         hidden: false
-    }
-];
-
-const specialUpgrades = [
+    },
+    // Специальные улучшения за промокоды
     {
         id: 201,
         name: "Незер-ключ",
@@ -192,5 +190,5 @@ const specialUpgrades = [
     }
 ];
 
-const allExclusiveUpgrades = [...exclusiveUpgrades, ...specialUpgrades];
+const allExclusiveUpgrades = exclusiveUpgrades; // Просто присваиваем массив
 window.allExclusiveUpgrades = allExclusiveUpgrades;

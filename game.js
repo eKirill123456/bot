@@ -1,15 +1,14 @@
-// game.js - Основная логика игры
+// game.js - Основная логика игры (ИСПРАВЛЕННАЯ ВЕРСИЯ)
 
 console.log('start game.js');
-console.log('upgrades массив:', upgrades);
 
 // Элементы DOM
-const clickCountDisplay = document.getElementById('clickCountDisplay'); // ИСПРАВЛЕНО
+const clickCountDisplay = document.getElementById('clickCountDisplay');
 const clickButton = document.getElementById('clickButton');
 const clickValueElement = document.getElementById('clickValue');
 const achievementsListElement = document.getElementById('achievementsList');
 const totalClicksElement = document.getElementById('totalClicks');
-const totalPointsDisplay = document.getElementById('totalPointsDisplay'); // ИСПРАВЛЕНО
+const totalPointsDisplay = document.getElementById('totalPointsDisplay');
 const pointsPerSecondElement = document.getElementById('pointsPerSecond');
 const resetButton = document.getElementById('resetButton');
 const confirmResetElement = document.getElementById('confirmReset');
@@ -66,7 +65,7 @@ let clickTimestamps = [];
 let autoClickerDetected = false;
 let autoClickerWarnings = 0;
 
-// Функции для работы с глобальными переменными
+// Добавляем функцию для обновления всех глобальных переменных
 function updateGlobalVariables() {
     window.clickCount = clickCount;
     window.totalClicks = totalClicks;
@@ -102,6 +101,7 @@ function updateGlobalVariables() {
     window.lastClickTime = lastClickTime;
 }
 
+// Добавляем функцию загрузки из глобальных переменных
 function loadGlobalVariables() {
     clickCount = window.clickCount || 0;
     totalClicks = window.totalClicks || 0;
@@ -137,6 +137,7 @@ function loadGlobalVariables() {
     lastClickTime = window.lastClickTime || 0;
 }
 
+// Функция проверки автокликера
 function checkForAutoClicker() {
     const now = Date.now();
     
@@ -169,15 +170,11 @@ function checkForAutoClicker() {
     return false;
 }
 
+// Главная функция инициализации
 function initGame() {
     console.log("Инициализация игры...");
     
     loadGlobalVariables();
-    
-    // Проверяем наличие важных элементов
-    console.log("Проверка элементов:");
-    console.log("- clickButton:", clickButton);
-    console.log("- keysCount:", keysCountElement);
     
     // Настройки
     const settingsButton = document.getElementById('settingsButton');
@@ -214,33 +211,22 @@ function initGame() {
         settingsSound.onclick = toggleSound;
     }
 
-// В функции initGame, замените эти строки (примерно строка 220):
-
-// В функции initGame, найдите секцию с settingsPromo и замените на:
-
-if (settingsPromo) {
-    settingsPromo.onclick = () => {
-        settingsModal.style.display = 'none';
-        console.log("Клик по кнопке промокодов");
-        
-        // Проверяем, существует ли функция showPromoModal
-        if (typeof window.showPromoModal === 'function') {
-            window.showPromoModal();
-        } else if (typeof showPromoModal === 'function') {
-            showPromoModal();
-        } else {
-            console.error("Функция showPromoModal не найдена!");
-            alert("Ошибка: функция промокодов не загружена");
-        }
-    };
-}
-
-// И добавьте проверку для enderGiftEffect в setInterval:
-setInterval(() => {
-    if (typeof enderGiftEffect === 'function') {
-        enderGiftEffect();
+    if (settingsPromo) {
+        settingsPromo.onclick = () => {
+            settingsModal.style.display = 'none';
+            console.log("Клик по кнопке промокодов");
+            
+            if (typeof window.showPromoModal === 'function') {
+                window.showPromoModal();
+            } else if (typeof showPromoModal === 'function') {
+                showPromoModal();
+            } else {
+                console.error("Функция showPromoModal не найдена!");
+                alert("Ошибка: функция промокодов не загружена");
+            }
+        };
     }
-}, 60000);
+
     // Инициализация модулей
     if (typeof initAchievements === 'function') {
         console.log("Инициализация достижений...");
@@ -252,13 +238,11 @@ setInterval(() => {
         initPromoCodes();
     }
     
-    // Инициализация магазина
     if (typeof initShop === 'function') {
         console.log("Инициализация магазина...");
         initShop();
     }
     
-    // Telegram и лидерборд
     if (typeof initTelegram === 'function') {
         console.log("Инициализация Telegram...");
         initTelegram();
@@ -345,7 +329,11 @@ setInterval(() => {
     // Устанавливаем интервалы
     setInterval(autoClicker, 1000);
     setInterval(regenerateEnergy, 1000);
-    setInterval(enderGiftEffect, 60000);
+    setInterval(() => {
+        if (typeof enderGiftEffect === 'function') {
+            enderGiftEffect();
+        }
+    }, 60000);
     
     minuteTimer = setInterval(() => {
         clicksPerMinute = clicksThisMinute;
@@ -371,6 +359,9 @@ setInterval(() => {
             if (!soundEnabled) {
                 soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i> Звук ВЫКЛ';
                 soundToggle.classList.add('disabled');
+            } else {
+                soundToggle.innerHTML = '<i class="fas fa-volume-up"></i> Звук ВКЛ';
+                soundToggle.classList.remove('disabled');
             }
         }
     }
@@ -381,6 +372,7 @@ setInterval(() => {
     console.log("Игра инициализирована успешно!");
 }
 
+// Функция переключения вкладок
 function switchTab(tab) {
     console.log("Переключение на вкладку:", tab);
     
@@ -429,6 +421,7 @@ function switchTab(tab) {
     }
 }
 
+// Функции звука
 function playClickSound() {
     if (!soundEnabled) return;
     try {
@@ -549,6 +542,7 @@ function toggleSound() {
     updateGlobalVariables();
 }
 
+// Функции энергии
 function updateEnergyDisplay() {
     if (!currentEnergyElement || !maxEnergyElement || !energyBar || !energyRegenElement || !energyCostElement) return;
     
@@ -609,27 +603,56 @@ function regenerateEnergy() {
     updateGlobalVariables();
 }
 
+// Функция сброса прогресса
 function resetProgress() {
-    clickCount = 0; totalClicks = 0; clickValue = 1; totalPoints = 0; pointsPerSecond = 0; keys = 0; keysSpent = 0;
-    maxEnergyFilled = 0; lastEnergyPercent = 0; clicksPerMinute = 0; clicksThisMinute = 0; energySpent = 0; consecutiveClicks = 0; lastClickTime = 0;
-    currentEnergy = 100; maxEnergy = 100; energyCost = 5; energyRegen = 5; energyEfficiency = 1.0;
+    clickCount = 0; 
+    totalClicks = 0; 
+    clickValue = 1; 
+    totalPoints = 0; 
+    pointsPerSecond = 0; 
+    keys = 0; 
+    keysSpent = 0;
+    maxEnergyFilled = 0; 
+    lastEnergyPercent = 0; 
+    clicksPerMinute = 0; 
+    clicksThisMinute = 0; 
+    energySpent = 0; 
+    consecutiveClicks = 0; 
+    lastClickTime = 0;
+    currentEnergy = 100; 
+    maxEnergy = 100; 
+    energyCost = 5; 
+    energyRegen = 5; 
+    energyEfficiency = 1.0;
     critChance = 0;
     critMultiplier = 2;
     
     if (typeof upgrades !== 'undefined') {
-        upgrades.forEach(upgrade => { upgrade.level = 0; upgrade.cost = upgrade.baseCost; });
+        upgrades.forEach(upgrade => { 
+            upgrade.level = 0; 
+            upgrade.cost = upgrade.baseCost; 
+        });
     }
     
     if (typeof achievements !== 'undefined') {
-        achievements.forEach(achievement => { achievement.claimed = false; achievement.completed = false; });
+        achievements.forEach(achievement => { 
+            achievement.claimed = false; 
+            achievement.completed = false; 
+        });
     }
     
     if (typeof allExclusiveUpgrades !== 'undefined') {
-        allExclusiveUpgrades.forEach(upgrade => { upgrade.purchased = false; if (upgrade.special) upgrade.hidden = true; });
+        allExclusiveUpgrades.forEach(upgrade => { 
+            upgrade.purchased = false; 
+            if (upgrade.special) upgrade.hidden = true; 
+        });
     }
     
     if (typeof skins !== 'undefined') {
-        skins.forEach(skin => { skin.purchased = skin.id === 1; skin.equipped = skin.id === 1; });
+        skins.forEach(skin => { 
+            skin.purchased = skin.id === 1; 
+            skin.equipped = skin.id === 1; 
+        });
     }
     
     if (typeof resetPromoCodes === 'function') resetPromoCodes();
@@ -666,6 +689,7 @@ function closeResetConfirmation() {
     if (soundEnabled) playClickSound(); 
 }
 
+// Функция пересчета множителя
 function recalculateMultiplier() {
     let multiplier = 1;
     const multiplierUpgrade = upgrades.find(u => u.type === 'multiplier');
@@ -679,6 +703,7 @@ function recalculateMultiplier() {
     updateGlobalVariables();
 }
 
+// Функция обработки клика
 function handleClick() {
     if (autoClickerDetected) {
         showMessage("Доступ заблокирован из-за авто кликера!", "#ff4757", 1000);
@@ -694,21 +719,21 @@ function handleClick() {
     lastClickTime = now;
     consecutiveClicks++;
     
-    let energyCost = Math.min(20, Math.ceil(consecutiveClicks / 2));
-    if (energyCost < 1) energyCost = 1;
+    let energyCostValue = Math.min(20, Math.ceil(consecutiveClicks / 2));
+    if (energyCostValue < 1) energyCostValue = 1;
     
-    if (currentEnergy < energyCost) {
+    if (currentEnergy < energyCostValue) {
         if (clickButton) {
             clickButton.classList.add('no-energy');
             setTimeout(() => clickButton.classList.remove('no-energy'), 500);
         }
-        showMessage(`Нужно ${energyCost} энергии! Сбавьте темп`, "#ff4757", 1500);
+        showMessage(`Нужно ${energyCostValue} энергии! Сбавьте темп`, "#ff4757", 1500);
         consecutiveClicks = 0;
         return;
     }
     
-    currentEnergy -= energyCost;
-    energySpent += energyCost;
+    currentEnergy -= energyCostValue;
+    energySpent += energyCostValue;
     totalClicks++; 
     clicksThisMinute++;
     
@@ -724,8 +749,8 @@ function handleClick() {
     clickCount += earnedPoints;
     totalPoints += earnedPoints;
     
-    if (isCrit) createClickAnimation(`КРИТ! x${critMultiplier} (⚡${energyCost})`);
-    else createClickAnimation(`+${clickValue.toFixed(1)} (⚡${energyCost})`);
+    if (isCrit) createClickAnimation(`КРИТ! x${critMultiplier} (⚡${energyCostValue})`);
+    else createClickAnimation(`+${clickValue.toFixed(1)} (⚡${energyCostValue})`);
     
     if (goldenTouchChance > 0 && Math.random() < goldenTouchChance) {
         keys++;
@@ -743,6 +768,7 @@ function handleClick() {
     updateGlobalVariables();
 }
 
+// Функция анимации клика
 function createClickAnimation(text) {
     if (!clickButton) return;
     
@@ -775,20 +801,16 @@ function buttonAnimation(button) {
     }, 100);
 }
 
-// ИСПРАВЛЕНО: функция updateUI теперь правильно обновляет все элементы
+// Функция обновления интерфейса
 function updateUI() {
-    // Обновляем большой счётчик в центре
     if (clickCountDisplay) {
         clickCountDisplay.textContent = formatNumber(clickCount);
-        console.log("Обновление clickCountDisplay:", clickCount);
     }
     
-    // Обновляем статистику внизу
     if (totalClicksElement) totalClicksElement.textContent = formatNumber(totalClicks);
     
     if (totalPointsDisplay) {
         totalPointsDisplay.textContent = formatNumber(totalPoints);
-        console.log("Обновление totalPointsDisplay:", totalPoints);
     }
     
     if (pointsPerSecondElement) {
@@ -800,13 +822,13 @@ function updateUI() {
         energyEfficiencyElement.textContent = energyEfficiency.toFixed(1);
     }
     
-    // Обновляем значение за клик
     const clickValueSpan = document.getElementById('clickValue');
     if (clickValueSpan) {
         clickValueSpan.textContent = clickValue.toFixed(1);
     }
 }
 
+// Функция форматирования чисел
 function formatNumber(num) {
     if (num >= 1000000000) return (num / 1000000000).toFixed(1) + 'B';
     if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
@@ -814,6 +836,7 @@ function formatNumber(num) {
     return Math.floor(num);
 }
 
+// Функция автокликера
 function autoClicker() {
     if (pointsPerSecond > 0) {
         const autoPoints = pointsPerSecond * autoSpeedMultiplier * autoMultiplier * allMultiplier * masterMultiplier * 0.5;
@@ -825,7 +848,7 @@ function autoClicker() {
     }
 }
 
-// ИСПРАВЛЕНО: функция для покупки обычных улучшений из магазина
+// Функция покупки улучшений из магазина
 function buyShopUpgrade(upgradeId) {
     console.log("Покупка улучшения из магазина:", upgradeId);
     
@@ -835,17 +858,12 @@ function buyShopUpgrade(upgradeId) {
         return;
     }
     
-    // Проверяем, хватает ли очков
     if (clickCount >= upgrade.cost) {
         console.log(`Покупка: было очков ${clickCount}, стоимость ${upgrade.cost}`);
         
-        // Списываем очки
         clickCount -= upgrade.cost;
-        
-        // Повышаем уровень
         upgrade.level++;
         
-        // Применяем эффект улучшения
         if (upgrade.type === 'click') {
             clickValue += upgrade.value;
         } else if (upgrade.type === 'auto') {
@@ -863,7 +881,6 @@ function buyShopUpgrade(upgradeId) {
             critChance += upgrade.value;
         }
         
-        // Пересчитываем стоимость следующего уровня
         const costMultiplier = upgrade.type === 'multiplier' ? 1.25 : 
                               upgrade.type === 'energy' ? 1.3 : 
                               upgrade.type === 'regen' ? 1.35 : 
@@ -875,14 +892,11 @@ function buyShopUpgrade(upgradeId) {
         
         console.log(`После покупки: очков стало ${clickCount}`);
         
-        // Обновляем интерфейс
         updateUI();
         updateEnergyDisplay();
         
-        // Обновляем отображение в магазине
         refreshShopUpgradesList();
         
-        // Показываем сообщение
         showMessage(`Куплено: ${upgrade.name} (ур. ${upgrade.level})`, "#4CAF50");
         
         if (soundEnabled) playBuySound();
@@ -895,7 +909,7 @@ function buyShopUpgrade(upgradeId) {
     }
 }
 
-// Функция для покупки эксклюзивных улучшений
+// Функция покупки эксклюзивных улучшений
 function buyExclusiveUpgrade(upgradeId) {
     const upgrade = allExclusiveUpgrades.find(u => u.id === upgradeId);
     if (!upgrade || upgrade.purchased) {
@@ -909,7 +923,7 @@ function buyExclusiveUpgrade(upgradeId) {
         applyExclusiveEffect(upgrade);
         updateKeysDisplay(); 
         updateShopStats(); 
-        loadShopExclusive(); // Обновляем список эксклюзивных улучшений
+        loadShopExclusive();
         updateEnergyDisplay(); 
         recalculateMultiplier();
         showPurchaseNotification(`Куплено: ${upgrade.name}!`);
@@ -967,7 +981,6 @@ function updateExclusiveEffects() {
 function updateShopStats() {
     if (shopKeysCountElement) shopKeysCountElement.textContent = keys;
     
-    // Подсчитываем общее количество купленных предметов
     let totalPurchased = 0;
     let totalItems = 0;
     
@@ -1007,7 +1020,6 @@ function initAchievements() {
     
     achievementsListElement.innerHTML = '';
     
-    // Создаем категории
     const categories = getAchievementCategories();
     
     categories.forEach(category => {
@@ -1077,6 +1089,12 @@ function createAchievementElement(achievement) {
         const cost = Math.min(20, Math.ceil(consecutiveClicks / 2));
         progressPercent = Math.min(100, (cost / achievement.target) * 100);
         progressText = `${cost}/${achievement.target}`;
+    } else if (achievement.type === 'crit') {
+        progressPercent = Math.min(100, (critChance * 100 / achievement.target) * 100);
+        progressText = `${Math.floor(critChance * 100)}%/${achievement.target}%`;
+    } else if (achievement.type === 'consecutive') {
+        progressPercent = Math.min(100, (consecutiveClicks / achievement.target) * 100);
+        progressText = `${consecutiveClicks}/${achievement.target}`;
     }
     
     const isCompletable = achievement.condition({ 
@@ -1091,7 +1109,8 @@ function createAchievementElement(achievement) {
         energySpent, 
         consecutiveClicks,
         exclusiveUpgrades: allExclusiveUpgrades || [], 
-        clickValue
+        clickValue,
+        critChance
     });
     
     el.innerHTML = `
@@ -1133,7 +1152,8 @@ function checkAchievements() {
             energySpent, 
             consecutiveClicks,
             exclusiveUpgrades: allExclusiveUpgrades || [], 
-            clickValue
+            clickValue,
+            critChance
         })) {
             a.completed = true;
             changed = true;
@@ -1174,7 +1194,8 @@ function updateKeysDisplay() {
         availableKeysElement.textContent = avail;
     }
     
-    updateShopStats();
+    if (shopKeysCountElement) shopKeysCountElement.textContent = keys;
+    
     updateGlobalVariables();
 }
 
@@ -1199,6 +1220,7 @@ function updateAchievementsCounter() {
     }
 }
 
+// Функции сохранения/загрузки
 function saveGame() {
     updateGlobalVariables();
     
@@ -1421,14 +1443,12 @@ function loadShopUpgrades() {
     }
 }
 
-// ИСПРАВЛЕНО: функция загрузки эксклюзивных улучшений
 function loadShopExclusive() {
     const list = document.getElementById('shopExclusiveList');
     if (!list) return;
     
     list.innerHTML = '';
     if (typeof allExclusiveUpgrades !== 'undefined') {
-        // Показываем только НЕ скрытые улучшения или уже купленные
         const visibleUpgrades = allExclusiveUpgrades.filter(u => !u.hidden || u.purchased);
         visibleUpgrades.forEach(upgrade => {
             const item = createShopExclusiveElement(upgrade);
@@ -1643,10 +1663,9 @@ window.loadShopExclusive = loadShopExclusive;
 window.loadShopSkins = loadShopSkins;
 window.loadShopCases = loadShopCases;
 window.refreshShopUpgradesList = refreshShopUpgradesList;
+window.updateGlobalVariables = updateGlobalVariables;
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM загружен, запускаем игру...");
     initGame();
 });
-
-

@@ -216,14 +216,21 @@ function initGame() {
 
 // В функции initGame, замените эти строки (примерно строка 220):
 
+// В функции initGame, найдите секцию с settingsPromo и замените на:
+
 if (settingsPromo) {
     settingsPromo.onclick = () => {
         settingsModal.style.display = 'none';
+        console.log("Клик по кнопке промокодов");
+        
         // Проверяем, существует ли функция showPromoModal
-        if (typeof showPromoModal === 'function') {
+        if (typeof window.showPromoModal === 'function') {
+            window.showPromoModal();
+        } else if (typeof showPromoModal === 'function') {
             showPromoModal();
         } else {
-            console.log("Функция showPromoModal не найдена");
+            console.error("Функция showPromoModal не найдена!");
+            alert("Ошибка: функция промокодов не загружена");
         }
     };
 }
@@ -1641,4 +1648,5 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM загружен, запускаем игру...");
     initGame();
 });
+
 

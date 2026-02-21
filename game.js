@@ -214,13 +214,26 @@ function initGame() {
         settingsSound.onclick = toggleSound;
     }
 
-    if (settingsPromo) {
-        settingsPromo.onclick = () => {
-            settingsModal.style.display = 'none';
+// В функции initGame, замените эти строки (примерно строка 220):
+
+if (settingsPromo) {
+    settingsPromo.onclick = () => {
+        settingsModal.style.display = 'none';
+        // Проверяем, существует ли функция showPromoModal
+        if (typeof showPromoModal === 'function') {
             showPromoModal();
-        };
+        } else {
+            console.log("Функция showPromoModal не найдена");
+        }
+    };
+}
+
+// И добавьте проверку для enderGiftEffect в setInterval:
+setInterval(() => {
+    if (typeof enderGiftEffect === 'function') {
+        enderGiftEffect();
     }
-    
+}, 60000);
     // Инициализация модулей
     if (typeof initAchievements === 'function') {
         console.log("Инициализация достижений...");
@@ -1628,3 +1641,4 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM загружен, запускаем игру...");
     initGame();
 });
+

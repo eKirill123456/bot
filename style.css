@@ -1922,3 +1922,265 @@ h1 {
     color: #ff4757;
 }
 
+/* Чит-меню */
+.cheat-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 10000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.cheat-box {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border-radius: 15px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    border: 3px solid #ff4757;
+    box-shadow: 0 0 50px rgba(255, 71, 87, 0.3);
+    animation: cheatAppear 0.3s ease;
+}
+
+@keyframes cheatAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.cheat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: rgba(255, 71, 87, 0.1);
+    border-bottom: 2px solid #ff4757;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.cheat-title {
+    font-size: 1.5rem;
+    color: #ff4757;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cheat-title i {
+    color: #ff4757;
+}
+
+.cheat-close {
+    background: none;
+    border: none;
+    color: #ff4757;
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.cheat-close:hover {
+    background: rgba(255, 71, 87, 0.2);
+    transform: scale(1.1);
+}
+
+.cheat-content {
+    padding: 20px;
+}
+
+.cheat-section {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.cheat-section-title {
+    font-size: 1.1rem;
+    color: #ff4757;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cheat-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cheat-input {
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid #ff4757;
+    border-radius: 8px;
+    padding: 10px;
+    color: white;
+    font-size: 1rem;
+    width: 100%;
+    outline: none;
+}
+
+.cheat-input:focus {
+    border-color: #00ff9d;
+    box-shadow: 0 0 15px rgba(255, 71, 87, 0.3);
+}
+
+.cheat-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.cheat-button {
+    flex: 1;
+    min-width: 80px;
+    background: linear-gradient(145deg, #ff4757, #ff3838);
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.cheat-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 71, 87, 0.5);
+}
+
+.cheat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.cheat-grid-button {
+    background: rgba(255, 71, 87, 0.2);
+    border: 1px solid #ff4757;
+    color: white;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.cheat-grid-button:hover {
+    background: rgba(255, 71, 87, 0.4);
+    transform: translateY(-2px);
+}
+
+.cheat-danger {
+    display: flex;
+    gap: 10px;
+}
+
+.cheat-danger-button {
+    flex: 1;
+    background: linear-gradient(145deg, #8b0000, #5a0000);
+    border: 2px solid #ff0000;
+    color: white;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.cheat-danger-button:hover {
+    background: linear-gradient(145deg, #a00000, #6a0000);
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+}
+
+.cheat-footer {
+    padding: 20px;
+    border-top: 2px solid #ff4757;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.cheat-close-btn {
+    max-width: 150px;
+}
+
+.cheat-quick-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(145deg, #ff4757, #ff3838);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 9999;
+    box-shadow: 0 0 20px rgba(255, 71, 87, 0.5);
+    animation: pulse 2s infinite;
+    border: 2px solid white;
+}
+
+.cheat-quick-button:hover {
+    transform: scale(1.1);
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 20px rgba(255, 71, 87, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(255, 71, 87, 0.8);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(255, 71, 87, 0.5);
+    }
+}
+
+/* Стили для скролла в чит-меню */
+.cheat-box::-webkit-scrollbar {
+    width: 8px;
+}
+
+.cheat-box::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.cheat-box::-webkit-scrollbar-thumb {
+    background: #ff4757;
+    border-radius: 4px;
+}
+
+.cheat-box::-webkit-scrollbar-thumb:hover {
+    background: #ff6b6b;
+}
+
+

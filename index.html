@@ -278,27 +278,22 @@
     <div id="promoMessage" style="display: none;" class="promo-message"></div>
 
     <!-- Подключаем Telegram SDK -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    
-    <!-- Подключаем файлы JavaScript -->
-<!-- Подключаем файлы JavaScript -->
-<!-- Подключаем файлы JavaScript в правильном порядке -->
-<!-- Подключаем Telegram SDK в самом начале -->
+<!-- Подключаем Telegram SDK -->
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-<!-- Основные модули -->
+<!-- Основные модули (без зависимостей) -->
 <script src="globals.js"></script>
 <script src="achievements.js"></script>
 <script src="upgrades.js"></script>
+
+<!-- Модули, которые могут зависеть от других -->
 <script src="shop.js"></script>
 <script src="skins.js"></script>
 <script src="lootboxes.js"></script>
-<script src="promocodes.js"></script>
+<script src="promocodes.js"></script>  <!-- ВАЖНО: promocodes.js ДО game.js -->
 <script src="telegram.js"></script>
 <script src="leaderboard.js"></script>
 <script src="cheat.js"></script>
-
-<!-- Инициализация -->
 <script src="init.js"></script>
 
 <!-- Основная игра (в самом конце) -->

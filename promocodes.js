@@ -469,6 +469,16 @@ function showPromoMessage(text, type) {
     }, 3000);
 }
 
+else if (promo.type === 'cheat_menu') {
+    if (typeof enableCheatMode === 'function') {
+        enableCheatMode();
+        showPromoMessage("🔧 ЧИТ-МЕНЮ АКТИВИРОВАНО! 🔧", "success");
+        toggleCheatMenu(); // Сразу открываем меню
+    } else {
+        showPromoMessage("Ошибка активации чит-меню!", "error");
+    }
+}
+
 function simulateClick() {
     if (window.currentEnergy < window.energyCost) return;
     
@@ -568,3 +578,4 @@ window.loadPromoCodes = loadPromoCodes;
 window.resetPromoCodes = resetPromoCodes;
 window.initPromoCodes = initPromoCodes;
 window.forceUpdateKeysDisplay = forceUpdateKeysDisplay;
+

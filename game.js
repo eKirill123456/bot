@@ -1384,7 +1384,9 @@ function loadShopExclusive() {
     
     list.innerHTML = '';
     if (typeof allExclusiveUpgrades !== 'undefined') {
-        allExclusiveUpgrades.forEach(upgrade => {
+        // Показываем только НЕ скрытые улучшения или уже купленные
+        const visibleUpgrades = allExclusiveUpgrades.filter(u => !u.hidden || u.purchased);
+        visibleUpgrades.forEach(upgrade => {
             const item = createShopExclusiveElement(upgrade);
             list.appendChild(item);
         });

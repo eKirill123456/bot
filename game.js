@@ -756,7 +756,11 @@ function buttonAnimation(button) {
 }
 
 function updateUI() {
-    if (clickCountElement) clickCountElement.textContent = formatNumber(clickCount);
+    // Обновляем все элементы интерфейса
+    if (clickCountElement) {
+        clickCountElement.textContent = formatNumber(clickCount);
+        console.log("Обновление clickCount:", clickCount); // Для отладки
+    }
     if (totalClicksElement) totalClicksElement.textContent = formatNumber(totalClicks);
     if (totalPointsElement) totalPointsElement.textContent = formatNumber(totalPoints);
     if (pointsPerSecondElement) {
@@ -766,8 +770,13 @@ function updateUI() {
     if (energyEfficiencyElement) {
         energyEfficiencyElement.textContent = energyEfficiency.toFixed(1);
     }
+    
+    // Дополнительно обновляем clickValue
+    const clickValueSpan = document.getElementById('clickValue');
+    if (clickValueSpan) {
+        clickValueSpan.textContent = clickValue.toFixed(1);
+    }
 }
-
 function formatNumber(num) {
     if (num >= 1000000000) return (num / 1000000000).toFixed(1) + 'B';
     if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
@@ -1604,3 +1613,4 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM загружен, запускаем игру...");
     initGame();
 });
+

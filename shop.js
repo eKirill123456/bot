@@ -1,5 +1,6 @@
 // shop.js - Эксклюзивные улучшения за ключи
 
+// Обычные эксклюзивные улучшения (видны в магазине)
 const exclusiveUpgrades = [
     {
         id: 101,
@@ -132,8 +133,11 @@ const exclusiveUpgrades = [
         icon: "fa-crown",
         special: false,
         hidden: false
-    },
-    // Специальные улучшения за промокоды
+    }
+];
+
+// Специальные улучшения (скрыты, пока не активированы промокодом)
+const specialUpgrades = [
     {
         id: 201,
         name: "Незер-ключ",
@@ -145,7 +149,7 @@ const exclusiveUpgrades = [
         purchased: false,
         icon: "fa-skull",
         special: true,
-        hidden: true,
+        hidden: true, // Скрыто по умолчанию
         promoCode: "WITHER666"
     },
     {
@@ -158,7 +162,7 @@ const exclusiveUpgrades = [
         purchased: false,
         icon: "fa-eye",
         special: true,
-        hidden: true,
+        hidden: true, // Скрыто по умолчанию
         promoCode: "ENDERDRAGON"
     },
     {
@@ -171,7 +175,7 @@ const exclusiveUpgrades = [
         purchased: false,
         icon: "fa-shield-halved",
         special: true,
-        hidden: true,
+        hidden: true, // Скрыто по умолчанию
         promoCode: "HERO2024"
     },
     {
@@ -185,10 +189,29 @@ const exclusiveUpgrades = [
         purchased: false,
         icon: "fa-crown",
         special: true,
-        hidden: true,
+        hidden: true, // Скрыто по умолчанию
         promoCode: "LEGENDARY"
     }
 ];
 
-const allExclusiveUpgrades = exclusiveUpgrades; // Просто присваиваем массив
+// Объединяем все улучшения
+const allExclusiveUpgrades = [...exclusiveUpgrades, ...specialUpgrades];
+
+// Функция для получения только видимых улучшений (для отображения в магазине)
+function getVisibleExclusiveUpgrades() {
+    return allExclusiveUpgrades.filter(u => !u.hidden || u.purchased);
+}
+
+// Функция для активации специального улучшения по промокоду
+function activateSpecialUpgrade(promoCode) {
+    const upgrade = allExclusiveUpgrades.find(u => u.promoCode === promoCode);
+    if (upgrade && upgrade.hidden) {
+        upgrade.hidden = false;
+        return upgrade;
+    }
+    return null;
+}
+
 window.allExclusiveUpgrades = allExclusiveUpgrades;
+window.getVisibleExclusiveUpgrades = getVisibleExclusiveUpgrades;
+window.activateSpecialUpgrade = activateSpecialUpgrade;

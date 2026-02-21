@@ -1,31 +1,8 @@
 // promocodes.js - Система промокодов
 
-// promocodes.js - Система промокодов
-
 // Объявляем переменные в начале
-let promoButton, promoModal, promoInput, promoActivate, promoClose, promoList, promoMessage;
 let legendaryClickCounter = 0;
-
-// Убедитесь, что функция showPromoModal определена
-function showPromoModal() {
-    console.log("showPromoModal вызвана");
-    if (!promoModal) {
-        promoModal = document.getElementById('promoModal');
-    }
-    if (!promoModal) return;
-    
-    promoModal.style.display = 'flex';
-    if (promoInput) {
-        promoInput.value = '';
-        promoInput.focus();
-    }
-    updatePromoList();
-    if (typeof playClickSound === 'function') playClickSound();
-}
-
-// Остальной код promocodes.js...
-
-
+let promoButton, promoModal, promoInput, promoActivate, promoClose, promoList, promoMessage;
 
 const promoCodes = [
     // Обычные промокоды (дают ключи)
@@ -185,9 +162,9 @@ const promoCodes = [
         type: "exclusive_random",
         used: false,
         description: "Случайное эксклюзивное улучшение"
-    }   
-        
-    {   
+    },
+    // Секретный промокод для активации чит-меню
+    {
         code: "DEBUGMODE666",
         reward: null,
         type: "cheat_menu",
@@ -196,9 +173,7 @@ const promoCodes = [
     }
 ];
 
-let legendaryClickCounter = 0;
-let promoButton, promoModal, promoInput, promoActivate, promoClose, promoList, promoMessage;
-
+// Функция для принудительного обновления ключей
 function forceUpdateKeysDisplay() {
     console.log("Принудительное обновление ключей");
     
@@ -237,10 +212,12 @@ function forceUpdateKeysDisplay() {
     }
 }
 
+// Функция инициализации промокодов
 function initPromoCodes() {
     console.log("Инициализация промокодов...");
     
-    promoButton = document.getElementById('promoButton');
+    // Получаем элементы
+    promoButton = document.getElementById('settingsPromo'); // Исправлено: используем settingsPromo, не promoButton
     promoModal = document.getElementById('promoModal');
     promoInput = document.getElementById('promoInput');
     promoActivate = document.getElementById('promoActivate');
@@ -248,12 +225,16 @@ function initPromoCodes() {
     promoList = document.getElementById('promoList');
     promoMessage = document.getElementById('promoMessage');
     
+    console.log("Элементы промокодов:", {promoModal, promoInput, promoActivate, promoClose});
+    
+    // Обработчик для кнопки в настройках
     if (promoButton) {
-        promoButton.addEventListener('click', function() {
-            showPromoModal();
-        });
+        console.log("Кнопка промокодов найдена");
+    } else {
+        console.log("Кнопка промокодов не найдена (это нормально, если используем settingsPromo)");
     }
     
+    // Обработчики для модального окна
     if (promoClose) {
         promoClose.addEventListener('click', function() {
             hidePromoModal();
@@ -285,24 +266,63 @@ function initPromoCodes() {
     updatePromoList();
 }
 
+// Функция показа модального окна
 function showPromoModal() {
-    if (!promoModal) return;
+    console.log("showPromoModal вызвана");
+    
+    // Получаем элемент модального окна
+    if (!promoModal) {
+        promoModal = document.getElementById('promoModal');
+    }
+    
+    if (!promoModal) {
+        console.error("Модальное окно промокодов не найдено!");
+        alert("Ошибка: модальное окно не найдено");
+        return;
+    }
+    
+    // Показываем окно
     promoModal.style.display = 'flex';
+    console.log("Модальное окно промокодов открыто");
+    
+    // Фокус на поле ввода
+    if (!promoInput) {
+        promoInput = document.getElementById('promoInput');
+    }
+    
     if (promoInput) {
         promoInput.value = '';
         promoInput.focus();
     }
+    
     updatePromoList();
-    if (typeof playClickSound === 'function') playClickSound();
+    
+    if (typeof playClickSound === 'function') {
+        playClickSound();
+    }
 }
 
+// Функция скрытия модального окна
 function hidePromoModal() {
-    if (!promoModal) return;
-    promoModal.style.display = 'none';
-    if (typeof playClickSound === 'function') playClickSound();
+    if (!promoModal) {
+        promoModal = document.getElementById('promoModal');
+    }
+    
+    if (promoModal) {
+        promoModal.style.display = 'none';
+    }
+    
+    if (typeof playClickSound === 'function') {
+        playClickSound();
+    }
 }
 
+// Функция обновления списка промокодов
 function updatePromoList() {
+    if (!promoList) {
+        promoList = document.getElementById('promoList');
+    }
+    
     if (!promoList) return;
     
     promoList.innerHTML = '<h3 style="color: #9b59b6; margin-bottom: 10px;">Активированные промокоды:</h3>';
@@ -332,6 +352,7 @@ function updatePromoList() {
     });
 }
 
+// Функция открытия кейса из промокода
 function openCaseFromPromo(caseType, count = 1) {
     let caseId = 1;
     
@@ -358,7 +379,12 @@ function openCaseFromPromo(caseType, count = 1) {
     }
 }
 
+// Функция активации промокода
 function activatePromoCode() {
+    if (!promoInput) {
+        promoInput = document.getElementById('promoInput');
+    }
+    
     if (!promoInput) return;
     
     const code = promoInput.value.trim().toUpperCase();
@@ -457,14 +483,12 @@ function activatePromoCode() {
         }
         
     } else if (promo.type === 'special') {
-        // ИСПРАВЛЕНО: используем функцию из shop.js
         if (typeof activateSpecialUpgrade === 'function') {
             const activatedUpgrade = activateSpecialUpgrade(promo.code);
             
             if (activatedUpgrade) {
                 showPromoMessage(`Открыто улучшение: ${activatedUpgrade.name}!`, "success");
                 
-                // Обновляем отображение магазина, если он открыт
                 const shopTab = document.getElementById('shopTab');
                 if (shopTab && shopTab.classList.contains('active') && typeof loadShopExclusive === 'function') {
                     loadShopExclusive();
@@ -475,6 +499,17 @@ function activatePromoCode() {
         } else {
             showPromoMessage("Ошибка системы улучшений!", "error");
         }
+        
+    } else if (promo.type === 'cheat_menu') {
+        if (typeof enableCheatMode === 'function') {
+            enableCheatMode();
+            showPromoMessage("🔧 ЧИТ-МЕНЮ АКТИВИРОВАНО! 🔧", "success");
+            if (typeof toggleCheatMenu === 'function') {
+                toggleCheatMenu();
+            }
+        } else {
+            showPromoMessage("Ошибка активации чит-меню!", "error");
+        }
     }
     
     updatePromoList();
@@ -484,7 +519,12 @@ function activatePromoCode() {
     promoInput.value = '';
 }
 
+// Функция показа сообщения
 function showPromoMessage(text, type) {
+    if (!promoMessage) {
+        promoMessage = document.getElementById('promoMessage');
+    }
+    
     if (!promoMessage) return;
     
     promoMessage.textContent = text;
@@ -496,16 +536,7 @@ function showPromoMessage(text, type) {
     }, 3000);
 }
 
-else if (promo.type === 'cheat_menu') {
-    if (typeof enableCheatMode === 'function') {
-        enableCheatMode();
-        showPromoMessage("🔧 ЧИТ-МЕНЮ АКТИВИРОВАНО! 🔧", "success");
-        toggleCheatMenu(); // Сразу открываем меню
-    } else {
-        showPromoMessage("Ошибка активации чит-меню!", "error");
-    }
-}
-
+// Функция симуляции клика
 function simulateClick() {
     if (window.currentEnergy < window.energyCost) return;
     
@@ -521,6 +552,7 @@ function simulateClick() {
     if (typeof updateEnergyDisplay === 'function') updateEnergyDisplay();
 }
 
+// Функция проверки специальных эффектов
 function checkSpecialEffects() {
     const nezerKey = window.allExclusiveUpgrades ? 
         window.allExclusiveUpgrades.find(u => u.id === 201) : 
@@ -549,6 +581,7 @@ function checkSpecialEffects() {
     }
 }
 
+// Функция эффекта Эндер-ключа
 function enderGiftEffect() {
     const enderKey = window.allExclusiveUpgrades ? 
         window.allExclusiveUpgrades.find(u => u.id === 202) : 
@@ -561,6 +594,7 @@ function enderGiftEffect() {
     }
 }
 
+// Функция получения бонуса героя
 function getHeroBonus() {
     const heroKey = window.allExclusiveUpgrades ? 
         window.allExclusiveUpgrades.find(u => u.id === 203) : 
@@ -568,6 +602,7 @@ function getHeroBonus() {
     return (heroKey && heroKey.purchased) ? heroKey.value : 0;
 }
 
+// Функция загрузки промокодов
 function loadPromoCodes(savedData) {
     if (savedData && savedData.promoCodes) {
         savedData.promoCodes.forEach(savedPromo => {
@@ -583,6 +618,7 @@ function loadPromoCodes(savedData) {
     }
 }
 
+// Функция сохранения промокодов
 function savePromoCodes() {
     return {
         promoCodes: promoCodes.map(p => ({ code: p.code, used: p.used })),
@@ -590,6 +626,7 @@ function savePromoCodes() {
     };
 }
 
+// Функция сброса промокодов
 function resetPromoCodes() {
     promoCodes.forEach(promo => {
         promo.used = false;
@@ -597,6 +634,7 @@ function resetPromoCodes() {
     legendaryClickCounter = 0;
 }
 
+// Экспортируем функции
 window.checkSpecialEffects = checkSpecialEffects;
 window.getHeroBonus = getHeroBonus;
 window.enderGiftEffect = enderGiftEffect;
@@ -605,5 +643,6 @@ window.loadPromoCodes = loadPromoCodes;
 window.resetPromoCodes = resetPromoCodes;
 window.initPromoCodes = initPromoCodes;
 window.forceUpdateKeysDisplay = forceUpdateKeysDisplay;
-
-
+window.showPromoModal = showPromoModal; // Важно!
+window.hidePromoModal = hidePromoModal;
+window.activatePromoCode = activatePromoCode;

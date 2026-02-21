@@ -473,23 +473,48 @@ const lootBoxItems = [
     }
 ];
 
+// ИСПРАВЛЕНО: функция открытия кейса
 function openLootBox(boxId) {
+    console.log("Открытие кейса:", boxId);
+    
     const boxData = lootBoxes.find(b => b.id === boxId);
     if (!boxData) {
         if (typeof showMessage === 'function') showMessage("Кейс не найден!", "#ff4757");
         return null;
     }
     
+    // Проверяем ключи через глобальную переменную
     if (window.keys < boxData.price) {
         if (typeof showMessage === 'function') showMessage(`Недостаточно ключей! Нужно ${boxData.price}`, "#ff4757");
         return null;
     }
     
+    // СПИСЫВАЕМ КЛЮЧИ
     window.keys -= boxData.price;
-    if (typeof updateKeysDisplay === 'function') updateKeysDisplay();
+    console.log(`Куплен кейс за ${boxData.price} ключей. Осталось ключей:`, window.keys);
+    
+    // Обновляем глобальную переменную keys
+    if (typeof keys !== 'undefined') {
+        keys = window.keys;
+    }
+    
+    // Обновляем отображение ключей
+    if (typeof updateKeysDisplay === 'function') {
+        updateKeysDisplay();
+    }
+    
+    // Обновляем статистику магазина
+    if (typeof updateShopStats === 'function') {
+        updateShopStats();
+    }
+    
+    // Обновляем отображение ключей в кейсах
+    updateLootBoxesKeys();
     
     const items = lootBoxItems.filter(item => item.boxId === boxId);
     const selectedItem = selectRandomLootItem(items);
+    console.log("Выпал предмет:", selectedItem);
+    
     const reward = applyLootBoxReward(selectedItem);
     
     showLootBoxAnimation(boxData, selectedItem, reward);
@@ -511,24 +536,43 @@ function selectRandomLootItem(items) {
     return chancePool[randomIndex];
 }
 
+// ИСПРАВЛЕНО: функция применения награды
 function applyLootBoxReward(item) {
     let reward = { type: item.type, value: item.value, name: item.name };
     
+    console.log("Применение награды:", item);
+    
     switch(item.type) {
         case 'points':
+            // Обновляем через window объект
             window.clickCount = (window.clickCount || 0) + item.value;
             window.totalPoints = (window.totalPoints || 0) + item.value;
+            
+            // Обновляем локальные переменные
+            if (typeof clickCount !== 'undefined') clickCount = window.clickCount;
+            if (typeof totalPoints !== 'undefined') totalPoints = window.totalPoints;
+            
             reward.message = `+${item.value} очков!`;
+            console.log(`Добавлено ${item.value} очков. Теперь очков:`, window.clickCount);
             break;
             
         case 'keys':
             window.keys = (window.keys || 0) + item.value;
+            
+            // Обновляем локальную переменную
+            if (typeof keys !== 'undefined') keys = window.keys;
+            
             reward.message = `+${item.value} ключей!`;
+            console.log(`Добавлено ${item.value} ключей. Теперь ключей:`, window.keys);
             break;
             
         case 'energy':
             const effectiveMaxEnergy = (window.maxEnergy || 100) * (window.energyMultiplier || 1);
             window.currentEnergy = Math.min(effectiveMaxEnergy, (window.currentEnergy || 100) + item.value);
+            
+            // Обновляем локальную переменную
+            if (typeof currentEnergy !== 'undefined') currentEnergy = window.currentEnergy;
+            
             reward.message = `+${item.value} энергии!`;
             break;
             
@@ -541,6 +585,10 @@ function applyLootBoxReward(item) {
                                                item.rarity === 'epic' ? 10 : 
                                                item.rarity === 'rare' ? 5 : 3);
                     window.keys += keyReward;
+                    
+                    // Обновляем локальную переменную
+                    if (typeof keys !== 'undefined') keys = window.keys;
+                    
                     reward.message = `Повторный скин: +${keyReward} ключей!`;
                     reward.type = 'keys_duplicate';
                 } else {
@@ -584,6 +632,10 @@ function applyLootBoxReward(item) {
                     const keyReward = item.rarity === 'legendary' ? 20 : 
                                      item.rarity === 'epic' ? 15 : 10;
                     window.keys += keyReward;
+                    
+                    // Обновляем локальную переменную
+                    if (typeof keys !== 'undefined') keys = window.keys;
+                    
                     reward.message = `Максимальный уровень: +${keyReward} ключей!`;
                 }
             }
@@ -597,6 +649,10 @@ function applyLootBoxReward(item) {
                 if (exclusive.purchased) {
                     const keyReward = 25;
                     window.keys += keyReward;
+                    
+                    // Обновляем локальную переменную
+                    if (typeof keys !== 'undefined') keys = window.keys;
+                    
                     reward.message = `Повторное улучшение: +${keyReward} ключей!`;
                 } else {
                     exclusive.purchased = true;
@@ -614,11 +670,34 @@ function applyLootBoxReward(item) {
             break;
     }
     
-    if (typeof updateUI === 'function') updateUI();
-    if (typeof updateEnergyDisplay === 'function') updateEnergyDisplay();
-    if (typeof updateKeysDisplay === 'function') updateKeysDisplay();
-    if (typeof updateShopStats === 'function') updateShopStats();
-    if (typeof renderSkins === 'function') renderSkins();
+    // ОБНОВЛЯЕМ ВСЕ ИНТЕРФЕЙСЫ
+    if (typeof updateUI === 'function') {
+        updateUI();
+    }
+    
+    if (typeof updateEnergyDisplay === 'function') {
+        updateEnergyDisplay();
+    }
+    
+    if (typeof updateKeysDisplay === 'function') {
+        updateKeysDisplay();
+    }
+    
+    if (typeof updateShopStats === 'function') {
+        updateShopStats();
+    }
+    
+    if (typeof renderSkins === 'function') {
+        renderSkins();
+    }
+    
+    // Обновляем отображение ключей в кейсах
+    updateLootBoxesKeys();
+    
+    // Обновляем глобальные переменные
+    if (typeof updateGlobalVariables === 'function') {
+        updateGlobalVariables();
+    }
     
     return reward;
 }

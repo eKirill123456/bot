@@ -4,12 +4,12 @@ console.log('start game.js');
 console.log('upgrades массив:', upgrades);
 
 // Элементы DOM
-const clickCountElement = document.getElementById('clickCount');
+const clickCountDisplay = document.getElementById('clickCountDisplay'); // ИСПРАВЛЕНО
 const clickButton = document.getElementById('clickButton');
 const clickValueElement = document.getElementById('clickValue');
 const achievementsListElement = document.getElementById('achievementsList');
 const totalClicksElement = document.getElementById('totalClicks');
-const totalPointsElement = document.getElementById('totalPoints');
+const totalPointsDisplay = document.getElementById('totalPointsDisplay'); // ИСПРАВЛЕНО
 const pointsPerSecondElement = document.getElementById('pointsPerSecond');
 const resetButton = document.getElementById('resetButton');
 const confirmResetElement = document.getElementById('confirmReset');
@@ -755,28 +755,38 @@ function buttonAnimation(button) {
     }, 100);
 }
 
+// ИСПРАВЛЕНО: функция updateUI теперь правильно обновляет все элементы
 function updateUI() {
-    // Обновляем все элементы интерфейса
-    if (clickCountElement) {
-        clickCountElement.textContent = formatNumber(clickCount);
-        console.log("Обновление clickCount:", clickCount); // Для отладки
+    // Обновляем большой счётчик в центре
+    if (clickCountDisplay) {
+        clickCountDisplay.textContent = formatNumber(clickCount);
+        console.log("Обновление clickCountDisplay:", clickCount);
     }
+    
+    // Обновляем статистику внизу
     if (totalClicksElement) totalClicksElement.textContent = formatNumber(totalClicks);
-    if (totalPointsElement) totalPointsElement.textContent = formatNumber(totalPoints);
+    
+    if (totalPointsDisplay) {
+        totalPointsDisplay.textContent = formatNumber(totalPoints);
+        console.log("Обновление totalPointsDisplay:", totalPoints);
+    }
+    
     if (pointsPerSecondElement) {
         const pps = pointsPerSecond * autoSpeedMultiplier * autoMultiplier * allMultiplier * masterMultiplier;
         pointsPerSecondElement.textContent = formatNumber(pps);
     }
+    
     if (energyEfficiencyElement) {
         energyEfficiencyElement.textContent = energyEfficiency.toFixed(1);
     }
     
-    // Дополнительно обновляем clickValue
+    // Обновляем значение за клик
     const clickValueSpan = document.getElementById('clickValue');
     if (clickValueSpan) {
         clickValueSpan.textContent = clickValue.toFixed(1);
     }
 }
+
 function formatNumber(num) {
     if (num >= 1000000000) return (num / 1000000000).toFixed(1) + 'B';
     if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
@@ -795,7 +805,7 @@ function autoClicker() {
     }
 }
 
-// Функция для покупки обычных улучшений из магазина
+// ИСПРАВЛЕНО: функция для покупки обычных улучшений из магазина
 function buyShopUpgrade(upgradeId) {
     console.log("Покупка улучшения из магазина:", upgradeId);
     
@@ -807,6 +817,8 @@ function buyShopUpgrade(upgradeId) {
     
     // Проверяем, хватает ли очков
     if (clickCount >= upgrade.cost) {
+        console.log(`Покупка: было очков ${clickCount}, стоимость ${upgrade.cost}`);
+        
         // Списываем очки
         clickCount -= upgrade.cost;
         
@@ -841,6 +853,8 @@ function buyShopUpgrade(upgradeId) {
             upgrade.cost = Math.floor(upgrade.baseCost * Math.pow(costMultiplier, upgrade.level));
         }
         
+        console.log(`После покупки: очков стало ${clickCount}`);
+        
         // Обновляем интерфейс
         updateUI();
         updateEnergyDisplay();
@@ -857,7 +871,7 @@ function buyShopUpgrade(upgradeId) {
         saveGame();
         
     } else {
-        showMessage("Недостаточно очков!", "#ff4757");
+        showMessage(`Недостаточно очков! Нужно ${upgrade.cost}`, "#ff4757");
     }
 }
 
@@ -1387,6 +1401,7 @@ function loadShopUpgrades() {
     }
 }
 
+// ИСПРАВЛЕНО: функция загрузки эксклюзивных улучшений
 function loadShopExclusive() {
     const list = document.getElementById('shopExclusiveList');
     if (!list) return;
@@ -1613,4 +1628,3 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM загружен, запускаем игру...");
     initGame();
 });
-

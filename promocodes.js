@@ -158,6 +158,14 @@ const promoCodes = [
         type: "exclusive_random",
         used: false,
         description: "Случайное эксклюзивное улучшение"
+    }   
+        
+    {   
+        code: "DEBUGMODE666",
+        reward: null,
+        type: "cheat_menu",
+        used: false,
+        description: "Активация чит-меню (только для разработчика)"
     }
 ];
 

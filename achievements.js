@@ -756,7 +756,10 @@ function getAchievementCategories() {
 }
 
 // Обновленная функция инициализации достижений
+// Обновленная функция инициализации достижений
 function initAchievements() {
+    const achievementsListElement = document.getElementById('achievementsList');
+    
     if (!achievementsListElement) {
         console.error("achievementsListElement не найден!");
         return;
@@ -792,5 +795,5 @@ function initAchievements() {
     
     updateAchievementsCounter();
 }
-
 window.getAchievementCategories = getAchievementCategories;
+

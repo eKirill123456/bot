@@ -69,7 +69,7 @@ function cheatAddKeys() {
     window.keys = (window.keys || 0) + amount;
     if (typeof keys !== 'undefined') keys = window.keys;
     updateAllDisplays();
-    showMessage(`🔑 +${amount} ключей!`, "#ff4757");
+    safeShowMessage(`🔑 +${amount} ключей!`, "#ff4757");
 }
 
 function cheatRemoveKeys() {

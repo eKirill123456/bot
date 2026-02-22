@@ -546,8 +546,6 @@ function applyLootBoxReward(item) {
     const boxData = lootBoxes.find(b => b.id === item.boxId);
     const boxPrice = boxData ? boxData.price : 0;
     
-    // ... остальной код switch ...
-}
     switch(item.type) {
         case 'points':
             // Обновляем через window объект
@@ -582,97 +580,100 @@ function applyLootBoxReward(item) {
             reward.message = `+${item.value} энергии!`;
             break;
             
-case 'skin':
-    const skin = window.skins ? window.skins.find(s => s.id === item.value) : null;
-    
-    if (skin) {
-        if (skin.purchased) {
-            // Компенсация: возвращаем стоимость кейса + бонус
-            const compensation = boxData.price * 2; // Возвращаем двойную стоимость
-            window.keys += compensation;
+        case 'skin':
+            const skin = window.skins ? window.skins.find(s => s.id === item.value) : null;
             
-            if (typeof keys !== 'undefined') keys = window.keys;
-            
-            reward.message = `Скин уже есть! +${compensation} ключей (компенсация)`;
-            reward.type = 'keys_duplicate';
-        } else {
-            skin.purchased = true;
-            reward.message = `Новый скин: ${skin.name}!`;
-            reward.type = 'skin_new';
-            
-            // Автоматически экипируем легендарные и эпические скины
-            if (item.rarity === 'legendary' || item.rarity === 'epic') {
-                if (typeof equipSkin === 'function') {
-                    equipSkin(item.value);
+            if (skin) {
+                if (skin.purchased) {
+                    // Компенсация: возвращаем стоимость кейса + бонус
+                    const compensation = boxPrice * 2; // Возвращаем двойную стоимость
+                    window.keys += compensation;
+                    
+                    if (typeof keys !== 'undefined') keys = window.keys;
+                    
+                    reward.message = `Скин уже есть! +${compensation} ключей (компенсация)`;
+                    reward.type = 'keys_duplicate';
+                } else {
+                    skin.purchased = true;
+                    reward.message = `Новый скин: ${skin.name}!`;
+                    reward.type = 'skin_new';
+                    
+                    // Автоматически экипируем легендарные и эпические скины
+                    if (item.rarity === 'legendary' || item.rarity === 'epic') {
+                        if (typeof equipSkin === 'function') {
+                            equipSkin(item.value);
+                        }
+                    }
                 }
             }
-        }
-    }
-    break;
+            break;
             
-case 'upgrade':
-    const upgrade = window.upgrades ? window.upgrades.find(u => u.id === item.value) : null;
-    
-    if (upgrade) {
-        if (upgrade.level >= upgrade.maxLevel) {
-            // Если улучшение уже максимально - компенсация
-            const compensation = boxData.price * 3; // Тройная компенсация за макс уровень
-            window.keys += compensation;
+        case 'upgrade':
+            const upgrade = window.upgrades ? window.upgrades.find(u => u.id === item.value) : null;
             
-            if (typeof keys !== 'undefined') keys = window.keys;
-            
-            reward.message = `Улучшение максимально! +${compensation} ключей!`;
-            reward.type = 'keys_duplicate';
-        } else {
-            const newLevel = Math.min(upgrade.maxLevel, upgrade.level + (item.upgradeLevel || 1));
-            const levelsGained = newLevel - upgrade.level;
-            
-            upgrade.level = newLevel;
-            
-            // Пересчитываем стоимость для следующего уровня
-            const costMultiplier = upgrade.type === 'multiplier' ? 1.25 : 
-                                  upgrade.type === 'energy' ? 1.3 : 
-                                  upgrade.type === 'regen' ? 1.35 : 
-                                  upgrade.type === 'crit' ? 1.4 : 1.2;
-            
-            if (upgrade.level < upgrade.maxLevel) {
-                upgrade.cost = Math.floor(upgrade.baseCost * Math.pow(costMultiplier, upgrade.level));
+            if (upgrade) {
+                if (upgrade.level >= upgrade.maxLevel) {
+                    // Если улучшение уже максимально - компенсация
+                    const compensation = boxPrice * 3; // Тройная компенсация за макс уровень
+                    window.keys += compensation;
+                    
+                    if (typeof keys !== 'undefined') keys = window.keys;
+                    
+                    reward.message = `Улучшение максимально! +${compensation} ключей!`;
+                    reward.type = 'keys_duplicate';
+                } else {
+                    const newLevel = Math.min(upgrade.maxLevel, upgrade.level + (item.upgradeLevel || 1));
+                    const levelsGained = newLevel - upgrade.level;
+                    
+                    upgrade.level = newLevel;
+                    
+                    // Пересчитываем стоимость для следующего уровня
+                    const costMultiplier = upgrade.type === 'multiplier' ? 1.25 : 
+                                          upgrade.type === 'energy' ? 1.3 : 
+                                          upgrade.type === 'regen' ? 1.35 : 
+                                          upgrade.type === 'crit' ? 1.4 : 1.2;
+                    
+                    if (upgrade.level < upgrade.maxLevel) {
+                        upgrade.cost = Math.floor(upgrade.baseCost * Math.pow(costMultiplier, upgrade.level));
+                    }
+                    
+                    reward.message = `+${levelsGained} уровень к ${upgrade.name}!`;
+                    
+                    if (typeof recalculateMultiplier === 'function') recalculateMultiplier();
+                    if (typeof updateEnergyDisplay === 'function') updateEnergyDisplay();
+                }
             }
+            break;
             
-            reward.message = `+${levelsGained} уровень к ${upgrade.name}!`;
+        case 'exclusive':
+            const exclusive = window.allExclusiveUpgrades ? 
+                window.allExclusiveUpgrades.find(u => u.id === item.value) : null;
             
-            if (typeof recalculateMultiplier === 'function') recalculateMultiplier();
-            if (typeof updateEnergyDisplay === 'function') updateEnergyDisplay();
-        }
-    }
-    break;
-case 'exclusive':
-    const exclusive = window.allExclusiveUpgrades ? 
-        window.allExclusiveUpgrades.find(u => u.id === item.value) : null;
-    
-    if (exclusive) {
-        if (exclusive.purchased) {
-            // Компенсация за повторное эксклюзивное улучшение
-            const compensation = boxData.price * 4; // Четверная компенсация
-            window.keys += compensation;
-            
-            if (typeof keys !== 'undefined') keys = window.keys;
-            
-            reward.message = `Улучшение уже есть! +${compensation} ключей!`;
-        } else {
-            exclusive.purchased = true;
-            exclusive.hidden = false;
-            
-            if (typeof applyExclusiveEffect === 'function') {
-                applyExclusiveEffect(exclusive);
+            if (exclusive) {
+                if (exclusive.purchased) {
+                    // Компенсация за повторное эксклюзивное улучшение
+                    const compensation = boxPrice * 4; // Четверная компенсация
+                    window.keys += compensation;
+                    
+                    if (typeof keys !== 'undefined') keys = window.keys;
+                    
+                    reward.message = `Улучшение уже есть! +${compensation} ключей!`;
+                } else {
+                    exclusive.purchased = true;
+                    exclusive.hidden = false;
+                    
+                    if (typeof applyExclusiveEffect === 'function') {
+                        applyExclusiveEffect(exclusive);
+                    }
+                    
+                    reward.message = `Новое улучшение: ${exclusive.name}!`;
+                    
+                    if (typeof initShop === 'function') initShop();
+                }
             }
-            
-            reward.message = `Новое улучшение: ${exclusive.name}!`;
-            
-            if (typeof initShop === 'function') initShop();
-        }
+            break;
     }
-    break;
+    
     // ОБНОВЛЯЕМ ВСЕ ИНТЕРФЕЙСЫ
     if (typeof updateUI === 'function') {
         updateUI();
@@ -971,5 +972,6 @@ window.openLootBox = openLootBox;
 window.showLootBoxChances = showLootBoxChances;
 window.renderLootBoxes = renderLootBoxes;
 window.updateLootBoxesKeys = updateLootBoxesKeys;
+
 
 

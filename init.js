@@ -13,16 +13,17 @@ function safeCall(funcName, ...args) {
 }
 
 // Инициализация всех модулей
+// Добавьте в функцию initializeAll
 function initializeAll() {
     console.log("Инициализация всех модулей...");
     
-    // Инициализация по порядку
     safeCall('initAchievements');
     safeCall('initPromoCodes');
     safeCall('initShop');
     safeCall('initTelegram');
     safeCall('loadLeaderboard');
     safeCall('initCheatMode');
+    safeCall('initDailySystem'); // ДОБАВЬТЕ ЭТУ СТРОКУ
     
     console.log("Все модули инициализированы");
 }

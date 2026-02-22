@@ -2131,7 +2131,7 @@ h1 {
 
 .cheat-quick-button {
     position: fixed;
-    bottom: 20px;
+    bottom: 80px; /* Увеличено, чтобы не перекрывать кнопку профиля */
     right: 20px;
     width: 50px;
     height: 50px;
@@ -2149,6 +2149,16 @@ h1 {
     border: 2px solid white;
 }
 
+/* Для мобильных устройств */
+@media (max-width: 768px) {
+    .cheat-quick-button {
+        bottom: 70px; /* Немного выше над табами */
+        right: 15px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+    }
+}
 .cheat-quick-button:hover {
     transform: scale(1.1);
 }
@@ -2182,5 +2192,29 @@ h1 {
 .cheat-box::-webkit-scrollbar-thumb:hover {
     background: #ff6b6b;
 }
+
+
+/* Улучшенная видимость кнопки чит-меню */
+.cheat-quick-button {
+    box-shadow: 0 0 20px rgba(255, 71, 87, 0.7);
+    transition: all 0.3s ease;
+}
+
+.cheat-quick-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(255, 71, 87, 0.9);
+}
+
+/* Адаптация для очень маленьких экранов */
+@media (max-width: 480px) {
+    .cheat-quick-button {
+        bottom: 65px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+}
+Это изменение поднимет кнопку чит-меню выше, ч
 
 

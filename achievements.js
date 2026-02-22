@@ -755,8 +755,115 @@ function getAchievementCategories() {
     return categories;
 }
 
-// Обновленная функция инициализации достижений
-// Обновленная функция инициализации достижений
+// Функция форматирования чисел
+function formatNumber(num) {
+    if (num >= 1000000000) return (num / 1000000000).toFixed(1) + 'B';
+    if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+    if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+    return Math.floor(num);
+}
+
+// Функция создания элемента достижения
+function createAchievementElement(achievement) {
+    const el = document.createElement('div');
+    el.className = 'achievement-item' + (achievement.claimed ? ' completed' : '');
+    el.id = `achievement-${achievement.id}`;
+    
+    // Получаем глобальные переменные
+    const totalPoints = window.totalPoints || 0;
+    const totalClicks = window.totalClicks || 0;
+    const pointsPerSecond = window.pointsPerSecond || 0;
+    const autoSpeedMultiplier = window.autoSpeedMultiplier || 1;
+    const autoMultiplier = window.autoMultiplier || 1;
+    const allMultiplier = window.allMultiplier || 1;
+    const masterMultiplier = window.masterMultiplier || 1;
+    const maxEnergy = window.maxEnergy || 100;
+    const energyMultiplier = window.energyMultiplier || 1;
+    const maxEnergyFilled = window.maxEnergyFilled || 0;
+    const keys = window.keys || 0;
+    const keysSpent = window.keysSpent || 0;
+    const upgrades = window.upgrades || [];
+    const allExclusiveUpgrades = window.allExclusiveUpgrades || [];
+    const energySpent = window.energySpent || 0;
+    const consecutiveClicks = window.consecutiveClicks || 0;
+    const critChance = window.critChance || 0;
+    
+    let progressText = '', progressPercent = 0;
+    const effectiveMaxEnergy = maxEnergy * energyMultiplier;
+    const effectivePPS = pointsPerSecond * autoSpeedMultiplier * autoMultiplier * allMultiplier * masterMultiplier;
+    
+    if (achievement.type === 'points') {
+        progressPercent = Math.min(100, (totalPoints / achievement.target) * 100);
+        progressText = `${formatNumber(totalPoints)}/${formatNumber(achievement.target)}`;
+    } else if (achievement.type === 'clicks') {
+        progressPercent = Math.min(100, (totalClicks / achievement.target) * 100);
+        progressText = `${formatNumber(totalClicks)}/${formatNumber(achievement.target)}`;
+    } else if (achievement.type === 'pps') {
+        progressPercent = Math.min(100, (effectivePPS / achievement.target) * 100);
+        progressText = `${Math.floor(effectivePPS)}/${achievement.target}`;
+    } else if (achievement.type === 'energy') {
+        progressPercent = Math.min(100, (maxEnergyFilled / achievement.target) * 100);
+        progressText = `${maxEnergyFilled}/${achievement.target}`;
+    } else if (achievement.type === 'energy_max') {
+        progressPercent = Math.min(100, (effectiveMaxEnergy / achievement.target) * 100);
+        progressText = `${Math.floor(effectiveMaxEnergy)}/${achievement.target}`;
+    } else if (achievement.type === 'energy_spent') {
+        progressPercent = Math.min(100, (energySpent / achievement.target) * 100);
+        progressText = `${energySpent}/${achievement.target}`;
+    } else if (achievement.type === 'keys') {
+        progressPercent = Math.min(100, (keys / achievement.target) * 100);
+        progressText = `${keys}/${achievement.target}`;
+    } else if (achievement.type === 'keys_spent') {
+        progressPercent = Math.min(100, (keysSpent / achievement.target) * 100);
+        progressText = `${keysSpent}/${achievement.target}`;
+    } else if (achievement.type === 'upgrades' && upgrades.length) {
+        const total = upgrades.reduce((s,u) => s + u.level, 0);
+        progressPercent = Math.min(100, (total / achievement.target) * 100);
+        progressText = `${total}/${achievement.target}`;
+    } else if (achievement.type === 'crit') {
+        progressPercent = Math.min(100, (critChance * 100 / achievement.target) * 100);
+        progressText = `${Math.floor(critChance * 100)}%/${achievement.target}%`;
+    } else if (achievement.type === 'consecutive') {
+        progressPercent = Math.min(100, (consecutiveClicks / achievement.target) * 100);
+        progressText = `${consecutiveClicks}/${achievement.target}`;
+    }
+    
+    const isCompletable = achievement.condition({ 
+        totalPoints, totalClicks, 
+        pointsPerSecond: effectivePPS,
+        maxEnergyFilled, 
+        upgrades: upgrades,
+        clicksPerMinute: window.clicksPerMinute || 0,
+        keys, keysSpent, 
+        maxEnergy: effectiveMaxEnergy, 
+        energyMultiplier, 
+        energySpent, 
+        consecutiveClicks,
+        exclusiveUpgrades: allExclusiveUpgrades, 
+        clickValue: window.clickValue || 1,
+        critChance
+    });
+    
+    el.innerHTML = `
+        <div class="achievement-icon"><i class="fas ${achievement.icon}"></i></div>
+        <div class="achievement-info">
+            <div class="achievement-name">${achievement.name}</div>
+            <div class="achievement-description">${achievement.description}</div>
+            <div class="achievement-reward"><i class="fas fa-key"></i> x${achievement.reward}</div>
+            ${progressText ? `
+            <div class="achievement-progress">
+                <div class="progress-bar-container"><div class="progress-bar" style="width: ${progressPercent}%"></div></div>
+                <div class="progress-text">${progressText}</div>
+            </div>` : ''}
+        </div>
+        <button class="claim-button ${achievement.claimed ? 'claimed' : ''}" onclick="claimAchievement(${achievement.id})" ${isCompletable && !achievement.claimed ? '' : 'disabled'} id="claim-btn-${achievement.id}">
+            ${achievement.claimed ? 'Получено' : (isCompletable ? 'Забрать' : 'Выполните')}
+        </button>
+    `;
+    return el;
+}
+
+// Функция инициализации достижений
 function initAchievements() {
     const achievementsListElement = document.getElementById('achievementsList');
     
@@ -795,5 +902,120 @@ function initAchievements() {
     
     updateAchievementsCounter();
 }
-window.getAchievementCategories = getAchievementCategories;
 
+// Функция обновления счетчика достижений
+function updateAchievementsCounter() {
+    const achievementsCounter = document.getElementById('achievementsCounter');
+    if (achievementsCounter) {
+        const completed = achievements.filter(a => a.claimed).length;
+        achievementsCounter.textContent = `${completed}/${achievements.length}`;
+    }
+}
+
+// Функция получения награды за достижение
+function claimAchievement(achievementId) {
+    const achievement = achievements.find(a => a.id === achievementId);
+    if (!achievement || !achievement.completed || achievement.claimed) return;
+    
+    achievement.claimed = true;
+    window.keys = (window.keys || 0) + achievement.reward;
+    
+    // Обновляем отображения
+    if (typeof updateKeysDisplay === 'function') updateKeysDisplay();
+    if (typeof updateAchievementsStats === 'function') updateAchievementsStats();
+    
+    initAchievements(); // Перерисовываем список
+    
+    if (typeof showMessage === 'function') {
+        showMessage(`+${achievement.reward} ключей!`, "#ffd700");
+    }
+}
+
+// Функция обновления статистики достижений
+function updateAchievementsStats() {
+    const completedAchievements = document.getElementById('completedAchievements');
+    const availableKeys = document.getElementById('availableKeys');
+    const totalKeys = document.getElementById('totalKeys');
+    
+    if (completedAchievements) {
+        const completed = achievements.filter(a => a.claimed).length;
+        completedAchievements.textContent = `${completed}/${achievements.length}`;
+    }
+    
+    if (availableKeys) {
+        const available = achievements.filter(a => a.completed && !a.claimed).reduce((s,a) => s + a.reward, 0);
+        availableKeys.textContent = available;
+    }
+    
+    if (totalKeys) {
+        const total = achievements.filter(a => a.claimed).reduce((s,a) => s + a.reward, 0);
+        totalKeys.textContent = total;
+    }
+}
+
+// Функция проверки выполнения достижений
+function checkAchievements() {
+    let changed = false;
+    
+    const totalPoints = window.totalPoints || 0;
+    const totalClicks = window.totalClicks || 0;
+    const pointsPerSecond = window.pointsPerSecond || 0;
+    const autoSpeedMultiplier = window.autoSpeedMultiplier || 1;
+    const autoMultiplier = window.autoMultiplier || 1;
+    const allMultiplier = window.allMultiplier || 1;
+    const masterMultiplier = window.masterMultiplier || 1;
+    const maxEnergy = window.maxEnergy || 100;
+    const energyMultiplier = window.energyMultiplier || 1;
+    const maxEnergyFilled = window.maxEnergyFilled || 0;
+    const keys = window.keys || 0;
+    const keysSpent = window.keysSpent || 0;
+    const upgrades = window.upgrades || [];
+    const energySpent = window.energySpent || 0;
+    const consecutiveClicks = window.consecutiveClicks || 0;
+    const critChance = window.critChance || 0;
+    
+    const effectivePPS = pointsPerSecond * autoSpeedMultiplier * autoMultiplier * allMultiplier * masterMultiplier;
+    const effectiveMaxEnergy = maxEnergy * energyMultiplier;
+    
+    achievements.forEach(a => {
+        if (!a.completed && a.condition({ 
+            totalPoints, totalClicks, 
+            pointsPerSecond: effectivePPS,
+            maxEnergyFilled, 
+            upgrades: upgrades,
+            clicksPerMinute: window.clicksPerMinute || 0,
+            keys, keysSpent, 
+            maxEnergy: effectiveMaxEnergy, 
+            energyMultiplier, 
+            energySpent, 
+            consecutiveClicks,
+            exclusiveUpgrades: window.allExclusiveUpgrades || [], 
+            clickValue: window.clickValue || 1,
+            critChance
+        })) {
+            a.completed = true;
+            changed = true;
+            if (typeof playAchievementSound === 'function') playAchievementSound();
+            if (typeof showMessage === 'function') showMessage(`Достижение выполнено: ${a.name}!`, "#ffd700");
+        }
+    });
+    
+    if (changed) {
+        const achievementsTab = document.getElementById('achievementsTab');
+        if (achievementsTab && achievementsTab.classList.contains('active')) {
+            initAchievements();
+        }
+        updateAchievementsStats();
+        updateAchievementsCounter();
+    }
+}
+
+// Экспортируем функции в глобальную область
+window.achievements = achievements;
+window.getAchievementCategories = getAchievementCategories;
+window.initAchievements = initAchievements;
+window.claimAchievement = claimAchievement;
+window.updateAchievementsCounter = updateAchievementsCounter;
+window.updateAchievementsStats = updateAchievementsStats;
+window.checkAchievements = checkAchievements;
+window.formatNumber = formatNumber;

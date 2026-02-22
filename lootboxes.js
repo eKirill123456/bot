@@ -537,6 +537,7 @@ function selectRandomLootItem(items) {
 }
 
 // ИСПРАВЛЕНО: функция применения награды
+// ИСПРАВЛЕНО: функция применения награды
 function applyLootBoxReward(item) {
     let reward = { type: item.type, value: item.value, name: item.name };
     
@@ -705,7 +706,6 @@ function applyLootBoxReward(item) {
     
     return reward;
 }
-
 function showLootBoxAnimation(boxData, item, reward) {
     const modal = document.createElement('div');
     modal.className = 'lootbox-modal';
@@ -972,6 +972,7 @@ window.openLootBox = openLootBox;
 window.showLootBoxChances = showLootBoxChances;
 window.renderLootBoxes = renderLootBoxes;
 window.updateLootBoxesKeys = updateLootBoxesKeys;
+
 
 
 

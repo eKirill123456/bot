@@ -576,34 +576,33 @@ function applyLootBoxReward(item) {
             reward.message = `+${item.value} энергии!`;
             break;
             
-        case 'skin':
-            const skin = window.skins ? window.skins.find(s => s.id === item.value) : null;
+case 'skin':
+    const skin = window.skins ? window.skins.find(s => s.id === item.value) : null;
+    
+    if (skin) {
+        if (skin.purchased) {
+            // Компенсация: возвращаем стоимость кейса + бонус
+            const compensation = boxData.price * 2; // Возвращаем двойную стоимость
+            window.keys += compensation;
             
-            if (skin) {
-                if (skin.purchased) {
-                    const keyReward = Math.floor(item.rarity === 'legendary' ? 15 : 
-                                               item.rarity === 'epic' ? 10 : 
-                                               item.rarity === 'rare' ? 5 : 3);
-                    window.keys += keyReward;
-                    
-                    // Обновляем локальную переменную
-                    if (typeof keys !== 'undefined') keys = window.keys;
-                    
-                    reward.message = `Повторный скин: +${keyReward} ключей!`;
-                    reward.type = 'keys_duplicate';
-                } else {
-                    skin.purchased = true;
-                    reward.message = `Новый скин: ${skin.name}!`;
-                    reward.type = 'skin_new';
-                    
-                    if (item.rarity === 'legendary' || item.rarity === 'epic') {
-                        if (typeof equipSkin === 'function') {
-                            equipSkin(item.value);
-                        }
-                    }
+            if (typeof keys !== 'undefined') keys = window.keys;
+            
+            reward.message = `Скин уже есть! +${compensation} ключей (компенсация)`;
+            reward.type = 'keys_duplicate';
+        } else {
+            skin.purchased = true;
+            reward.message = `Новый скин: ${skin.name}!`;
+            reward.type = 'skin_new';
+            
+            // Автоматически экипируем легендарные и эпические скины
+            if (item.rarity === 'legendary' || item.rarity === 'epic') {
+                if (typeof equipSkin === 'function') {
+                    equipSkin(item.value);
                 }
             }
-            break;
+        }
+    }
+    break;
             
         case 'upgrade':
             const upgrade = window.upgrades ? window.upgrades.find(u => u.id === item.value) : null;
@@ -968,3 +967,4 @@ window.openLootBox = openLootBox;
 window.showLootBoxChances = showLootBoxChances;
 window.renderLootBoxes = renderLootBoxes;
 window.updateLootBoxesKeys = updateLootBoxesKeys;
+

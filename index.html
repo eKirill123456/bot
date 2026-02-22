@@ -410,5 +410,84 @@
     <i class="fas fa-bug"></i>
 </div>
 
+
+<!-- Вкладка ЕЖЕДНЕВНО -->
+<div class="tab-content" id="dailyTab">
+    <div class="daily-container">
+        <!-- Ежедневный бонус -->
+        <div class="daily-section">
+            <h3 class="section-title">
+                <i class="fas fa-calendar-check"></i> Ежедневный бонус
+            </h3>
+            <div class="streak-indicator" id="streakIndicator"></div>
+            <button class="daily-bonus-btn" id="dailyBonusBtn" onclick="claimDailyBonus()">
+                📅 Забрать бонус
+            </button>
+        </div>
+        
+        <!-- Уровень -->
+        <div class="daily-section">
+            <h3 class="section-title">
+                <i class="fas fa-star"></i> Уровень <span id="playerLevel">1</span>
+            </h3>
+            <div class="exp-bar-container">
+                <div class="exp-bar-fill" id="expProgress" style="width: 0%"></div>
+            </div>
+            <div class="exp-text" id="playerExp">0/100</div>
+        </div>
+        
+        <!-- Ежедневные задания -->
+        <div class="daily-section">
+            <h3 class="section-title">
+                <i class="fas fa-tasks"></i> Ежедневные задания
+            </h3>
+            <div class="quests-container" id="dailyQuests"></div>
+        </div>
+        
+        <!-- Еженедельные задания -->
+        <div class="daily-section">
+            <h3 class="section-title">
+                <i class="fas fa-calendar-week"></i> Еженедельные задания
+            </h3>
+            <div class="quests-container" id="weeklyQuests"></div>
+        </div>
+        
+        <!-- Майнинг ключей -->
+        <div class="daily-section">
+            <h3 class="section-title">
+                <i class="fas fa-hard-hat"></i> Майнинг ключей
+            </h3>
+            <div class="mining-section">
+                <div class="mining-header">
+                    <span class="mining-level">Уровень <span id="miningLevel">0</span></span>
+                    <span class="mining-rate"><span id="miningRate">0</span> ключей/час</span>
+                </div>
+                <div class="mining-progress-bar">
+                    <div class="mining-progress-fill" id="miningProgress"></div>
+                </div>
+                <button class="mining-upgrade-btn" onclick="upgradeKeyMining()">
+                    ⛏ Улучшить (<span id="miningUpgradeCost">50</span> <i class="fas fa-key"></i>)
+                </button>
+            </div>
+        </div>
+        
+        <!-- Рефералы -->
+        <div class="daily-section">
+            <h3 class="section-title">
+                <i class="fas fa-users"></i> Друзья (<span id="referralsCount">0</span>)
+            </h3>
+            <div class="referral-buttons">
+                <button class="referral-generate-btn" onclick="generateReferralLink()">
+                    <i class="fas fa-link"></i> Получить ссылку
+                </button>
+            </div>
+            <div class="referral-link" id="referralLinkContainer" style="display: none;">
+                <input type="text" id="referralLink" readonly>
+                <button onclick="copyReferralLink()"><i class="fas fa-copy"></i></button>
+            </div>
+            <div class="referrals-list" id="referralsList"></div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

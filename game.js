@@ -705,10 +705,21 @@ function recalculateMultiplier() {
 
 // Функция обработки клика
 function handleClick() {
+    // ... существующий код ...
+    
+    // Отслеживаем прогресс заданий
+    if (typeof updateQuestProgress === 'function') {
+        updateQuestProgress('clicks', 1);
+    }
+    
+    // ... остальной код ...
+}
+
     if (autoClickerDetected) {
         showMessage("Доступ заблокирован из-за авто кликера!", "#ff4757", 1000);
         return;
     }
+    
     
     if (checkForAutoClicker()) {
         return;
@@ -850,6 +861,19 @@ function autoClicker() {
 
 // Функция покупки улучшений из магазина
 function buyShopUpgrade(upgradeId) {
+    // ... существующий код ...
+    
+    if (clickCount >= upgrade.cost) {
+        // ... существующий код ...
+        
+        // Отслеживаем покупку улучшений
+        if (typeof updateQuestProgress === 'function') {
+            updateQuestProgress('upgrades_bought', 1);
+        }
+        
+        // ... остальной код ...
+    }
+
     console.log("Покупка улучшения из магазина:", upgradeId);
     
     const upgrade = upgrades.find(u => u.id === upgradeId);
@@ -1620,6 +1644,16 @@ function initShop() {
     loadShopSkins();
     loadShopCases();
 }
+function openLootBox(boxId) {
+    // ... существующий код ...
+    
+    // Отслеживаем открытие кейсов
+    if (typeof updateQuestProgress === 'function') {
+        updateQuestProgress('cases_opened', 1);
+    }
+    
+    // ... остальной код ...
+}
 
 // Экспортируем функции в глобальную область
 window.initGame = initGame;
@@ -1669,3 +1703,4 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM загружен, запускаем игру...");
     initGame();
 });
+

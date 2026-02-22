@@ -473,7 +473,7 @@ const lootBoxItems = [
     }
 ];
 
-// ИСПРАВЛЕНО: функция открытия кейса
+// Функция открытия кейса
 function openLootBox(boxId) {
     console.log("Открытие кейса:", boxId);
     
@@ -536,8 +536,7 @@ function selectRandomLootItem(items) {
     return chancePool[randomIndex];
 }
 
-// ИСПРАВЛЕНО: функция применения награды
-// ИСПРАВЛЕНО: функция применения награды
+// Функция применения награды
 function applyLootBoxReward(item) {
     let reward = { type: item.type, value: item.value, name: item.name };
     
@@ -549,33 +548,27 @@ function applyLootBoxReward(item) {
     
     switch(item.type) {
         case 'points':
-            // Обновляем через window объект
             window.clickCount = (window.clickCount || 0) + item.value;
             window.totalPoints = (window.totalPoints || 0) + item.value;
             
-            // Обновляем локальные переменные
             if (typeof clickCount !== 'undefined') clickCount = window.clickCount;
             if (typeof totalPoints !== 'undefined') totalPoints = window.totalPoints;
             
             reward.message = `+${item.value} очков!`;
-            console.log(`Добавлено ${item.value} очков. Теперь очков:`, window.clickCount);
             break;
             
         case 'keys':
             window.keys = (window.keys || 0) + item.value;
             
-            // Обновляем локальную переменную
             if (typeof keys !== 'undefined') keys = window.keys;
             
             reward.message = `+${item.value} ключей!`;
-            console.log(`Добавлено ${item.value} ключей. Теперь ключей:`, window.keys);
             break;
             
         case 'energy':
             const effectiveMaxEnergy = (window.maxEnergy || 100) * (window.energyMultiplier || 1);
             window.currentEnergy = Math.min(effectiveMaxEnergy, (window.currentEnergy || 100) + item.value);
             
-            // Обновляем локальную переменную
             if (typeof currentEnergy !== 'undefined') currentEnergy = window.currentEnergy;
             
             reward.message = `+${item.value} энергии!`;
@@ -586,8 +579,7 @@ function applyLootBoxReward(item) {
             
             if (skin) {
                 if (skin.purchased) {
-                    // Компенсация: возвращаем стоимость кейса + бонус
-                    const compensation = boxPrice * 2; // Возвращаем двойную стоимость
+                    const compensation = boxPrice * 2;
                     window.keys += compensation;
                     
                     if (typeof keys !== 'undefined') keys = window.keys;
@@ -599,7 +591,6 @@ function applyLootBoxReward(item) {
                     reward.message = `Новый скин: ${skin.name}!`;
                     reward.type = 'skin_new';
                     
-                    // Автоматически экипируем легендарные и эпические скины
                     if (item.rarity === 'legendary' || item.rarity === 'epic') {
                         if (typeof equipSkin === 'function') {
                             equipSkin(item.value);
@@ -614,8 +605,7 @@ function applyLootBoxReward(item) {
             
             if (upgrade) {
                 if (upgrade.level >= upgrade.maxLevel) {
-                    // Если улучшение уже максимально - компенсация
-                    const compensation = boxPrice * 3; // Тройная компенсация за макс уровень
+                    const compensation = boxPrice * 3;
                     window.keys += compensation;
                     
                     if (typeof keys !== 'undefined') keys = window.keys;
@@ -628,7 +618,6 @@ function applyLootBoxReward(item) {
                     
                     upgrade.level = newLevel;
                     
-                    // Пересчитываем стоимость для следующего уровня
                     const costMultiplier = upgrade.type === 'multiplier' ? 1.25 : 
                                           upgrade.type === 'energy' ? 1.3 : 
                                           upgrade.type === 'regen' ? 1.35 : 
@@ -652,8 +641,7 @@ function applyLootBoxReward(item) {
             
             if (exclusive) {
                 if (exclusive.purchased) {
-                    // Компенсация за повторное эксклюзивное улучшение
-                    const compensation = boxPrice * 4; // Четверная компенсация
+                    const compensation = boxPrice * 4;
                     window.keys += compensation;
                     
                     if (typeof keys !== 'undefined') keys = window.keys;
@@ -676,36 +664,19 @@ function applyLootBoxReward(item) {
     }
     
     // ОБНОВЛЯЕМ ВСЕ ИНТЕРФЕЙСЫ
-    if (typeof updateUI === 'function') {
-        updateUI();
-    }
+    if (typeof updateUI === 'function') updateUI();
+    if (typeof updateEnergyDisplay === 'function') updateEnergyDisplay();
+    if (typeof updateKeysDisplay === 'function') updateKeysDisplay();
+    if (typeof updateShopStats === 'function') updateShopStats();
+    if (typeof renderSkins === 'function') renderSkins();
     
-    if (typeof updateEnergyDisplay === 'function') {
-        updateEnergyDisplay();
-    }
-    
-    if (typeof updateKeysDisplay === 'function') {
-        updateKeysDisplay();
-    }
-    
-    if (typeof updateShopStats === 'function') {
-        updateShopStats();
-    }
-    
-    if (typeof renderSkins === 'function') {
-        renderSkins();
-    }
-    
-    // Обновляем отображение ключей в кейсах
     updateLootBoxesKeys();
     
-    // Обновляем глобальные переменные
-    if (typeof updateGlobalVariables === 'function') {
-        updateGlobalVariables();
-    }
+    if (typeof updateGlobalVariables === 'function') updateGlobalVariables();
     
     return reward;
 }
+
 function showLootBoxAnimation(boxData, item, reward) {
     const modal = document.createElement('div');
     modal.className = 'lootbox-modal';
@@ -972,7 +943,3 @@ window.openLootBox = openLootBox;
 window.showLootBoxChances = showLootBoxChances;
 window.renderLootBoxes = renderLootBoxes;
 window.updateLootBoxesKeys = updateLootBoxesKeys;
-
-
-
-

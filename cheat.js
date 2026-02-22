@@ -2,6 +2,21 @@
 
 let cheatModeEnabled = false;
 
+// Безопасная функция показа сообщения
+function safeShowMessage(text, color = "#ff4757", duration = 3000) {
+    if (typeof showMessage === 'function') {
+        showMessage(text, color, duration);
+    } else {
+        console.log("ЧИТ:", text);
+        // Создаем временное сообщение
+        const msg = document.createElement('div');
+        msg.textContent = text;
+        msg.style.cssText = `position:fixed; top:20px; left:50%; transform:translateX(-50%); background:${color}; color:white; padding:15px 25px; border-radius:10px; z-index:2000; font-weight:bold;`;
+        document.body.appendChild(msg);
+        setTimeout(() => msg.remove(), duration);
+    }
+}
+
 // Функция активации чит-меню
 function enableCheatMode() {
     if (cheatModeEnabled) return;

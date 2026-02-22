@@ -207,20 +207,26 @@ function cheatUnlockAllExclusive() {
         showMessage(`👑 Все эксклюзивные улучшения разблокированы!`, "#ff4757");
     }
 }
-
 function cheatCompleteAchievements() {
     if (typeof achievements !== 'undefined') {
         achievements.forEach(achievement => {
             achievement.completed = true;
+            achievement.claimed = true; // ВАЖНО: сразу отмечаем как полученные
         });
+        
+        // Пересчитываем ключи от всех достижений
+        const totalReward = achievements.reduce((sum, a) => sum + a.reward, 0);
+        window.keys = totalReward; // Даем все ключи сразу
+        
+        if (typeof keys !== 'undefined') keys = window.keys;
         
         if (typeof initAchievements === 'function') initAchievements();
         if (typeof updateAchievementsStats === 'function') updateAchievementsStats();
+        if (typeof updateKeysDisplay === 'function') updateKeysDisplay();
         
-        showMessage(`🏆 Все достижения выполнены!`, "#ff4757");
+        showMessage(`🏆 Все достижения выполнены! +${totalReward} ключей!`, "#ff4757");
     }
 }
-
 // ========== ФУНКЦИИ ДЛЯ КЕЙСОВ ==========
 function cheatOpenCase(caseId, count) {
     if (typeof openLootBox !== 'function') return;

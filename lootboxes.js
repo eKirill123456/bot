@@ -542,6 +542,12 @@ function applyLootBoxReward(item) {
     
     console.log("Применение награды:", item);
     
+    // Получаем цену кейса для расчета компенсации
+    const boxData = lootBoxes.find(b => b.id === item.boxId);
+    const boxPrice = boxData ? boxData.price : 0;
+    
+    // ... остальной код switch ...
+}
     switch(item.type) {
         case 'points':
             // Обновляем через window объект
@@ -604,71 +610,69 @@ case 'skin':
     }
     break;
             
-        case 'upgrade':
-            const upgrade = window.upgrades ? window.upgrades.find(u => u.id === item.value) : null;
-            
-            if (upgrade) {
-                const newLevel = Math.min(upgrade.maxLevel, upgrade.level + (item.upgradeLevel || 1));
-                const levelsGained = newLevel - upgrade.level;
-                
-                if (levelsGained > 0) {
-                    upgrade.level = newLevel;
-                    
-                    const costMultiplier = upgrade.type === 'multiplier' ? 1.25 : 
-                                          upgrade.type === 'energy' ? 1.3 : 
-                                          upgrade.type === 'regen' ? 1.35 : 
-                                          upgrade.type === 'crit' ? 1.4 : 1.2;
-                    
-                    if (upgrade.level < upgrade.maxLevel) {
-                        upgrade.cost = Math.floor(upgrade.baseCost * Math.pow(costMultiplier, upgrade.level));
-                    }
-                    
-                    reward.message = `+${levelsGained} уровень к ${upgrade.name}!`;
-                    
-                    if (typeof recalculateMultiplier === 'function') recalculateMultiplier();
-                    if (typeof updateEnergyDisplay === 'function') updateEnergyDisplay();
-                } else {
-                    const keyReward = item.rarity === 'legendary' ? 20 : 
-                                     item.rarity === 'epic' ? 15 : 10;
-                    window.keys += keyReward;
-                    
-                    // Обновляем локальную переменную
-                    if (typeof keys !== 'undefined') keys = window.keys;
-                    
-                    reward.message = `Максимальный уровень: +${keyReward} ключей!`;
-                }
-            }
-            break;
-            
-        case 'exclusive':
-            const exclusive = window.allExclusiveUpgrades ? 
-                window.allExclusiveUpgrades.find(u => u.id === item.value) : null;
-            
-            if (exclusive) {
-                if (exclusive.purchased) {
-                    const keyReward = 25;
-                    window.keys += keyReward;
-                    
-                    // Обновляем локальную переменную
-                    if (typeof keys !== 'undefined') keys = window.keys;
-                    
-                    reward.message = `Повторное улучшение: +${keyReward} ключей!`;
-                } else {
-                    exclusive.purchased = true;
-                    exclusive.hidden = false;
-                    
-                    if (typeof applyExclusiveEffect === 'function') {
-                        applyExclusiveEffect(exclusive);
-                    }
-                    
-                    reward.message = `Новое улучшение: ${exclusive.name}!`;
-                    
-                    if (typeof initShop === 'function') initShop();
-                }
-            }
-            break;
-    }
+case 'upgrade':
+    const upgrade = window.upgrades ? window.upgrades.find(u => u.id === item.value) : null;
     
+    if (upgrade) {
+        if (upgrade.level >= upgrade.maxLevel) {
+            // Если улучшение уже максимально - компенсация
+            const compensation = boxData.price * 3; // Тройная компенсация за макс уровень
+            window.keys += compensation;
+            
+            if (typeof keys !== 'undefined') keys = window.keys;
+            
+            reward.message = `Улучшение максимально! +${compensation} ключей!`;
+            reward.type = 'keys_duplicate';
+        } else {
+            const newLevel = Math.min(upgrade.maxLevel, upgrade.level + (item.upgradeLevel || 1));
+            const levelsGained = newLevel - upgrade.level;
+            
+            upgrade.level = newLevel;
+            
+            // Пересчитываем стоимость для следующего уровня
+            const costMultiplier = upgrade.type === 'multiplier' ? 1.25 : 
+                                  upgrade.type === 'energy' ? 1.3 : 
+                                  upgrade.type === 'regen' ? 1.35 : 
+                                  upgrade.type === 'crit' ? 1.4 : 1.2;
+            
+            if (upgrade.level < upgrade.maxLevel) {
+                upgrade.cost = Math.floor(upgrade.baseCost * Math.pow(costMultiplier, upgrade.level));
+            }
+            
+            reward.message = `+${levelsGained} уровень к ${upgrade.name}!`;
+            
+            if (typeof recalculateMultiplier === 'function') recalculateMultiplier();
+            if (typeof updateEnergyDisplay === 'function') updateEnergyDisplay();
+        }
+    }
+    break;
+case 'exclusive':
+    const exclusive = window.allExclusiveUpgrades ? 
+        window.allExclusiveUpgrades.find(u => u.id === item.value) : null;
+    
+    if (exclusive) {
+        if (exclusive.purchased) {
+            // Компенсация за повторное эксклюзивное улучшение
+            const compensation = boxData.price * 4; // Четверная компенсация
+            window.keys += compensation;
+            
+            if (typeof keys !== 'undefined') keys = window.keys;
+            
+            reward.message = `Улучшение уже есть! +${compensation} ключей!`;
+        } else {
+            exclusive.purchased = true;
+            exclusive.hidden = false;
+            
+            if (typeof applyExclusiveEffect === 'function') {
+                applyExclusiveEffect(exclusive);
+            }
+            
+            reward.message = `Новое улучшение: ${exclusive.name}!`;
+            
+            if (typeof initShop === 'function') initShop();
+        }
+    }
+    break;
     // ОБНОВЛЯЕМ ВСЕ ИНТЕРФЕЙСЫ
     if (typeof updateUI === 'function') {
         updateUI();
@@ -967,4 +971,5 @@ window.openLootBox = openLootBox;
 window.showLootBoxChances = showLootBoxChances;
 window.renderLootBoxes = renderLootBoxes;
 window.updateLootBoxesKeys = updateLootBoxesKeys;
+
 

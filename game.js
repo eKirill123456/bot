@@ -704,22 +704,13 @@ function recalculateMultiplier() {
 }
 
 // Функция обработки клика
-function handleClick() {
-    // ... существующий код ...
-    
-    // Отслеживаем прогресс заданий
-    if (typeof updateQuestProgress === 'function') {
-        updateQuestProgress('clicks', 1);
-    }
-    
-    // ... остальной код ...
-}
+// game.js - исправленная функция handleClick (найдите эту функцию и замените)
 
+function handleClick() {
     if (autoClickerDetected) {
         showMessage("Доступ заблокирован из-за авто кликера!", "#ff4757", 1000);
         return;
     }
-    
     
     if (checkForAutoClicker()) {
         return;
@@ -747,6 +738,11 @@ function handleClick() {
     energySpent += energyCostValue;
     totalClicks++; 
     clicksThisMinute++;
+    
+    // Отслеживаем прогресс заданий
+    if (typeof updateQuestProgress === 'function') {
+        updateQuestProgress('clicks', 1);
+    }
     
     let earnedPoints = clickValue;
     let isCrit = false;
@@ -778,7 +774,6 @@ function handleClick() {
     checkAchievements();
     updateGlobalVariables();
 }
-
 // Функция анимации клика
 function createClickAnimation(text) {
     if (!clickButton) return;
@@ -1703,4 +1698,5 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM загружен, запускаем игру...");
     initGame();
 });
+
 
